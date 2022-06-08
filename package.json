@@ -12,6 +12,14 @@
     "post-update": "yarn upgrade --latest"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^7.2.2",
+    "bootstrap-vue": "^2.22.0",
     "nuxt": "^2.15.0"
+  },
+  "devDependencies": {
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.52.2",
+    "sass-loader": "10"
   }
 }

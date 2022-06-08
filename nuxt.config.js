@@ -24,7 +24,33 @@ export default {
    ** Nuxt.js modules
    ** Doc: https://modules.nuxtjs.org
    */
-  modules: ["bootstrap-vue/nuxt"],
+  modules: ["bootstrap-vue/nuxt", "@nuxtjs/i18n"],
+
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        name: "English",
+        iso: "en",
+        file: "en.js",
+      },
+      {
+        code: "pl",
+        name: "Polski",
+        iso: "pl",
+        file: "pl.js",
+      },
+    ],
+    langDir: "locales/",
+    defaultLocale: "pl",
+    vueI18n: {
+      fallbackLocale: "en",
+      // messages: {
+      //   en: require("./locales/en.json"),
+      //   pl: require("./locales/pl.json"),
+      // },
+    },
+  },
 
   /*
    ** Global CSS
