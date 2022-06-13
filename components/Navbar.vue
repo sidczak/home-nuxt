@@ -1,5 +1,5 @@
 <template lang="pug">
-    b-navbar(toggleable="lg" type="light" variant="light")
+    b-navbar(toggleable="lg" type="dark" variant="dark")
         b-navbar-brand(:to="localePath('/')")
           | HomeNuxt
         b-navbar-toggle(target="nav-collapse")
