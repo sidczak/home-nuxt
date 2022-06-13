@@ -1,4 +1,4 @@
 <template lang="pug">
   div
-    | {{ $t('welcome') }}
+    | {{ $t('pages.about') }}
 </template>
