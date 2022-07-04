@@ -1,41 +1,45 @@
 <template lang="pug">
-  div
-    | {{ $t('welcome') }}
-    b-container
-      b-row
+b-container
+    b-row
         b-col
-          b-card(:bg-variant="bgVariant" :text-variant="textVariant" :header="docState")
-            b-card-text
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            | {{ $t('welcome') }}
+    b-row
+        b-col
+            b-card(:bg-variant="bgVariant" :text-variant="textVariant" :header="$colorMode.preference")
+                b-card-text
+                    | {{bgVariant}} Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </template>
+
 <script>
+import { bgColor, textColor } from "../helpers/colorVariant.js";
+
 export default {
-  data() {
-    return {
-      docState: "light",
-    };
-  },
-  computed: {
-    bgVariant() {
-      switch (this.docState) {
-        case "light":
-          return "light";
-        case "dark":
-          return "dark";
-        default:
-          return "success";
-      }
+    computed: {
+        bgVariant() {
+            return bgColor[this.$colorMode.preference]
+                ? bgColor[this.$colorMode.preference]
+                : "danger";
+            // switch (this.$colorMode.preference) {
+            //   case "system":
+            //     return "dark";
+            //   case "light":
+            //     return "light";
+            //   case "dark":
+            //     return "dark";
+            //   case "success":
+            //     return "success";
+            //   default:
+            //     return "danger";
+            // }
+        },
+        textVariant() {
+            return textColor[this.$colorMode.preference];
+        },
     },
-    textVariant() {
-      switch (this.docState) {
-        case "light":
-          return "dark";
-        case "dark":
-          return "white";
-        default:
-          return "white";
-      }
-    },
-  },
 };
 </script>
+<style>
+.card {
+    transition: background-color 0.3s;
+}
+</style>

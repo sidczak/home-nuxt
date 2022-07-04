@@ -24,7 +24,7 @@ export default {
    ** Nuxt.js modules
    ** Doc: https://modules.nuxtjs.org
    */
-  modules: ["bootstrap-vue/nuxt", "@nuxtjs/i18n"],
+  modules: ["bootstrap-vue/nuxt", "@nuxtjs/i18n", "@nuxtjs/color-mode"],
 
   i18n: {
     locales: [
@@ -50,6 +50,10 @@ export default {
       //   pl: require("./locales/pl.json"),
       // },
     },
+  },
+  colorMode: {
+    preference: "light", // default value of $colorMode.preference
+    fallback: "light", // fallback value if not system preference found
   },
 
   /*

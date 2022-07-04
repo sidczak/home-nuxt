@@ -1,10 +1,11 @@
 <template lang="pug">
-div
+div(v-if="!$colorMode.unknown")
     header
         Navbar
     main
+        ColorModePicker
         Nuxt
-    footer
+    //- footer
         b-container
             span.float-right
                 a(href="#")
