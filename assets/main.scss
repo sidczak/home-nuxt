@@ -1,28 +1,38 @@
 // @import "../node_modules/bootstrap/scss/functions";
 // @import "../node_modules/bootstrap/scss/variables";
+
+$light: #f8f9fa;
+$dark: #343a40;
+$primary: #007bff;
+$secondary: #6c757d;
+$success: #28a745;
+$danger: #dc3545;
+$warning: #ffc107;
+$info: #17a2b8;
+
 :root {
-	--bg: #f8f9fa;
+	--bg: #{$light};
 }
 .dark-mode {
-	--bg: #343a40;
+	--bg: #{$dark};
 }
 .primary-mode {
-	--bg: #007bff;
+	--bg: #{$primary};
 }
 .secondary-mode {
-	--bg: #6c757d;
+	--bg: #{$secondary};
 }
 .success-mode {
-	--bg: #28a745;
+	--bg: #{$success};
 }
 .danger-mode {
-	--bg: #dc3545;
+	--bg: #{$danger};
 }
 .warning-mode {
-	--bg: #ffc107;
+	--bg: #{$warning};
 }
 .info-mode {
-	--bg: #17a2b8;
+	--bg: #{$info};
 }
 .dark-mode,
 .primary-mode,
