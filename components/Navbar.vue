@@ -1,5 +1,6 @@
 <template lang="pug">
-    b-navbar(toggleable="lg" type="dark" variant="dark")
+    //- b-navbar(toggleable="lg" type="dark" variant="dark")
+    b-navbar(toggleable="lg" v-bind="navbarColorMode")
         b-navbar-brand(:to="localePath('/')")
           | HomeNuxt
         b-navbar-toggle(target="nav-collapse")
@@ -21,12 +22,26 @@
 </template>
 
 <script>
+import { bgColor } from "../helpers/colorVariant.js";
+
 export default {
     computed: {
         availableLocales() {
             return this.$i18n.locales.filter(
                 (i) => i.code !== this.$i18n.locale
             );
+        },
+        navbarColorMode() {
+            if ("light" === this.$colorMode.preference) {
+                return {
+                    type: "light",
+                    variant: bgColor[this.$colorMode.preference],
+                };
+            }
+            return {
+                type: "dark",
+                variant: bgColor[this.$colorMode.preference],
+            };
         },
     },
 };

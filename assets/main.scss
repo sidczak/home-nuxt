@@ -1,53 +1,50 @@
-// @import "../node_modules/bootstrap/scss/functions";
-// @import "../node_modules/bootstrap/scss/variables";
+// $light: #f8f9fa;
+// $dark: #343a40;
+// $primary: #007bff;
+// $secondary: #6c757d;
+// $success: #28a745;
+// $danger: #dc3545;
+// $warning: #ffc107;
+// $info: #17a2b8;
 
-$light: #f8f9fa;
-$dark: #343a40;
-$primary: #007bff;
-$secondary: #6c757d;
-$success: #28a745;
-$danger: #dc3545;
-$warning: #ffc107;
-$info: #17a2b8;
-
-:root {
-	--bg: #{$light};
-}
-.dark-mode {
-	--bg: #{$dark};
-}
-.primary-mode {
-	--bg: #{$primary};
-}
-.secondary-mode {
-	--bg: #{$secondary};
-}
-.success-mode {
-	--bg: #{$success};
-}
-.danger-mode {
-	--bg: #{$danger};
-}
-.warning-mode {
-	--bg: #{$warning};
-}
-.info-mode {
-	--bg: #{$info};
-}
-.dark-mode,
-.primary-mode,
-.secondary-mode,
-.success-mode,
-.danger-mode,
-.warning-mode,
-.info-mode {
-	--color: #fff;
-}
-body {
-	background-color: var(--bg);
-	color: var(--color);
-	transition: background-color 0.3s;
-}
+// :root {
+// 	--bg: #{$light};
+// }
+// .dark-mode {
+// 	--bg: #{$dark};
+// }
+// .primary-mode {
+// 	--bg: #{$primary};
+// }
+// .secondary-mode {
+// 	--bg: #{$secondary};
+// }
+// .success-mode {
+// 	--bg: #{$success};
+// }
+// .danger-mode {
+// 	--bg: #{$danger};
+// }
+// .warning-mode {
+// 	--bg: #{$warning};
+// }
+// .info-mode {
+// 	--bg: #{$info};
+// }
+// .dark-mode,
+// .primary-mode,
+// .secondary-mode,
+// .success-mode,
+// .danger-mode,
+// .warning-mode,
+// .info-mode {
+// 	--color: #fff;
+// }
+// body {
+// 	background-color: var(--bg);
+// 	color: var(--color);
+// 	transition: background-color 0.3s;
+// }
 
 .page-enter-active,
 .page-leave-active {
