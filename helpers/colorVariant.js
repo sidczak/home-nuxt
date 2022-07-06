@@ -7,6 +7,7 @@ const bgColor = {
     danger: "danger",
     warning: "warning",
     info: "info",
+    turquoise: "turquoise",
 };
 
 const textColor = {
@@ -18,6 +19,7 @@ const textColor = {
     danger: "white",
     warning: "white",
     info: "white",
+    turquoise: "white",
 };
 
 module.exports = { bgColor, textColor };

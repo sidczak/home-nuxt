@@ -1,50 +1,20 @@
-// $light: #f8f9fa;
-// $dark: #343a40;
-// $primary: #007bff;
-// $secondary: #6c757d;
-// $success: #28a745;
-// $danger: #dc3545;
-// $warning: #ffc107;
-// $info: #17a2b8;
+// Variables
+@import "variables/color";
 
-// :root {
-// 	--bg: #{$light};
-// }
-// .dark-mode {
-// 	--bg: #{$dark};
-// }
-// .primary-mode {
-// 	--bg: #{$primary};
-// }
-// .secondary-mode {
-// 	--bg: #{$secondary};
-// }
-// .success-mode {
-// 	--bg: #{$success};
-// }
-// .danger-mode {
-// 	--bg: #{$danger};
-// }
-// .warning-mode {
-// 	--bg: #{$warning};
-// }
-// .info-mode {
-// 	--bg: #{$info};
-// }
-// .dark-mode,
-// .primary-mode,
-// .secondary-mode,
-// .success-mode,
-// .danger-mode,
-// .warning-mode,
-// .info-mode {
-// 	--color: #fff;
-// }
-// body {
-// 	background-color: var(--bg);
-// 	color: var(--color);
-// 	transition: background-color 0.3s;
-// }
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-vue/src/index.scss";
+
+@include bg-variant(".bg-turquoise", $turquoise);
+
+@import "themes/color-mode";
+
+//New Components
+
+body {
+	background-color: var(--bg);
+	color: var(--color);
+	transition: background-color 0.3s;
+}
 
 .page-enter-active,
 .page-leave-active {

@@ -1,0 +1,33 @@
+:root {
+	--bg: #{$light};
+}
+.dark-mode {
+	--bg: #{$dark};
+}
+.primary-mode {
+	--bg: #{$primary};
+}
+.secondary-mode {
+	--bg: #{$secondary};
+}
+.success-mode {
+	--bg: #{$success};
+}
+.danger-mode {
+	--bg: #{$danger};
+}
+.warning-mode {
+	--bg: #{$warning};
+}
+.info-mode {
+	--bg: #{$info};
+}
+.dark-mode,
+.primary-mode,
+.secondary-mode,
+.success-mode,
+.danger-mode,
+.warning-mode,
+.info-mode {
+	--color: #fff;
+}
