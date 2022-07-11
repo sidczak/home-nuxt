@@ -1,33 +1,42 @@
+@import "../variables/color.scss";
+
 :root {
 	--bg: #{$light};
 }
-.dark-mode {
-	--bg: #{$dark};
+
+@each $key, $value in $theme-colors {
+	.#{unquote($key)}-mode {
+		--bg: #{$value};
+		--color: #{$white};
+		@if $key == light {
+			--color: #{$dark};
+		} @else if $key == clouds {
+			--color: #{$dark};
+		}
+	}
 }
-.primary-mode {
-	--bg: #{$primary};
+
+@mixin text-variant($colors) {
+	@each $name, $val in $colors {
+		.text {
+			&-#{$name} {
+				color: $val !important;
+			}
+		}
+	}
 }
-.secondary-mode {
-	--bg: #{$secondary};
-}
-.success-mode {
-	--bg: #{$success};
-}
-.danger-mode {
-	--bg: #{$danger};
-}
-.warning-mode {
-	--bg: #{$warning};
-}
-.info-mode {
-	--bg: #{$info};
-}
-.dark-mode,
-.primary-mode,
-.secondary-mode,
-.success-mode,
-.danger-mode,
-.warning-mode,
-.info-mode {
-	--color: #fff;
-}
+@include text-variant($theme-colors);
+
+// .info-mode {
+// 	--bg: #{$info};
+// }
+
+// .dark-mode,
+// .primary-mode,
+// .secondary-mode,
+// .success-mode,
+// .danger-mode,
+// .warning-mode,
+// .info-mode {
+// 	--color: #fff;
+// }

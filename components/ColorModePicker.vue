@@ -17,12 +17,13 @@
                 | (<i>{{ $colorMode.value }}</i> mode detected)
 </template>
 <script>
-import { bgColor } from "../helpers/colorVariant.js";
+import colors from "../assets/exports/colors.scss";
+
 export default {
     data() {
         return {
             // colors: ["light", "dark", "success"],
-            colors: Object.keys(bgColor),
+            colors: Object.keys(colors),
         };
     },
     computed: {
@@ -30,7 +31,10 @@ export default {
             // return this.colors.filter(
             //     (item) => item !== this.$colorMode.preference
             // );
-            return Object.keys(bgColor).filter(
+            // return Object.keys(bgColor).filter(
+            //     (item) => item !== this.$colorMode.preference
+            // );
+            return Object.keys(colors).filter(
                 (item) => item !== this.$colorMode.preference
             );
         },

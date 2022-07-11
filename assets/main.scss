@@ -1,15 +1,17 @@
-// Variables
-@import "variables/color";
-
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-vue/src/index.scss";
 
-@include bg-variant(".bg-turquoise", $turquoise);
+// Variables
+@import "variables/color";
+@each $key, $value in $theme-colors {
+	@include bg-variant(".bg-#{unquote($key)}", $value, $ignore-warning: true);
+}
+// @include bg-variant(".bg-turquoise", $turquoise, $ignore-warning: true);
+// @include bg-variant(".bg-amethyst", $amethyst, $ignore-warning: true);
 
 @import "themes/color-mode";
 
 //New Components
-
 body {
 	background-color: var(--bg);
 	color: var(--color);

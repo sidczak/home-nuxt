@@ -1,7 +1,7 @@
-// @import "./variables/colors.scss";
+@import "../variables/color.scss";
 
-// :export {
-//     @each $key, $value in $theme-colors {
-//         #{unquote($key)}: $value;
-//     }
-// }
+:export {
+	@each $key, $value in $theme-colors {
+		#{unquote($key)}: $value;
+	}
+}

@@ -76,18 +76,19 @@ b-container
 </template>
 
 <script>
-import { bgColor, textColor } from "../helpers/colorVariant.js";
+// import { textColor } from "../helpers/colorVariant.js";
 
 export default {
     computed: {
         bgVariant() {
-            return bgColor[this.$colorMode.preference]
-                ? bgColor[this.$colorMode.preference]
-                : "danger";
+            // return Object.keys(colors).find(
+            //     (item) => item === this.$colorMode.preference
+            // );
+            return this.$colorMode.preference;
         },
-        textVariant() {
-            return textColor[this.$colorMode.preference];
-        },
+        // textVariant() {
+        //     return textColor[this.$colorMode.preference];
+        // },
     },
 };
 </script>

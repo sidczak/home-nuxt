@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { bgColor } from "../helpers/colorVariant.js";
-
 export default {
     computed: {
         availableLocales() {
@@ -32,17 +30,25 @@ export default {
             );
         },
         navbarColorMode() {
-            if ("light" === this.$colorMode.preference) {
+            if (
+                "light" === this.$colorMode.preference ||
+                "clouds" === this.$colorMode.preference
+            ) {
                 return {
                     type: "light",
-                    variant: bgColor[this.$colorMode.preference],
+                    variant: this.$colorMode.preference,
                 };
             }
             return {
                 type: "dark",
-                variant: bgColor[this.$colorMode.preference],
+                variant: this.$colorMode.preference,
             };
         },
     },
 };
 </script>
+<style>
+.navbar {
+    transition: background-color 0.3s;
+}
+</style>
