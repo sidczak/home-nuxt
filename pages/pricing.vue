@@ -84,7 +84,7 @@ export default {
             // return Object.keys(colors).find(
             //     (item) => item === this.$colorMode.preference
             // );
-            return this.$colorMode.preference;
+            return `${this.$colorMode.preference}-concave-145`;
         },
         // textVariant() {
         //     return textColor[this.$colorMode.preference];

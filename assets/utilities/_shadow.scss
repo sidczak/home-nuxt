@@ -1,0 +1,190 @@
+// .shadow {
+//     box-shadow: 0 0.5rem 1rem rgba($clouds-900, 0.15) !important;
+//     &-sm {
+//         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+//     }
+//     &-lg {
+//         box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+//     }
+// }
+@mixin shadows-variant($colors) {
+    @each $name, $val in $colors {
+        .shadow {
+            &-#{$name} {
+                box-shadow: 10px 10px 20px darken($val, 4%),
+                    -10px -10px 20px lighten($val, 4%) !important;
+                &-sm {
+                    box-shadow: 5px 5px 10px darken($val, 4%),
+                        -5px -5px 10px lighten($val, 4%) !important;
+                }
+                &-lg {
+                    box-shadow: 15px 15px 25px darken($val, 4%),
+                        -15px -15px 25px lighten($val, 4%) !important;
+                }
+                &-flat {
+                    box-shadow: 10px 10px 20px darken($val, 4%),
+                        -10px -10px 20px lighten($val, 4%);
+                    &-sm {
+                    }
+                    &-lg {
+                    }
+                    &-45 {
+                        box-shadow: 10px -10px 20px darken($val, 4%),
+                            -10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-145 {
+                        box-shadow: 10px 10px 20px darken($val, 4%),
+                            -10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-225 {
+                        box-shadow: -10px 10px 20px darken($val, 4%),
+                            10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-315 {
+                        box-shadow: -10px -10px 20px darken($val, 4%),
+                            10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                }
+                &-pressed {
+                    box-shadow: inset 10px 10px 20px darken($val, 4%),
+                        inset -10px -10px 20px lighten($val, 4%);
+                    &-sm {
+                    }
+                    &-lg {
+                    }
+                    &-45 {
+                        box-shadow: inset 10px -10px 20px darken($val, 4%),
+                            inset -10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-145 {
+                        box-shadow: inset 10px 10px 20px darken($val, 4%),
+                            inset -10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-225 {
+                        box-shadow: inset -10px 10px 20px darken($val, 4%),
+                            inset 10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-315 {
+                        box-shadow: inset -10px -10px 20px darken($val, 4%),
+                            inset 10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                }
+                &-concave {
+                    box-shadow: 10px 10px 20px darken($val, 4%),
+                        -10px -10px 20px lighten($val, 4%);
+                    &-sm {
+                    }
+                    &-lg {
+                    }
+                    &-45 {
+                        box-shadow: 10px -10px 20px darken($val, 4%),
+                            -10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-145 {
+                        box-shadow: 10px 10px 20px darken($val, 4%),
+                            -10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-225 {
+                        box-shadow: -10px 10px 20px darken($val, 4%),
+                            10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-315 {
+                        box-shadow: -10px -10px 20px darken($val, 4%),
+                            10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                }
+                &-convex {
+                    box-shadow: 10px 10px 20px darken($val, 4%),
+                        -10px -10px 20px lighten($val, 4%);
+                    &-sm {
+                    }
+                    &-lg {
+                    }
+                    &-45 {
+                        box-shadow: 10px -10px 20px darken($val, 4%),
+                            -10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-145 {
+                        box-shadow: 10px 10px 20px darken($val, 4%),
+                            -10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-225 {
+                        box-shadow: -10px 10px 20px darken($val, 4%),
+                            10px -10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                    &-315 {
+                        box-shadow: -10px -10px 20px darken($val, 4%),
+                            10px 10px 20px lighten($val, 4%);
+                        &-sm {
+                        }
+                        &-lg {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@import "../variables/color.scss";
+@include shadows-variant($theme-colors);

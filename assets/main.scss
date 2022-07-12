@@ -9,6 +9,9 @@
 // @include bg-variant(".bg-turquoise", $turquoise, $ignore-warning: true);
 // @include bg-variant(".bg-amethyst", $amethyst, $ignore-warning: true);
 
+@import "utilities/_background";
+@import "utilities/_shadow";
+@import "utilities/_text";
 @import "themes/color-mode";
 
 //New Components
