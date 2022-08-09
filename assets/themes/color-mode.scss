@@ -1,23 +1,40 @@
-@import "../variables/color.scss";
+//@import "../variables/color.scss";
 
-:root {
-	--bg: #{$light};
-}
+// $root-colors: (
+//     'bg': $light,
+//     'color': $dark,
+// );
+
+// :root {
+//     @each $key, $value in $root-colors {
+//         --#{$key}: #{$value}
+//     }
+// }
+
+$emerald-colors: (
+    'bg': $sunflower,
+    'color': $white,
+);
 
 @each $key, $value in $theme-colors {
-	.#{unquote($key)}-mode {
-		--bg: #{$value};
-		--color: #{$white};
-		@if $key == light {
-			--color: #{$dark};
-		} @else if $key == clouds {
-			--color: #{$dark};
-		}
-	}
+    .#{unquote($key)}-mode {
+        --bg: #{$value};
+        --color: #{$white};
+        @if $key == light {
+            --color: #{$dark};
+        } @else if $key == clouds {
+            --color: #{$dark};
+        } 
+        // @else if $key == emerald {
+        //  // @each $key, $value in $emerald-colors {
+        //  //  --#{$key}: #{$value}
+        //  // }
+        // }
+    }
 }
 
 // .info-mode {
-// 	--bg: #{$info};
+//  --bg: #{$info};
 // }
 
 // .dark-mode,
@@ -27,5 +44,5 @@
 // .danger-mode,
 // .warning-mode,
 // .info-mode {
-// 	--color: #fff;
+//  --color: #fff;
 // }
