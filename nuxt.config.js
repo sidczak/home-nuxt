@@ -24,7 +24,14 @@ export default {
    ** Nuxt.js modules
    ** Doc: https://modules.nuxtjs.org
    */
-  modules: ["bootstrap-vue/nuxt", "@nuxtjs/i18n", "@nuxtjs/color-mode"],
+  modules: ["bootstrap-vue/nuxt", "@nuxtjs/i18n", "@nuxtjs/color-mode", "@nuxtjs/fontawesome"],
+
+  fontawesome: {
+    icons: {
+      solid: true,
+      brands: true
+    }
+  },
 
   i18n: {
     locales: [

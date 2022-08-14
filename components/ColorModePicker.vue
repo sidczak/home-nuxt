@@ -7,11 +7,12 @@
                 .color(v-for="color of availableColors" :key="color" @click="$colorMode.preference = color" :class="getColor(color)")
       b-row
         b-col.text-center
-            select.mr-1(v-model="$colorMode.preference")
-                //- option(value="system")
-                //-     | system
-                option(v-for="color of colors" :key="color" :value="color")
-                    | {{color}}
+            b-form.justify-content-center(inline)
+                b-form-select.mr-1(v-model="$colorMode.preference")
+                    //- option(value="system")
+                    //-     | system
+                    option(v-for="color of colors" :key="color" :value="color")
+                        | {{color}}
             | Color mode: <b>{{ $colorMode.preference }}</b>
             span
                 | (<i>{{ $colorMode.value }}</i> mode detected)
