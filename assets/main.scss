@@ -21,6 +21,14 @@ body {
 	transition: background-color 0.3s;
 }
 
+div#__nuxt,
+div#__layout {
+	height: 100%;
+}
+main {
+	padding-top: 120px;
+}
+
 .page-enter-active,
 .page-leave-active {
 	transition: opacity 0.5s;

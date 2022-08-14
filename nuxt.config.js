@@ -15,6 +15,10 @@ export default {
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    htmlAttrs: { class: "h-100" },
+    bodyAttrs: {
+      class: "h-100",
+    },
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components

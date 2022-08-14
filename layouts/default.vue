@@ -1,11 +1,11 @@
 <template lang="pug">
-div(v-if="!$colorMode.unknown")
+.d-flex.flex-column.h-100(v-if="!$colorMode.unknown")
     header
         Navbar
     main
         ColorModePicker
         Nuxt
-    //- footer
+    footer.mt-auto.py-3
         b-container
             span.float-right
                 a(href="#")
