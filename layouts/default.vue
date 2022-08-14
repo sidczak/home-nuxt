@@ -3,7 +3,6 @@
     header
         Navbar
     main
-        ColorModePicker
         Nuxt
     footer.mt-auto.py-3
         b-container

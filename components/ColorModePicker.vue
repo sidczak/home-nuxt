@@ -2,7 +2,7 @@
     b-container.mb-5
       b-row
         b-col
-            .d-flex.justify-content-center.m-5
+            .d-flex.flex-wrap.justify-content-center
                 //- .color(v-for="color of colors" :key="color" @click="$colorMode.preference = color" :class="`bg-${color}`")
                 .color(v-for="color of availableColors" :key="color" @click="$colorMode.preference = color" :class="getColor(color)")
       b-row
@@ -52,7 +52,7 @@ export default {
     border-radius: 2px;
     width: 25px;
     height: 25px;
-    margin: 0 10px;
+    margin: 5px;
     cursor: pointer;
 }
 </style>
