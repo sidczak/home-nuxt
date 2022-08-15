@@ -22,7 +22,7 @@
                 //-         | {{locale.name}}
                 b-nav-item(v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)")
                     | {{ locale.name }}
-        b-sidebar(id="sidebar-settings" title="Sidebar" backdrop-variant="dark" bg-variant="white" text-variant="dark" backdrop right shadow)
+        b-sidebar(id="sidebar-settings" title="Sidebar" :backdrop-variant="navbarColorMode.variant" bg-variant="white" text-variant="dark" backdrop right shadow)
             div(class="px-3 py-2")
                 ColorModePicker
                 p

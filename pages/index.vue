@@ -3,17 +3,22 @@ b-container
     b-row
         b-col
             | {{ $t('welcome') }}
-    //- b-row
-        b-col
-            b-card(:bg-variant="bgVariant" :header="$colorMode.preference")
-                b-card-text
-                    | {{bgVariant}} Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     b-row
-        b-col(v-for="tool of tools" :key="tool")
-            b-card(:bg-variant="tool.bgVariant" text-variant="white" header="header")
-                b-card-text
-                    font-awesome-icon(:icon="['fab', tool.icon]" size="4x")
-                    | {{tool.desc}}
+        b-col.text-center(md="6")
+            h2 Tools
+            h3 What Tools We Use
+            p.mb-0 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+    b-row
+        b-col.mt-4(v-for="tool of tools" :key="tool" md="4")
+            b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white")
+                .my-auto
+                    b-card-body
+                        b-card-text.text-center
+                            font-awesome-icon.mb-3(:icon="['fab', tool.icon]" size="5x")
+                            h3.card-title
+                                | {{tool.title}}
+                        b-card-text
+                            | {{tool.desc}}
         //- b-col
         //-     b-card(bg-variant="wet-asphalt-concave-145" text-variant="white" header="symfony")
         //-         b-card-text
@@ -33,16 +38,19 @@ export default {
             tools: [
                 {
                     icon: 'symfony',
+                    title: 'Symfony',
                     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                     bgVariant: 'wet-asphalt-concave-145',
                 },
                 {
                     icon: 'vuejs',
-                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    title: 'Vue',
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                     bgVariant: 'turquoise-concave-145',
                 },
                 {
                     icon: 'bootstrap',
+                    title: 'Bootstrap',
                     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                     bgVariant: 'amethyst-concave-145',
                 },
