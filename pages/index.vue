@@ -3,7 +3,7 @@ b-container
     b-row
         b-col
             | {{ $t('welcome') }}
-    b-row
+    b-row.justify-content-center.mb-2
         b-col.text-center(md="6")
             h2 Tools
             h3 What Tools We Use
