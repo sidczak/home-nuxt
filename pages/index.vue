@@ -15,8 +15,8 @@ b-container
                     b-card-body
                         b-card-text.text-center
                             font-awesome-icon.mb-3(:icon="['fab', tool.icon]" size="5x")
-                            h3.card-title
-                                | {{tool.title}}
+                        b-card-title.text-center(title-tag="h3")
+                            | {{tool.title}}
                         b-card-text
                             | {{tool.desc}}
         //- b-col
