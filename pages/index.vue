@@ -10,25 +10,14 @@ b-container
             p.mb-0 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
     b-row
         b-col.mt-4(v-for="tool of tools" :key="tool" md="4")
-            b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white")
+            b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white" :class="`shadow-${colorMode}`")
                 .my-auto
                     b-card-body
-                        b-card-text.text-center
-                            font-awesome-icon.mb-3(:icon="['fab', tool.icon]" size="5x")
+                        font-awesome-icon.d-block.mb-3.mx-auto(:icon="['fab', tool.icon]" size="5x")
                         b-card-title.text-center(title-tag="h3")
                             | {{tool.title}}
                         b-card-text
                             | {{tool.desc}}
-        //- b-col
-        //-     b-card(bg-variant="wet-asphalt-concave-145" text-variant="white" header="symfony")
-        //-         b-card-text
-        //-             font-awesome-icon(:icon="['fab', 'symfony']" size="4x")
-        //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        //- b-col
-        //-     b-card(bg-variant="turquoise-concave-145" text-variant="white" :header="$colorMode.preference")
-        //-         b-card-text
-        //-             font-awesome-icon(:icon="['fab', 'vuejs']" size="4x")
-        //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </template>
 
 <script>
@@ -58,7 +47,7 @@ export default {
         };
     },
     computed: {
-        bgVariant() {
+        colorMode() {
             return this.$colorMode.preference;
         },
     },
