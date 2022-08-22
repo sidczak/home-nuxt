@@ -10,7 +10,7 @@ b-container
             p.mb-0 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
     b-row
         b-col.mt-4(v-for="tool of tools" :key="tool" md="4")
-            b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white" :class="`shadow-${colorMode}`")
+            b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white" :class="`shadow-${$colorMode.preference}`")
                 .my-auto
                     b-card-body
                         font-awesome-icon.d-block.mb-3.mx-auto(:icon="['fab', tool.icon]" size="5x")
@@ -28,7 +28,7 @@ export default {
                 {
                     icon: 'symfony',
                     title: 'Symfony',
-                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    desc: this.$t('welcome'),
                     bgVariant: 'wet-asphalt-concave-145',
                 },
                 {
@@ -46,11 +46,11 @@ export default {
             ],
         };
     },
-    computed: {
-        colorMode() {
-            return this.$colorMode.preference;
-        },
-    },
+    // computed: {
+    //     colorMode() {
+    //         return this.$colorMode.preference;
+    //     },
+    // },
 };
 </script>
 <style>
