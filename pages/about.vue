@@ -10,3 +10,8 @@ b-container
                 b-card-text
                     | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </template>
+<script>
+export default {
+    name: 'About',
+};
+</script>

@@ -2,7 +2,7 @@
 b-container
     b-row
         b-col(cols="4")
-            b-card(:bg-variant="bgVariant" :text-variant="textVariant" no-body)
+            b-card(:bg-variant="bgVariant" no-body)
                 b-card-header
                     h4.text-center.mb-0
                         | Free
@@ -26,7 +26,7 @@ b-container
                     b-button(href="#" variant="primary")
                         | Sign up for free
         b-col(cols="4")
-            b-card(:bg-variant="bgVariant" :text-variant="textVariant" no-body)
+            b-card(:bg-variant="bgVariant" no-body)
                 b-card-header
                     h4.text-center.mb-0
                         | Pro
@@ -50,7 +50,7 @@ b-container
                     b-button(href="#" variant="primary")
                         | Get started
         b-col(cols="4")
-            b-card(:bg-variant="bgVariant" :text-variant="textVariant" no-body)
+            b-card(:bg-variant="bgVariant" no-body)
                 b-card-header
                     h4.text-center.mb-0
                         | Enterprise
@@ -79,6 +79,7 @@ b-container
 // import { textColor } from "../helpers/colorVariant.js";
 
 export default {
+    name: 'Pricing',
     computed: {
         bgVariant() {
             // return Object.keys(colors).find(

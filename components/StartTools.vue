@@ -2,7 +2,7 @@
 Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :desc="homeTranslation.desc")
     template(slot='content')
         b-row
-            b-col.mt-4(v-for="tool of tools" :key="tool" md="4")
+            b-col.mt-4(v-for="tool of tools" :key="tool.id" md="4")
                 b-card.h-100(no-body :bg-variant="tool.bgVariant" text-variant="white" :class="`shadow-${$colorMode.preference}`")
                     .my-auto
                         b-card-body
