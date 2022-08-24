@@ -5,7 +5,7 @@ section.d-flex.align-items-center.py-5(:class="[{'h-100': height}]")
             b-col.text-center(md="6")
                 h2 {{title}}
                 h3 {{subtitle}}
-                p.mb-0(v-html="desc")
+                p.mb-0(v-if="desc" v-html="desc")
         slot(name="content")
 </template>
 <script>
