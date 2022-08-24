@@ -1,11 +1,11 @@
 <template lang="pug">
-section
+section.d-flex.align-items-center.py-5(:class="[{'h-100': height}]") 
     b-container
         b-row.justify-content-center.mb-2
             b-col.text-center(md="6")
                 h2 {{title}}
                 h3 {{subtitle}}
-                p.mb-0 {{desc}}
+                p.mb-0(v-html="desc")
         slot(name="content")
 </template>
 <script>
@@ -21,9 +21,16 @@ export default {
         },
         desc: {
             type: String,
-            default: "Desc",
+            default: null,
+        },
+        height: {
+            type: Boolean,
+            default: false,
         },
     },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+section {
+}
+</style>
