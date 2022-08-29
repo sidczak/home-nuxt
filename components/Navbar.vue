@@ -93,18 +93,20 @@ export default {
     },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .navbar {
     transition: background-color 0.3s;
 }
 .dropdown-megamenu {
     position: static;
 }
-.dropdown-menu-megamenu {
+/deep/ .dropdown-menu-megamenu {
     left: 0;
     right: 0;
-    margin-top: 0;
-    border-radius: 0;
+    margin: 0 15px 0;
+    @media (max-width: 992px) {
+        margin: 0;
+    }
 }
 .dropdown.dropdown-hover:hover {
     & > .dropdown-menu {
