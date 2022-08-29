@@ -47,6 +47,39 @@
                                     b-dropdown-item Available glyphs
                                     b-dropdown-item Available glyphs
                                     b-dropdown-item Available glyphs
+                //- b-nav-item-dropdown.dropdown-megamenu(text="LargeMenu" menu-class="dropdown-menu-large")
+                //-     b-row.w-100
+                //-         b-col(cols="6" lg="3")
+                //-             ul.list-unstyled
+                //-                 b-dropdown-header Glyphicons
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-             ul.list-unstyled
+                //-                 b-dropdown-header Glyphicons
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-         b-col(cols="6" lg="3")
+                //-             ul.list-unstyled
+                //-                 b-dropdown-header Glyphicons
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-         b-col(cols="6" lg="3")
+                //-             ul.list-unstyled
+                //-                 b-dropdown-header Glyphicons
+                //-                 b-dropdown-item Available glyphs
+                //-         b-col(cols="6" lg="3")
+                //-             ul.list-unstyled
+                //-                 b-dropdown-header Glyphicons
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
+                //-                 b-dropdown-item Available glyphs
             b-navbar-nav(class="ml-auto")
                 b-nav-item(v-b-toggle.sidebar-settings)
                     font-awesome-icon.mr-1(icon="cog" fixed-width)
@@ -94,19 +127,29 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "bootstrap/scss/_functions.scss";
+@import "bootstrap/scss/_variables.scss";
+@import "bootstrap/scss/_mixins.scss";
+
 .navbar {
     transition: background-color 0.3s;
 }
 .dropdown-megamenu {
     position: static;
 }
+/deep/ .dropdown-menu-megamenu,
+/deep/.dropdown-menu-large {
+    margin: 0 15px 0;
+    // @media (max-width: 992px) {
+    //     margin: 0;
+    // }
+    @include media-breakpoint-down(lg) {
+        margin: 0;
+    }
+}
 /deep/ .dropdown-menu-megamenu {
     left: 0;
     right: 0;
-    margin: 0 15px 0;
-    @media (max-width: 992px) {
-        margin: 0;
-    }
 }
 .dropdown.dropdown-hover:hover {
     & > .dropdown-menu {
