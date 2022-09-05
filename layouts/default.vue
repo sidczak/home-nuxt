@@ -4,6 +4,6 @@
         Navbar
     main.h-100.flex-shrink-0
         Nuxt
-    footer.mt-auto.py-3
+    footer.mt-auto.py-5
         Footer
 </template>

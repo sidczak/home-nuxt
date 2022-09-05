@@ -13,6 +13,9 @@
                     | About
                 b-nav-item(:to="localePath('pricing')")
                     | Pricing
+                b-nav-item-dropdown(text="Vue Mastery" :to="localePath('vueMastery')" right)
+                    b-dropdown-item(:to="localePath('vueMastery')") Vue Mastery
+                    b-dropdown-item(:to="localePath('/vueMastery/socks')") Socks
                 b-nav-item-dropdown.dropdown-megamenu(text="MegaMenu" menu-class='dropdown-menu-megamenu')
                     b-container(fluid)
                         b-row.w-100(no-gutters)
