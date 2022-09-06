@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-    name: "Vue Mastery",
+    name: "VueMastery",
 };
 </script>

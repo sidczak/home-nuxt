@@ -1,7 +1,7 @@
 <template lang="pug">
 b-container
     b-row
-        b-col.mb-3(cols="12" lg="4")
+        b-col.mb-3(cols="12" lg="3")
             h5
                 | HomeNuxt
             p
@@ -10,30 +10,38 @@ b-container
             h5
                 | Useful Links
             b-nav(vertical)
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
+                b-nav-item.mb-2(link-classes="p-0 xtext-muted")
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'caret-right']" fixed-width)
                     | Home
                 b-nav-item.mb-2(link-classes="p-0 text-muted")
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'caret-right']" fixed-width)
                     | Features
                 b-nav-item.mb-2(link-classes="p-0 text-muted")
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'caret-right']" fixed-width)
                     | Pricing
                 b-nav-item.mb-2(link-classes="p-0 text-muted")
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'caret-right']" fixed-width)
                     | FAQs
                 b-nav-item.mb-2(link-classes="p-0 text-muted")
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'caret-right']" fixed-width)
                     | About
-        b-col.mb-3(cols="6" lg="2")
+        b-col.mb-3(cols="6" lg="3")
             h5
                 | Contact
-            b-nav(vertical)
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
-                    | Home
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
-                    | Features
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
-                    | Pricing
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
-                    | FAQs
-                b-nav-item.mb-2(link-classes="p-0 text-muted")
-                    | About
+            ul.list-unstyled
+                li.d-flex.mb-2
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'location-dot']" fixed-width)
+                    span
+                        | ul. Street name 25K, <br/>86-150 City name, Country
+                li.d-flex.mb-2
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'mobile-screen-button']" fixed-width)
+                    a(href="tel: 500 464 679") 500 464 679
+                li.d-flex.mb-2
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'at']" fixed-width)
+                    a(href="mailto:info@frontcode.com") info@frontcode.com
+                li.d-flex.mb-2
+                    font-awesome-icon.mt-1.mr-2(:icon="['fas', 'globe']" fixed-width)
+                    a(href="/") frontcode.com
         b-col.mb-3(lg="4")
             h5 Subscribe to our newsletter
             p Monthly digest of what's new and exciting from us.

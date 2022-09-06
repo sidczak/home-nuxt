@@ -50,6 +50,8 @@
                                     b-dropdown-item Available glyphs
                                     b-dropdown-item Available glyphs
                                     b-dropdown-item Available glyphs
+                b-nav-item(:to="localePath('landing')")
+                    | Landing
                 //- b-nav-item-dropdown.dropdown-megamenu(text="LargeMenu" menu-class="dropdown-menu-large")
                 //-     b-row.w-100
                 //-         b-col(cols="6" lg="3")
