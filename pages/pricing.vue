@@ -1,5 +1,5 @@
 <template lang="pug">
-Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :desc="homeTranslation.desc")
+Section.h-100(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :desc="homeTranslation.desc")
     template(slot='content')
         b-row
             b-col(cols="4")
