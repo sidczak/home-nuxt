@@ -3,16 +3,20 @@
     header
         Navbar
     template(v-if="!manySections")
-        main.h-100.flex-shrink-0
+        main.h-100(:class="flexShrink")
             Nuxt
         footer.mt-auto.py-5
             Footer
     template(v-else)
-        Nuxt
+        main.h-100(:class="flexShrink")
+            Nuxt
 </template>
 
 <script>
 const PAGES_WITH_MANY_SECTIONS = {
+    '/landing': '/landing'
+}
+const PAGES_WITHOUT_FLEX_SHRINK = {
     '/landing': '/landing'
 }
 export default {
@@ -20,6 +24,9 @@ export default {
         manySections() {
             return PAGES_WITH_MANY_SECTIONS[this.$route.path] ? true : false
         },
+        flexShrink(){
+            return PAGES_WITHOUT_FLEX_SHRINK[this.$route.path] ? false : 'flex-shrink-0'
+        }
     },
 };
 </script>
