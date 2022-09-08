@@ -1,5 +1,7 @@
 <template lang="pug">
-StartAbout.h-100.flex-shrink-0
+Main
+    template(slot='section')
+        StartAbout.h-100
 //- Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :desc="homeTranslation.desc")
 //-     template(slot='content')
 //-         b-row

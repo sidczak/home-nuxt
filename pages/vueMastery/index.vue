@@ -1,6 +1,8 @@
 <template lang="pug">
-Section.h-100(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
-    template(slot='content')
+Main
+    template(slot='section')
+        Section.h-100(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
+            template(slot='content')
 </template>
 <script>
 import Section from "../../components/common/Section";

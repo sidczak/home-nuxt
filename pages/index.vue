@@ -1,5 +1,7 @@
 <template lang="pug">
-StartTools.h-100
+Main
+    template(slot='section')
+        StartTools.h-100
 </template>
 <script>
 export default {
