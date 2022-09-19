@@ -8,7 +8,7 @@ Main
 import Section from "../../components/common/Section";
 
 export default {
-    name: "Vue Mastery",
+    name: "VueMastery",
     components: {
         Section,
     },
