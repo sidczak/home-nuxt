@@ -1,5 +1,5 @@
 <template lang="pug">
-section.d-flex.align-items-center.py-5(:class="[{'h-100': height}]") 
+section.d-flex.align-items-center.section-py-80(:class="[{'h-100': height}]") 
     b-container
         b-row.justify-content-center.mb-2
             b-col.text-center(md="6")
@@ -30,7 +30,24 @@ export default {
     },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+@import "~sass-rem";
+$rem-fallback: false;
 section {
+    // @include rem(padding, 6px 30px);
+    // font-size: rem(11px);
+}
+.section {
+    &-pt-152 {
+        padding-top: rem(152px);
+    }
+    &-py-80,
+    &-pt-80 {
+        padding-top: rem(80px);
+    }
+    &-py-80,
+    &-pb-80 {
+        padding-bottom: rem(80px);
+    }
 }
 </style>
