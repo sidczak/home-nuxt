@@ -83,4 +83,8 @@ export default {
    ** Doc: https://nuxtjs.org/docs/2.x/directory-structure/plugins
    */
   plugins: [],
+  storybook: {
+    stories: ["~/components/**/*.stories.js", "~/pages/**/*.stories.js"],
+    // port: 3000,
+  },
 };
