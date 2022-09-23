@@ -1,7 +1,7 @@
 <template lang="pug">
 Main
     template(slot='section')
-        StartAbout.h-100
+        StartAbout
 //- Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :desc="homeTranslation.desc")
 //-     template(slot='content')
 //-         b-row

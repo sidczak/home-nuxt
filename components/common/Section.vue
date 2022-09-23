@@ -1,5 +1,5 @@
 <template lang="pug">
-section.d-flex.align-items-center.section-py-80(:class="[{'h-100': height}]") 
+section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100 ': minHeight}]") 
     b-container
         b-row.justify-content-center.mb-2
             b-col.text-center(md="6")
@@ -23,9 +23,9 @@ export default {
             type: String,
             default: null,
         },
-        height: {
+        minHeight: {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
 };
@@ -48,6 +48,9 @@ section {
     &-py-80,
     &-pb-80 {
         padding-bottom: rem(80px);
+    }
+    %-min-h-100 {
+        min-height: 100%;
     }
 }
 </style>
