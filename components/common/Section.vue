@@ -49,7 +49,7 @@ section {
     &-pb-80 {
         padding-bottom: rem(80px);
     }
-    %-min-h-100 {
+    &-min-h-100 {
         min-height: 100%;
     }
 }
