@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "firstName": "Jan",
+        "lastName": "Kowalski",
+        "age": 31,
+        "gender": "male"
+    },
+    {
+        "id": 2,
+        "firstName": "Mateusz",
+        "lastName": "Nowak",
+        "age": 26,
+        "gender": "male"
+    },
+    {
+        "id": 3,
+        "firstName": "Anna",
+        "lastName": "Zielińska",
+        "age": 40,
+        "gender": "female"
+    },
+    {
+        "id": 4,
+        "firstName": "Marzena",
+        "lastName": "Tomaczyk",
+        "age": 39,
+        "gender": "female"
+    },
+    {
+        "id": 5,
+        "firstName": "Witold ",
+        "lastName": "Moliński",
+        "age": 18,
+        "gender": "male"
+    }
+]

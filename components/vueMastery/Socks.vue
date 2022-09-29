@@ -27,7 +27,7 @@ export default {
     // },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .card {
     transition: background-color 0.3s;
 }

@@ -11,6 +11,45 @@ Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle" :des
                                 | {{tool.title}}
                             b-card-text
                                 | {{tool.desc}}
+        b-row
+            b-col
+                | 1. Object and array
+                br
+                | 2. Aliasy
+                br
+                | 3. FAQ i Filtry
+                br
+                | 4. Terms and menu
+                br
+                | 5. Contact form
+                pre
+                    code
+                        | computed: {
+                        |     computedDevices() {
+                        //-         return Object.keys(this.devices)
+                        //-             .filter((key) => 0 < this.devices[key].length)
+                        //-             .map((key) => {
+                        //-                 return {
+                        //-                     componentSlug: key,
+                        //-                     name: this.translatedKeys[key],
+                        //-                     devices: this.devices[key],
+                        //-                 };
+                        //-             });
+                        |     },
+                        |     computedItems() {
+                        //-         return this.items
+                        //-             .filter((item) => 0 < this.items.length)
+                        //-             .map((item) => {
+                        //-                 return {
+                        //-                     ...item,
+                        //-                     icon: `${icons[item.slug]}-14`,
+                        //-                     name:
+                        //-                         this.$t(translationKeys[item.slug]) ||
+                        //-                         translationKeys[item.slug],
+                        //-                 };
+                        //-             });
+                        |     },
+                        | },
 </template>
 
 <script>
@@ -56,7 +95,7 @@ export default {
     // },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .card {
     transition: background-color 0.3s;
 }
