@@ -80,7 +80,7 @@ Main
 
 <script>
 // import { textColor } from "../helpers/colorVariant.js";
-import Section from "../components/common/Section";
+import Section from "@components/common/Section";
 
 export default {
     name: "Pricing",

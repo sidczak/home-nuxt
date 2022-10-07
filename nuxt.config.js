@@ -1,3 +1,5 @@
+const { resolve } = require("path");
+
 export default {
   /*
    ** Headers of the page
@@ -34,6 +36,10 @@ export default {
     "@nuxtjs/color-mode",
     "@nuxtjs/fontawesome",
   ],
+  alias: {
+    "@helpers": resolve(__dirname, "./helpers"),
+    "@components": resolve(__dirname, "./components"),
+  },
 
   fontawesome: {
     icons: {

@@ -6,7 +6,7 @@ Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
 </template>
 
 <script>
-import Section from "../common/Section";
+import Section from "@components/common/Section";
 
 export default {
     components: {
