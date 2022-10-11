@@ -159,7 +159,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-data-table {
-    background-color: #ecf0f1;
+    background-color: $clouds;
     position: relative;
     border-radius: 10px;
 }
@@ -187,7 +187,7 @@ export default {
 }
 .table__row {
     position: relative;
-    border-bottom: 1px solid #bdc3c7;
+    border-bottom: 1px solid $silver;
 }
 .flex-1 {
     flex: 1;

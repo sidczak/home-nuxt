@@ -84,6 +84,10 @@ export default {
    */
   css: ["@assets/main.scss"],
 
+  buildModules: ["@nuxtjs/style-resources"],
+  styleResources: {
+    scss: ["@assets/variables/color.scss"],
+  },
   /*
    ** Plugins to load before mounting the App
    ** Doc: https://nuxtjs.org/docs/2.x/directory-structure/plugins
