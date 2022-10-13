@@ -1,7 +1,7 @@
 <template lang="pug">
 Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
     template(slot='content')
-        b-row
+        b-row.align-items-center
             b-col(lg="6" md="12")
                 h2 
                     | Witaj w ClickMeeting!
@@ -10,15 +10,17 @@ Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
                 b-button(variant="primary" @mouseover='switchPicture(0)') Subscribe
                 b-button(variant="primary" @mouseover='switchPicture(1)') Subscribe
                 b-button(variant="primary" @mouseover='switchPicture(2)') Subscribe
-            b-col(lg="6" md="12")
-                transition(name='picture-out' mode='out-in')
-                    .picture(
-                        v-for='(picture, index) in prictures'
-                        v-if='index === currentPicture'
-                        :key='index'
-                    )
-                        | {{ picture.name }}
-
+            b-col.order-first.order-lg-last(lg="6" md="12")
+                .welcome__images
+                    transition(name='picture-out' mode='out-in')
+                        b-img(
+                            v-for='(picture, index) in prictures'
+                            v-if='index === currentPicture'
+                            fluid
+                            :key='index'
+                            :src='getPicture(picture.name)'
+                            :alt='picture.alt'
+                        )
 </template>
 
 <script>
@@ -30,7 +32,11 @@ export default {
     },
     data() {
         return {
-            prictures: [{ name: "home" }, { name: "about" }, { name: "tools" }],
+            prictures: [
+                { name: "first-step-room-930", alt: "First step" },
+                { name: "tutorial-930", alt: "Tutorial" },
+                { name: "webinar-room-930", alt: "Webinar room" },
+            ],
             currentPicture: 0,
             homeTranslation: {
                 title: "Welcome",
@@ -42,46 +48,49 @@ export default {
         switchPicture(picture) {
             this.currentPicture = picture;
         },
+        getPicture(name) {
+            return require(`@images/welcome/${name}.png`);
+        },
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.picture {
-    border: 1px solid red;
-}
-.fade {
-    &-enter-active,
-    &-leave-active {
-        transition: opacity 0.5s;
+.welcome {
+    &__images {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    &-enter,
-    &-leave-to {
-        opacity: 0;
-    }
+    // &__images {
+    //     position: absolute;
+    //     left: 58%;
+    //     top: 50%;
+    //     transform: translateY(-50%);
+    //     width: 50%;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: end;
+    //     // img {
+    //     //     max-height: 630px;
+    //     // }
+    // }
 }
-.fadex {
+
+.slide {
     &-leave-active,
     &-enter-active {
-        transition: all 0.5s ease-in-out;
-        position: absolute;
-    }
-    &-enter {
-        transform: translateX(200px);
-    }
-    &-enter-active {
-        left: 50%;
-        margin-left: -100px;
-    }
-    &-leave-active {
-        z-index: -1;
-    }
-    &-leave-to {
-        transform: translateX(-200px);
+        transition: all 0.3s ease-in-out;
     }
     &-enter,
     &-leave-to {
-        opacity: 0;
+        opacity: 0.1;
+    }
+    &-enter {
+        transform: translateX(70%);
+    }
+    &-leave-to {
+        transform: translateX(70%);
     }
 }
 .picture {
@@ -89,7 +98,7 @@ export default {
     &-in {
         &-leave-active,
         &-enter-active {
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
         &-enter,
         &-leave-to {
@@ -101,12 +110,12 @@ export default {
             transform: scale(0.5);
         }
         &-leave-to {
-            transform: scale(1.5);
+            transform: scale(1.3);
         }
     }
     &-in {
         &-enter {
-            transform: scale(1.5);
+            transform: scale(1.3);
         }
         &-leave-to {
             transform: scale(0.5);

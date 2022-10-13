@@ -37,6 +37,7 @@ export default {
     "@nuxtjs/fontawesome",
   ],
   alias: {
+    "@images": resolve(__dirname, "./assets/images"),
     "@helpers": resolve(__dirname, "./helpers"),
     "@components": resolve(__dirname, "./components"),
   },
