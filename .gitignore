@@ -83,3 +83,7 @@ dist
 # Storybook
 .nuxt-storybook
 storybook-static
+
+# Cypress videos and screenshots
+/cypress/screenshots
+/cypress/videos
