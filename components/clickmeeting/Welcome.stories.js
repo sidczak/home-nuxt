@@ -5,23 +5,23 @@ export default {
     component: Welcome,
     parameters: {
         backgrounds: {
-            default: 'twitter',
+            default: "twitter",
             values: [
-                { name: 'twitter', value: '#00aced' },
-                { name: 'facebook', value: '#3b5998' },
+                { name: "twitter", value: "#00aced" },
+                { name: "facebook", value: "#3b5998" },
             ],
+        },
     },
-  },
 };
 
 const Template = (args, { argTypes }) => ({
     components: { Welcome },
     props: Object.keys(argTypes),
-    template: "<Welcome />",
+    template: '<Welcome :title="title"/>',
 });
 
 export const Basic = Template.bind({});
 
 Basic.args = {
-    title: "Welcome",
+    title: "Welcomex",
 };

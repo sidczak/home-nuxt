@@ -7,19 +7,17 @@ Section(:title="homeTranslation.title" :subtitle="homeTranslation.subtitle")
                     | Witaj w ClickMeeting!
                 p 
                     | Vitae, rhoncus, vitae vestibulum sem. Pharetra arcu, fringilla id elementum sit. Sociis facilisi lectus tempor, velit vel. Aliquam quis quis integer morbi turpis in pulvinar sed quam.
-                b-button(variant="primary" @mouseover='switchPicture(0)') First step
-                b-button(variant="primary" @mouseover='switchPicture(1)') Tutorial
-                b-button(variant="primary" @mouseover='switchPicture(2)') Webinar room
+                b-button(variant="primary" @mouseover='switchImage(0)') First step
+                b-button(variant="primary" @mouseover='switchImage(1)' @mouseleave='switchImage(0)') Tutorial
+                b-button(variant="primary" @mouseover='switchImage(2)' @mouseleave='switchImage(0)') Webinar room
             b-col.order-first.order-lg-last(lg="6" md="12")
                 .welcome__images
                     transition(name='picture-out' mode='out-in')
                         b-img(
-                            v-for='(picture, index) in pictures'
-                            v-if='index === currentPicture'
                             fluid
-                            :key='index'
-                            :src='getPicture(picture.name)'
-                            :alt='picture.alt'
+                            :key='computedImage.name'
+                            :src='computedImage.name'
+                            :alt='computedImage.alt'
                         )
 </template>
 
@@ -32,24 +30,30 @@ export default {
     },
     data() {
         return {
-            pictures: [
+            images: [
                 { name: "first-step-room-500", alt: "First step" },
                 { name: "tutorial-500", alt: "Tutorial" },
                 { name: "webinar-room-500", alt: "Webinar room" },
             ],
-            currentPicture: 0,
+            currentImage: 0,
             homeTranslation: {
                 title: "Welcome",
                 subtitle: this.$t("home.about.subtitle"),
             },
         };
     },
-    methods: {
-        switchPicture(picture) {
-            this.currentPicture = picture;
+    computed: {
+        computedImage() {
+            const image = this.images[this.currentImage];
+            return {
+                name: require(`@images/welcome/${image.name}.png`),
+                alt: image.alt,
+            };
         },
-        getPicture(name) {
-            return require(`@images/welcome/${name}.png`);
+    },
+    methods: {
+        switchImage(number) {
+            this.currentImage = number;
         },
     },
 };
@@ -64,19 +68,18 @@ export default {
     }
     // &__images {
     //     position: absolute;
-    //     left: 58%;
+    //     left: 55%;
     //     top: 50%;
     //     transform: translateY(-50%);
     //     width: 50%;
     //     display: flex;
     //     align-items: center;
-    //     justify-content: end;
-    //     // img {
-    //     //     max-height: 630px;
-    //     // }
+    //     justify-content: flex-end;
+    //     .img-fluid {
+    //         max-height: 550px;
+    //     }
     // }
 }
-
 .slide {
     &-leave-active,
     &-enter-active {
