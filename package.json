@@ -18,7 +18,8 @@
     "bootstrap-vue": "^2.22.0",
     "node-sass": "^4.14.1",
     "nuxt": "^2.15.8",
-    "sass-rem": "2.0"
+    "sass-rem": "2.0",
+    "vue-safe-html": "^2.1.0"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.1.2",

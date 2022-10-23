@@ -26,7 +26,8 @@
                             :class='[column.justifyClass, column.cellClass]'
                         )
                             slot(:name='column.rowSlotName' :data='row')
-                                span(v-html='row[column.name]')
+                                //- span(v-html='row[column.name]')
+                                span(v-safe-html="row[column.name].toString()")
     //- .table__footer.px-3(v-if='showFooter && !$slots.footer')
     //-     slot(name='footer')
     //-         Pagination(
