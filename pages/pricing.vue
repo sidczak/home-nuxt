@@ -5,7 +5,7 @@ Main
             template(slot='content')
                 b-row
                     b-col(cols="4")
-                        b-card(:bg-variant="bgVariant" no-body)
+                        b-card(:bg-variant="bgVariant" :class="`shadow-${$colorMode.preference}`" no-body)
                             b-card-header
                                 h4.text-center.mb-0
                                     | Free
@@ -29,7 +29,7 @@ Main
                                 b-button(href="#" variant="primary")
                                     | Sign up for free
                     b-col(cols="4")
-                        b-card(:bg-variant="bgVariant" no-body)
+                        b-card(:bg-variant="bgVariant" :class="`shadow-${$colorMode.preference}`" no-body)
                             b-card-header
                                 h4.text-center.mb-0
                                     | Pro
@@ -53,7 +53,7 @@ Main
                                 b-button(href="#" variant="primary")
                                     | Get started
                     b-col(cols="4")
-                        b-card(:bg-variant="bgVariant" no-body)
+                        b-card(:bg-variant="bgVariant" :class="`shadow-${$colorMode.preference}`" no-body)
                             b-card-header
                                 h4.text-center.mb-0
                                     | Enterprise
