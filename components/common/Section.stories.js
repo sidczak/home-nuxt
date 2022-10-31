@@ -15,4 +15,5 @@ export const Basic = Template.bind({});
 
 Basic.args = {
     title: "Welcome",
+    subtitle: "subtitle",
 };

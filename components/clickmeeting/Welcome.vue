@@ -66,19 +66,6 @@ export default {
         align-items: center;
         justify-content: center;
     }
-    // &__images {
-    //     position: absolute;
-    //     left: 55%;
-    //     top: 50%;
-    //     transform: translateY(-50%);
-    //     width: 50%;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: flex-end;
-    //     .img-fluid {
-    //         max-height: 550px;
-    //     }
-    // }
 }
 .slide {
     &-leave-active,
