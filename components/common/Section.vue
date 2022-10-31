@@ -1,6 +1,7 @@
 <template lang="pug">
-section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100 ': minHeight}]") 
-    b-container
+section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100 ': minHeight}]")
+    slot(v-if="noBody" name="content")
+    b-container(v-else)
         b-row.justify-content-center.mb-2
             b-col.text-center(md="6")
                 h2 {{title}}
@@ -11,13 +12,17 @@ section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section
 <script>
 export default {
     props: {
+        noBody: {
+            type: Boolean,
+            default: false,
+        },
         title: {
             type: String,
-            default: "Title",
+            default: null,
         },
         subtitle: {
             type: String,
-            default: "Subtitle",
+            default: null,
         },
         desc: {
             type: String,

@@ -9,13 +9,11 @@ Main
                     b-col
                         | 1. Object and array
                         br
-                        | 2. Aliasy
+                        | 2. FAQ i Filtry
                         br
-                        | 3. FAQ i Filtry
+                        | 3. Terms and menu
                         br
-                        | 4. Terms and menu
-                        br
-                        | 5. Contact form
+                        | 4. Contact form
                         pre
                             code
                                 | computed: {

@@ -35,11 +35,17 @@ export default {
     "@nuxtjs/i18n",
     "@nuxtjs/color-mode",
     "@nuxtjs/fontawesome",
+    "@nuxtjs/axios",
   ],
+
   alias: {
     "@images": resolve(__dirname, "./assets/images"),
     "@helpers": resolve(__dirname, "./helpers"),
     "@components": resolve(__dirname, "./components"),
+  },
+
+  axios: {
+    // proxy: true
   },
 
   fontawesome: {
