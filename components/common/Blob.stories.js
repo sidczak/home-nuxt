@@ -11,10 +11,8 @@ const Template = (args, { argTypes }) => ({
     template: "<Blob/>",
 });
 
-export const Basic = Template.bind({});
+export const BlobFill = Template.bind({});
+BlobFill.args = {};
 
-Basic.args = {};
-
-export const BlobImage = Template.bind({});
-
-BlobImage.args = {};
+export const BlobStroke = Template.bind({});
+BlobStroke.args = {};

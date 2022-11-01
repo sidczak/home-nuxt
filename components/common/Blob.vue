@@ -7,6 +7,7 @@
                 linearGradient(id="gradient" x1="0%" y1="0%" x2="0%" y2="100%")
                     stop(offset="0%" style="stop-color: rgb(255, 95, 109);")
                     stop(offset="100%" style="stop-color: rgb(255, 195, 113);")
+            //- path(fill="none" stroke-width="7px" stroke="url(#gradient)")
             path(fill="url(#gradient)")
                 animate(
                     attributeName="d" 
