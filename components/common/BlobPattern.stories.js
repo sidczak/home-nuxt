@@ -17,17 +17,15 @@ const Template = (args, { argTypes }) => ({
     components: { BlobPattern },
     props: Object.keys(argTypes),
     template:
-        '<BlobPattern :type="type" :strokeWidth="strokeWidth" :pattern="pattern"/>',
+        '<BlobPattern :stroke="stroke" :strokeWidth="strokeWidth" :pattern="pattern"/>',
 });
 
-export const BlobFill = Template.bind({});
-BlobFill.args = {
-    type: "fill",
-};
+export const BlobPatternBasic = Template.bind({});
+BlobPatternBasic.args = {};
 
-export const BlobStroke = Template.bind({});
-BlobStroke.args = {
-    type: "stroke",
+export const BlobPatternStroke = Template.bind({});
+BlobPatternStroke.args = {
+    stroke: true,
     strokeWidth: 1,
     pattern: "waves",
 };

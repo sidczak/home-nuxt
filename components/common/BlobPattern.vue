@@ -2,9 +2,9 @@
 .blob
     svg(viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
-            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" :fill="patternColor")
                 path(:d="pattern.path")
-        path(:fill="fill" :stroke="stroke" :stroke-width="strokeWidth" transform="translate(100 100)")
+        path(fill="url(#pattern)" :stroke="stroke ? strokeColor : null" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
                 attributeName="d" 
                 dur="10s" 
@@ -16,10 +16,13 @@
 <script>
 export default {
     props: {
-        type: {
+        stroke: {
+            type: Boolean,
+            default: false,
+        },
+        strokeColor: {
             type: String,
-            default: "fill",
-            validator: (value) => ["fill", "stroke"].includes(value),
+            default: "#d1d8e0",
         },
         strokeWidth: {
             type: Number,
@@ -30,6 +33,10 @@ export default {
             default: "pattern1",
             validator: (value) =>
                 ["pattern1", "pattern2", "pattern3", "waves"].includes(value),
+        },
+        patternColor: {
+            type: String,
+            default: "#d1d8e0",
         },
     },
     data() {
@@ -65,14 +72,14 @@ export default {
             ],
         };
     },
-    created() {
-        if ("fill" === this.type) {
-            this.fill = "url(#pattern)";
-        } else {
-            this.fill = "url(#pattern)";
-            this.stroke = "#d1d8e0";
-        }
-    },
+    // created() {
+    //     if ("fill" === this.type) {
+    //         this.fill = "url(#pattern)";
+    //     } else {
+    //         this.fill = "url(#pattern)";
+    //         this.stroke = "#d1d8e0";
+    //     }
+    // },
     computed: {
         computedPatterns() {
             return this.patterns.filter(
