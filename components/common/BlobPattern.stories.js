@@ -1,15 +1,15 @@
-import Blob from "./Blob";
+import BlobPattern from "./BlobPattern";
 
 export default {
-    title: "Common/Blob",
-    component: Blob,
+    title: "Common/BlobPattern",
+    component: BlobPattern,
 };
 
 const Template = (args, { argTypes }) => ({
-    components: { Blob },
+    components: { BlobPattern },
     props: Object.keys(argTypes),
     template:
-        '<Blob :type="type" :shadow="shadow" :strokeWidth="strokeWidth"/>',
+        '<BlobPattern :type="type" :shadow="shadow" :strokeWidth="strokeWidth"/>',
 });
 
 export const BlobFill = Template.bind({});

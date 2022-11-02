@@ -1,14 +1,19 @@
 <template lang="pug">
-//- https://passionhacks.com/blob-maker/?n=1&e=6&gw=6&se=146&c=d1d8e0&o=0
-//- https://10015.io/tools/svg-blob-generator
-//- https://10015.io/tools/svg-pattern-generator
-//- https://www.blobmaker.app/
 .blob
-    svg(v-for="n in computedShadow" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
+    svg(viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
-            linearGradient(id="gradient" x1="0%" y1="0%" x2="0%" y2="100%")
-                stop(offset="0%" style="stop-color: rgb(255, 95, 109);")
-                stop(offset="100%" style="stop-color: rgb(255, 195, 113);")
+            pattern(id="pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M0 0h4v4H0V0zm4 4h4v4H4V4z")
+            //- pattern(id="pattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z")
+            //- pattern(id="pattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M5 0h1L0 6V5zM6 5v1H5z")
+            //- pattern(id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M0 40L40 0H20L0 20M40 40V20L20 40")
+            //- pattern(id="pattern" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z")
+            //- pattern(id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" fill="#d1d8e0")
+                path(d="M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z")
         path(:fill="fill" :stroke="stroke" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
                 attributeName="d" 
@@ -42,10 +47,10 @@ export default {
     },
     created() {
         if ("fill" === this.type) {
-            this.fill = "url(#gradient)";
+            this.fill = "url(#pattern)";
         } else {
-            this.fill = "none";
-            this.stroke = "url(#gradient)";
+            this.fill = "url(#pattern)";
+            this.stroke = "#d1d8e0";
         }
     },
     computed: {
