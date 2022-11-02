@@ -40,6 +40,7 @@ export default {
 
   alias: {
     "@images": resolve(__dirname, "./assets/images"),
+    "@exports": resolve(__dirname, "./assets/exports"),
     "@helpers": resolve(__dirname, "./helpers"),
     "@components": resolve(__dirname, "./components"),
   },

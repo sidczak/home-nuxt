@@ -2,9 +2,9 @@
 .blob
     svg(viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
-            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" :fill="patternColor")
+            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" :fill="computedPatternColor")
                 path(:d="pattern.path")
-        path(fill="url(#pattern)" :stroke="stroke ? strokeColor : null" :stroke-width="strokeWidth" transform="translate(100 100)")
+        path(fill="url(#pattern)" :stroke="stroke ? computedStrokeColor : null" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
                 attributeName="d" 
                 dur="10s" 
@@ -14,6 +14,8 @@
 
 </template>
 <script>
+// import colors from "@exports/_colors.scss";
+import colors from "../../assets/exports/colors.scss";
 export default {
     props: {
         stroke: {
@@ -22,7 +24,8 @@ export default {
         },
         strokeColor: {
             type: String,
-            default: "#d1d8e0",
+            default: "silver",
+            validator: (value) => Object.keys(colors).includes(value),
         },
         strokeWidth: {
             type: Number,
@@ -36,13 +39,12 @@ export default {
         },
         patternColor: {
             type: String,
-            default: "#d1d8e0",
+            default: "silver",
+            validator: (value) => Object.keys(colors).includes(value),
         },
     },
     data() {
         return {
-            fill: null,
-            stroke: null,
             patterns: [
                 {
                     name: "pattern1",
@@ -72,19 +74,17 @@ export default {
             ],
         };
     },
-    // created() {
-    //     if ("fill" === this.type) {
-    //         this.fill = "url(#pattern)";
-    //     } else {
-    //         this.fill = "url(#pattern)";
-    //         this.stroke = "#d1d8e0";
-    //     }
-    // },
     computed: {
         computedPatterns() {
             return this.patterns.filter(
                 (pattern) => pattern.name === this.pattern
             );
+        },
+        computedStrokeColor() {
+            return colors[this.strokeColor];
+        },
+        computedPatternColor() {
+            return colors[this.patternColor];
         },
     },
 };
