@@ -13,8 +13,7 @@
             )
 </template>
 <script>
-// import colors from "@exports/_colors.scss";
-import colors from "../../assets/exports/colors.scss";
+import colors from "@exports/colors.scss";
 export default {
     props: {
         stroke: {

@@ -7,8 +7,8 @@
     svg(v-for="n in computedShadow" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
             linearGradient(id="gradient" x1="0%" y1="0%" x2="0%" y2="100%")
-                stop(offset="0%" style="stop-color: rgb(255, 95, 109);")
-                stop(offset="100%" style="stop-color: rgb(255, 195, 113);")
+                stop(offset="0%" :style="{stopColor: computedGradientColorStart}")
+                stop(offset="100%" :style="{stopColor: computedGradientColorEnd}")
         path(:fill="fill" :stroke="stroke" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
                 attributeName="d" 
@@ -18,12 +18,10 @@
             )
 </template>
 <script>
+import colors from "@exports/colors.scss";
+
 export default {
     props: {
-        shadow: {
-            type: Boolean,
-            default: false,
-        },
         type: {
             type: String,
             default: "fill",
@@ -32,6 +30,21 @@ export default {
         strokeWidth: {
             type: Number,
             default: 5,
+        },
+        gradientColorStart: {
+            type: String,
+            default: "turquoise",
+            validator: (value) =>
+                Object.keys(colors).includes(value) || null === value,
+        },
+        gradientColorEnd: {
+            type: String,
+            default: null,
+            validator: (value) => Object.keys(colors).includes(value),
+        },
+        shadow: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -51,6 +64,16 @@ export default {
     computed: {
         computedShadow() {
             return this.shadow ? 2 : 1;
+        },
+        computedGradientColorStart() {
+            return colors[this.gradientColorStart];
+        },
+        computedGradientColorEnd() {
+            return colors[
+                this.gradientColorEnd
+                    ? this.gradientColorEnd
+                    : this.gradientColorStart
+            ];
         },
     },
 };
