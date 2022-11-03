@@ -23,8 +23,13 @@ export default {
 const Template = (args, { argTypes }) => ({
     components: { Blob },
     props: Object.keys(argTypes),
-    template:
-        '<Blob :type="type" :shadow="shadow" :strokeWidth="strokeWidth" :gradientColorStart="gradientColorStart" :gradientColorEnd="gradientColorEnd"/>',
+    template: `<Blob 
+            :type="type" 
+            :shadow="shadow" 
+            :strokeWidth="strokeWidth" 
+            :gradientColorStart="gradientColorStart" 
+            :gradientColorEnd="gradientColorEnd"
+        />`,
 });
 
 export const BlobFillColorShadow = Template.bind({});
@@ -45,5 +50,5 @@ export const BlobStrokeGradient = Template.bind({});
 BlobStrokeGradient.args = {
     type: "stroke",
     gradientColorEnd: "wet-asphalt",
-    strokeWidth: 1,
+    strokeWidth: 3,
 };

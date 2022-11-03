@@ -1,6 +1,6 @@
 <template lang="pug">
 .blob
-    svg(viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
+    svg(v-for="n in computedShadow" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
             clipPath(id="shape")
                 path(fill="none" transform="translate(100 100)")
@@ -14,7 +14,17 @@
 </template>
 <script>
 export default {
-    props: {},
+    props: {
+        shadow: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    computed: {
+        computedShadow() {
+            return this.shadow ? 2 : 1;
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
@@ -29,8 +39,9 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        &:last-child {
-            // filter: blur(30px);
+        &:nth-child(2) {
+            filter: blur(30px);
+            z-index: -1;
         }
     }
 }

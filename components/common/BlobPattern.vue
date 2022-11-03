@@ -2,7 +2,7 @@
 .blob
     svg(viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
-            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" :fill="computedPatternColor")
+            pattern(v-for="pattern in computedPatterns" :key="pattern.name" id="pattern" x="0" y="0" :width="pattern.width" :height="pattern.height" patternUnits="userSpaceOnUse" :fill="computedPatternColor" :patternTransform="`rotate(${patternRotate})`")
                 path(:d="pattern.path")
         path(fill="url(#pattern)" :stroke="computedStroke" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
@@ -39,6 +39,10 @@ export default {
             type: String,
             default: "silver",
             validator: (value) => Object.keys(colors).includes(value),
+        },
+        patternRotate: {
+            type: Number,
+            default: 0,
         },
     },
     data() {

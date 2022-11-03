@@ -8,9 +8,13 @@ export default {
 const Template = (args, { argTypes }) => ({
     components: { BlobImage },
     props: Object.keys(argTypes),
-    template: "<BlobImage/>",
+    template: '<BlobImage :shadow="shadow"/>',
 });
 
-export const Basic = Template.bind({});
-Basic.args = {};
+export const BlobImageBasic = Template.bind({});
+BlobImageBasic.args = {};
 
+export const BlobImageShadow = Template.bind({});
+BlobImageShadow.args = {
+    shadow: true,
+};

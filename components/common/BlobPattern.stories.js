@@ -1,6 +1,5 @@
 import BlobPattern from "./BlobPattern";
-// import colors from "@exports/_colors.scss";
-import colors from "../../assets/exports/colors.scss";
+import colors from "@exports/colors.scss";
 
 export default {
     title: "Common/BlobPattern",
@@ -30,8 +29,14 @@ export default {
 const Template = (args, { argTypes }) => ({
     components: { BlobPattern },
     props: Object.keys(argTypes),
-    template:
-        '<BlobPattern :stroke="stroke" :strokeColor="strokeColor" :strokeWidth="strokeWidth" :pattern="pattern" :patternColor="patternColor"/>',
+    template: `<BlobPattern 
+            :stroke="stroke" 
+            :strokeColor="strokeColor" 
+            :strokeWidth="strokeWidth" 
+            :pattern="pattern" 
+            :patternColor="patternColor" 
+            :patternRotate="patternRotate"
+        />`,
 });
 
 export const BlobPatternBasic = Template.bind({});
@@ -40,6 +45,6 @@ BlobPatternBasic.args = {};
 export const BlobPatternStroke = Template.bind({});
 BlobPatternStroke.args = {
     stroke: true,
-    strokeWidth: 1,
+    strokeWidth: 3,
     pattern: "waves",
 };
