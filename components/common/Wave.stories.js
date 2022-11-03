@@ -49,3 +49,10 @@ WaveGradient.args = {
     gradientColorStart: "orange",
     gradientColorEnd: "alizarin",
 };
+
+export const PeakGradient = Template.bind({});
+PeakGradient.args = {
+    shape: "peak",
+    gradientColorStart: "amethyst",
+    gradientColorEnd: "belize-hole",
+};
