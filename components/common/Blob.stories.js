@@ -29,6 +29,7 @@ const Template = (args, { argTypes }) => ({
             :strokeWidth="strokeWidth" 
             :gradientColorStart="gradientColorStart" 
             :gradientColorEnd="gradientColorEnd"
+            :gradientRotate="gradientRotate"
         />`,
 });
 

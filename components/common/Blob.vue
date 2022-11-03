@@ -6,7 +6,7 @@
 .blob
     svg(v-for="n in computedShadow" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
-            linearGradient(id="gradient" x1="0%" y1="0%" x2="0%" y2="100%")
+            linearGradient(id="gradient" :gradientTransform="`rotate(${gradientRotate})`")
                 stop(offset="0%" :style="{stopColor: computedGradientColorStart}")
                 stop(offset="100%" :style="{stopColor: computedGradientColorEnd}")
         path(:fill="fill" :stroke="stroke" :stroke-width="strokeWidth" transform="translate(100 100)")
@@ -45,6 +45,10 @@ export default {
         shadow: {
             type: Boolean,
             default: false,
+        },
+        gradientRotate: {
+            type: Number,
+            default: 90,
         },
     },
     data() {
