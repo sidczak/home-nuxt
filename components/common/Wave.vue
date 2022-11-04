@@ -4,8 +4,8 @@
     svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320")
         defs
             linearGradient(id="gradient" gradientTransform="rotate(90)")
-                stop(offset="0%" :style="{stopColor: computedGradientColorStart}")
-                stop(offset="100%" :style="{stopColor: computedGradientColorEnd}")
+                stop(offset="0%" :stop-color="computedGradientColorStart")
+                stop(offset="100%" :stop-color="computedGradientColorEnd")
         path(fill="url(#gradient)" :fill-opacity="fillOpacity")
             animate(
                 attributeName="d" 

@@ -7,8 +7,8 @@
     svg(v-for="n in computedShadow" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg")
         defs
             linearGradient(id="gradient" :gradientTransform="`rotate(${gradientRotate})`")
-                stop(offset="0%" :style="{stopColor: computedGradientColorStart}")
-                stop(offset="100%" :style="{stopColor: computedGradientColorEnd}")
+                stop(offset="0%" :stop-color="computedGradientColorStart")
+                stop(offset="100%" :stop-color="computedGradientColorEnd")
         path(:fill="fill" :stroke="stroke" :stroke-width="strokeWidth" transform="translate(100 100)")
             animate(
                 attributeName="d" 
