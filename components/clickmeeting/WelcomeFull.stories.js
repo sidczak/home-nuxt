@@ -1,7 +1,7 @@
 import WelcomeFull from "./WelcomeFull";
 
 export default {
-    title: "Welcome/WelcomeFull",
+    title: "Clickmeeting/WelcomeFull",
     component: WelcomeFull,
     parameters: {
         backgrounds: {

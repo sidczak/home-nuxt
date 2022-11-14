@@ -2,11 +2,11 @@
 .main-data-table
     .table(:class='{ loading: isLoading }')
         .table__headers.d-flex
-            .table__header.d-flex.flex-1.align-items-center.px-3(
+            .table__header.d-flex.align-items-center.px-3(
                 v-for='column in computedColumns'
                 :key='column.name'
                 @click='!column.disableSort && !column.hideHeader ? updateSort(column.name) : undefined'
-                :class='[column.class, column.justifyClass, { "table__header--sortable": !column.disableSort && !column.hideHeader }]'
+                :class='[column.class, column.justifyClass, { "table__header--sortable": !column.disableSort && !column.hideHeader }, column.widthClass]'
             )
                 slot(:name='column.headerSlotName')
                     span.table__text(v-if='!column.hideHeader') {{ column.label }} {{sort.order}}
@@ -19,15 +19,14 @@
         .table__body
             .table__rows
                 .table__row.d-flex(v-for='(row, index) in rows')
-                    | {{index +1}}
-                    slot(name='row' :data='row')
-                        .table__cell.px-3.flex-1.d-flex.flex-wrap(
+                    slot(name='row' :row='row')
+                        .table__cell.px-3.d-flex.flex-wrap(
                             v-for='column in computedColumns'
-                            :class='[column.justifyClass, column.cellClass]'
+                            :class='[column.justifyClass, column.cellClass, column.widthClass]'
                         )
-                            slot(:name='column.rowSlotName' :data='row')
-                                //- span(v-html='row[column.name]')
-                                span(v-safe-html="row[column.name].toString()")
+                            slot(:name='column.rowSlotName' :row='row')
+                                span(v-html='row[column.name]')
+                                //- span(v-safe-html="row[column.name].toString()")
     //- .table__footer.px-3(v-if='showFooter && !$slots.footer')
     //-     slot(name='footer')
     //-         Pagination(
@@ -101,6 +100,9 @@ export default {
                 headerSlotName: `header:${column.name}`,
                 rowSlotName: `row:${column.name}`,
                 justifyClass: `justify-content-${column.align || "start"}`,
+                widthClass: `flex-${column.width || 1}`,
+                class: column.class || ["overflow-hidden"],
+                cellClass: column.cellClass || ["overflow-hidden"],
             }));
         },
         columnsSortIconsState() {
@@ -190,7 +192,9 @@ export default {
     position: relative;
     border-bottom: 1px solid $silver;
 }
-.flex-1 {
-    flex: 1;
+@for $i from 1 through 10 {
+    .flex-#{$i} {
+        flex: $i;
+    }
 }
 </style>

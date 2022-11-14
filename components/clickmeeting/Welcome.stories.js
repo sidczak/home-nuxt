@@ -1,7 +1,7 @@
 import Welcome from "./Welcome";
 
 export default {
-    title: "Welcome/Welcome",
+    title: "Clickmeeting/Welcome",
     component: Welcome,
 };
 

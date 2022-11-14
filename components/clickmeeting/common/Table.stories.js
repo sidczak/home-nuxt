@@ -6,7 +6,7 @@ import { getPageRows, sortRows } from "@helpers/MainDataTableHelpers";
 import Table from "./Table";
 
 export default {
-    title: "Common/Table",
+    title: "Clickmeeting/Common/Table",
     component: Table,
 };
 
