@@ -39,6 +39,7 @@ export default {
 @import "~sass-rem";
 $rem-fallback: false;
 section {
+    position: relative;
     // @include rem(padding, 6px 30px);
     // font-size: rem(11px);
 }
