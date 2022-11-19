@@ -3,7 +3,7 @@ Main
     template(slot='section')
         StartAbout
         StartTools
-        Section(title="title" subtitle="subtitle")
+        Section(title="title" subtitle="subtitle" onAnimation)
             template(slot='content')
                 EventsList
 </template>

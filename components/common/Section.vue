@@ -1,5 +1,5 @@
 <template lang="pug">
-section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100 ': minHeight}]")
+section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100': minHeight, 'animation': scrolled}]")
     slot(v-if="noBody" name="content")
     b-container(v-else)
         b-row.justify-content-center.mb-2
@@ -13,6 +13,10 @@ section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section
 export default {
     props: {
         noBody: {
+            type: Boolean,
+            default: false,
+        },
+        onAnimation: {
             type: Boolean,
             default: false,
         },
@@ -31,6 +35,35 @@ export default {
         minHeight: {
             type: Boolean,
             default: true,
+        },
+    },
+    data() {
+        return {
+            scrolled: false,
+            // sectionPosition: 0,
+        };
+    },
+    mounted() {
+        window.addEventListener("scroll", this.handleScroll);
+        this.handleScroll(); // ustawi scrolled=true dla pierwszej sekcji.
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll);
+    },
+    methods: {
+        handleScroll() {
+            const section = this.$el;
+            // const scrollStart = section.offsetTop - 200;
+            // const scrollStart = section.offsetTop - (window.innerHeight * 0.75); // 25% wczytanej sekcji
+            // const scrollStart = section.offsetTop - (window.innerHeight * 50/100); // 50% wczytanej sekcji
+            const scrollStart = section.offsetTop - window.innerHeight / 2; // 50% wczytajej sekcji
+            // this.sectionPosition = window.scrollY - section.offsetTop;
+
+            if (this.onAnimation && scrollStart <= window.scrollY) {
+                this.scrolled = true;
+            } else {
+                this.scrolled = false;
+            }
         },
     },
 };
