@@ -1,5 +1,5 @@
 <template lang="pug">
-section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100': minHeight, 'animation': scrolled}]")
+section.d-flex.flex-shrink-0.align-items-center.section-py-80(:class="[{'section-min-h-100': minHeight, 'animated': scrolled}, typeAnimation]")
     slot(v-if="noBody" name="content")
     b-container(v-else)
         b-row.justify-content-center.mb-2
@@ -19,6 +19,12 @@ export default {
         onAnimation: {
             type: Boolean,
             default: false,
+        },
+        typeAnimation: {
+            type: String,
+            default: null,
+            validator: (value) =>
+                ["blur", "tada"].includes(value) || null === value,
         },
         title: {
             type: String,
@@ -75,6 +81,22 @@ section {
     position: relative;
     // @include rem(padding, 6px 30px);
     // font-size: rem(11px);
+    &.tada {
+        opacity: 0;
+        transition: all 0.5s;
+        &.animated {
+            opacity: 1;
+        }
+    }
+    &.blur {
+        opacity: 0;
+        filter: blur(5px);
+        transition: all 0.5s;
+        &.animated {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
 }
 .section {
     &-pt-152 {
