@@ -5,6 +5,11 @@ Main
 </template>
 <script>
 export default {
+    head() {
+        return {
+            title: "HomeNuxt - Start",
+        };
+    },
     name: "Start",
 };
 </script>
