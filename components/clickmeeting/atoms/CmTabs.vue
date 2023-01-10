@@ -1,5 +1,5 @@
 <template lang="pug">
-    .tabs__wrapper(:class='{ tile: tile }')
+    .tabs__wrapper(:class='{ tile }')
         .tabs__scroller
             ul.nav(
                 role='tablist'
@@ -12,16 +12,16 @@
                     :active='activeTab === index'
                     @clickTab='selectTab(index)'
                 )
-            .tabs__arrow--left(v-show='arrow.left')
+            .tabs__arrow-left(v-show='arrow.left')
                 .tabs__arrow(@click='scrollLeft')
                     | &lt;
                     //- svg-icon(name='default/arrow-left-14')
-            .tabs__arrow--right(v-show='arrow.right')
+            .tabs__arrow-right(v-show='arrow.right')
                 .tabs__arrow(@click='scrollRight')
                     | &gt;
                     //- svg-icon(name='default/arrow-right-14')
         .tab-content
-            .tab-pane.tab__content(
+            .tab-pane(
                 v-for='(tab, index) in tabs'
                 :key='tab.componentSlug'
                 role='tabpanel'
@@ -34,8 +34,9 @@
 import {
     alignHValues,
     getAlignClass,
-    // eslint-disable-next-line comma-dangle
     navTypeValues,
+    // eslint-disable-next-line comma-dangle
+    getNavTypeClass,
 } from "@helpers/componentsUtils";
 import CmTab from "./CmTab";
 export default {
@@ -69,6 +70,10 @@ export default {
             type: Array,
             default: () => [],
         },
+        value: {
+            type: Number,
+            default: 0,
+        },
         tile: {
             type: Boolean,
             default: true,
@@ -90,11 +95,15 @@ export default {
         navTypeClass() {
             if (!this.navType) return "";
             return `nav-${this.navType}`;
+            // return getNavTypeClass(this.navType, "nav");
         },
+    },
+    created() {
+        this.activeTab = this.value;
     },
     mounted() {
         window.addEventListener("resize", this.toggleArrows);
-        this.navTabs = this.$el.querySelector(".nav.nav-tabs");
+        this.navTabs = this.$el.querySelector("ul.nav");
         this.navTabs.addEventListener("scroll", this.toggleArrows);
         setTimeout(this.toggleArrows, 0);
     },
@@ -138,19 +147,13 @@ export default {
     height: 100%;
     position: relative;
     &.tile {
-        .tab__content {
+        .tab-pane {
             height: 198px;
             overflow: auto;
             margin: 0 -25px;
             padding: 20px 25px 0;
         }
-        .tabs__arrow--left {
-            left: -25px;
-        }
-        .tabs__arrow--right {
-            right: -25px;
-        }
-        /deep/ .tabs__scroller {
+        .tabs__scroller {
             margin: 0 -25px;
             padding: 0 15px;
         }
@@ -181,27 +184,28 @@ export default {
         // @include setSvgFill(14px, var(--font-2-color));
         // @include transitionMode(stroke);
     }
-    &--left,
-    &--right {
-        background-color: var(--bg-4-color);
+    &-left,
+    &-right {
+        // background-color: var(--bg-4-color);
+        background-color: #fff;
         position: absolute;
         top: 0;
         width: 40px;
         height: 46px;
     }
-    &--left {
+    &-left {
         left: 0;
     }
-    &--right {
+    &-right {
         right: 0;
     }
 }
-/deep/ .tabs__scroller {
+.tabs__scroller {
     position: relative;
     overflow-y: hidden;
     height: 47px;
     border-bottom: 1px solid var(--input-color);
-    .nav-tabs {
+    /deep/.nav-tabs {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;

@@ -5,7 +5,6 @@ const generateTabs = (count) => {
     const tabs = [];
     for (let i = 0; i < count; i++) {
         tabs.push({
-            value: i,
             name: `Tab ${i}`,
         });
     }
@@ -13,7 +12,7 @@ const generateTabs = (count) => {
 };
 
 export default {
-    title: "Clickmeeting/Atoms/CmTabs",
+    title: "Atoms/CmTabs",
     component: CmTabs,
     argTypes: {
         alignH: {
@@ -41,6 +40,7 @@ const Template = (args, { argTypes }) => ({
             :alignH="alignH"
             :navType="navType"
             :tabs="tabs"
+            :value="value"
             :tile="tile"
         />`,
 });
@@ -55,5 +55,6 @@ export const TabsScroll = Template.bind({});
 
 TabsScroll.args = {
     tabs: generateTabs(24),
+    value: 2,
     tile: false,
 };
