@@ -9,7 +9,7 @@
                 :class='[column.class, column.justifyClass, { "table__header--sortable": !column.disableSort && !column.hideHeader }, column.widthClass]'
             )
                 slot(:name='column.headerSlotName')
-                    span.table__text(v-if='!column.hideHeader') {{ column.label }} {{sort.order}}
+                    span.table__text(v-if='!column.hideHeader' v-cm-tooltip.top='column.label') {{ column.label }} {{sort.order}}
                 font-awesome-icon.ml-2.table__icon(
                     v-if='!column.disableSort && !column.hideHeader' 
                     :icon="['fas', columnsSortIconsState[column.name]]" 

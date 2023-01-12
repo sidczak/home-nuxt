@@ -61,6 +61,8 @@ const targetAttributes = ["_blank", "_self", "_parent", "_top", "framename"];
 
 const navTypeValues = ["tabs", "pills"];
 
+const positions = ["left", "top", "right", "bottom"];
+
 export {
     availableBsSizes,
     alignContentValues,
@@ -79,6 +81,7 @@ export {
     autoColsValues,
     rowColsValidator,
     rowColsValues,
+    positions,
     // eslint-disable-next-line comma-dangle
     colsValidator,
 };

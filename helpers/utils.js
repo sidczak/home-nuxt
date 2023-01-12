@@ -1,5 +1,10 @@
 const kebabToCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
+const camelCaseToKebab = (s) =>
+    s
+        .replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, "-$1")
+        .toLowerCase();
+
 const hasValue = (value) => value !== undefined && null !== value;
 
 const getVh = (v) => {
@@ -28,6 +33,13 @@ const importAsyncComponents = (componentsContext) => {
         components[extractFileName(path)] = () => componentsContext(path);
     });
     return components;
+};
+
+const registerDirectives = (Vue, context) => {
+    context.keys().forEach((path) => {
+        const camelCaseName = camelCaseToKebab(extractFileName(path));
+        Vue.directive(camelCaseName, context(path).default);
+    });
 };
 
 const getTranslations = (Vue, translationsKeysDict) => {
@@ -102,11 +114,13 @@ const range = (length, fromZero = false) => {
 
 module.exports = {
     kebabToCamelCase,
+    camelCaseToKebab,
     hasValue,
     getVh,
     getCountryCode,
     extractFileName,
     importAsyncComponents,
+    registerDirectives,
     getTranslations,
     omitObjectKeys,
     omitObjectKeysArray,

@@ -98,14 +98,15 @@ export default {
             // return getNavTypeClass(this.navType, "nav");
         },
     },
-    created() {
-        this.activeTab = this.value;
-    },
+    // created() {
+    //     this.activeTab = this.value;
+    // },
     mounted() {
         window.addEventListener("resize", this.toggleArrows);
         this.navTabs = this.$el.querySelector("ul.nav");
         this.navTabs.addEventListener("scroll", this.toggleArrows);
         setTimeout(this.toggleArrows, 0);
+        this.activeTab = this.value;
     },
     destroyed() {
         window.removeEventListener("resize", this.toggleArrows);
