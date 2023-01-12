@@ -51,7 +51,8 @@ b-container
                 b-button(variant="primary") Subscribe
     .d-flex.flex-column.flex-sm-row.justify-content-between.py-4.my-4.border-top
         p
-            |&copy; 2022 Company, Inc. All rights reserved. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+            |&copy; 2022 Company, Inc. All rights reserved. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a><br/>
+            | I have been programming for <strong>{{giveDateVue}}</strong> years
         ul.d-flex.list-unstyled
             li.ml-3
                 a.link-dark(href="#")
@@ -63,3 +64,14 @@ b-container
                 a.link-dark(href="#")
                     font-awesome-icon(:icon="['fab', 'facebook']" size="2x" fixed-width)
 </template>
+
+<script>
+export default {
+    computed: {
+        giveDateVue() {
+            const date = new Date();
+            return date.getFullYear() - 2009;
+        },
+    },
+};
+</script>
