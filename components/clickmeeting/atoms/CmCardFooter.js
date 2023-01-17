@@ -31,7 +31,9 @@ import { createSimpleFunctionalComponent } from "@helpers/componentsUtils";
 // };
 
 export const CARD_FOOTER_CLASS = "card-footer";
+export const CARD_FOOTER_DEFAULT_TAG = "footer";
 
 export default createSimpleFunctionalComponent("CmCardFooter", {
     classes: CARD_FOOTER_CLASS,
+    defaultTag: CARD_FOOTER_DEFAULT_TAG,
 });
