@@ -1,3 +1,4 @@
+import Vue from "vue";
 import { range } from "@helpers/utils";
 
 const availableBsSizes = ["sm", "md", "lg", "xl"];
@@ -63,6 +64,34 @@ const navTypeValues = ["tabs", "pills"];
 
 const positions = ["left", "top", "right", "bottom"];
 
+const mergeClasses = (a, b) => {
+    return `${a || ""} ${b || ""}`.trim();
+};
+
+const createSimpleFunctionalComponent = (
+    name,
+    { defaultTag = "div", classes = "" } = {}
+) => {
+    return Vue.extend({
+        name,
+
+        functional: true,
+
+        props: {
+            tag: {
+                type: String,
+                default: defaultTag,
+            },
+        },
+
+        render(h, { data, props, children }) {
+            data.staticClass = mergeClasses(classes, data.staticClass);
+
+            return h(props.tag, data, children);
+        },
+    });
+};
+
 export {
     availableBsSizes,
     alignContentValues,
@@ -82,6 +111,8 @@ export {
     rowColsValidator,
     rowColsValues,
     positions,
+    createSimpleFunctionalComponent,
+    mergeClasses,
     // eslint-disable-next-line comma-dangle
     colsValidator,
 };

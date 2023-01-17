@@ -112,6 +112,10 @@ const range = (length, fromZero = false) => {
     return Array.from({ length }, (x, i) => (fromZero ? i : i + 1));
 };
 
+const isFunction = (value) => {
+    return "function" === typeof value;
+};
+
 module.exports = {
     kebabToCamelCase,
     camelCaseToKebab,
@@ -129,5 +133,6 @@ module.exports = {
     hexToRgb,
     getResponseData,
     roundNumber,
+    isFunction,
     range,
 };
