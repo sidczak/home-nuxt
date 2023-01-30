@@ -74,6 +74,10 @@ export default {
             type: Number,
             default: 0,
         },
+        // value: {
+        //     type: String,
+        //     default: null,
+        // },
         tile: {
             type: Boolean,
             default: true,
@@ -82,6 +86,10 @@ export default {
     data() {
         return {
             activeTab: 0,
+            // Kiedy zamiast index mamy tab.componentSlug
+            // zmienia się również props value na string
+            // activeTab: this.tabs?.[0]?.componentSlug,
+            // activeTab: this.tabs && this.tabs[0] ? this.tabs[0].componentSlug : undefined,
             arrow: {
                 right: false,
                 left: false,
@@ -100,6 +108,10 @@ export default {
     },
     // created() {
     //     this.activeTab = this.value;
+    //     // Kiedy value jest stingiem a index zmienimy na tab.componentSlug
+    //     // if (this.value) {
+    //     //     this.activeTab = this.value;
+    //     // }
     // },
     mounted() {
         window.addEventListener("resize", this.toggleArrows);
@@ -107,6 +119,10 @@ export default {
         this.navTabs.addEventListener("scroll", this.toggleArrows);
         setTimeout(this.toggleArrows, 0);
         this.activeTab = this.value;
+        // Kiedy value jest stingiem a index zmienimy na tab.componentSlug
+        // if (this.value) {
+        //     this.activeTab = this.value;
+        // }
     },
     destroyed() {
         window.removeEventListener("resize", this.toggleArrows);
@@ -114,6 +130,7 @@ export default {
     },
     methods: {
         selectTab(selectedTab) {
+            this.$emit("input", selectedTab);
             this.activeTab = selectedTab;
         },
         toggleArrows() {
