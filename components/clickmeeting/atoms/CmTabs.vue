@@ -23,6 +23,7 @@
         .tab-content
             .tab-pane(
                 v-for='(tab, index) in tabs'
+                v-if='lazyLoadingTabContent(index)'
                 :key='tab.componentSlug'
                 role='tabpanel'
                 :class='[{ active: activeTab === index }]'
@@ -44,6 +45,10 @@ export default {
         CmTab,
     },
     props: {
+        lazy: {
+            type: Boolean,
+            default: true,
+        },
         fill: {
             type: Boolean,
             default: false,
@@ -94,6 +99,7 @@ export default {
                 right: false,
                 left: false,
             },
+            visitedTabs: [],
         };
     },
     computed: {
@@ -123,6 +129,7 @@ export default {
         // if (this.value) {
         //     this.activeTab = this.value;
         // }
+        this.$set(this.visitedTabs, this.visitedTabs.length, this.activeTab);
     },
     destroyed() {
         window.removeEventListener("resize", this.toggleArrows);
@@ -132,6 +139,13 @@ export default {
         selectTab(selectedTab) {
             this.$emit("input", selectedTab);
             this.activeTab = selectedTab;
+            if (!this.visitedTabs.includes(selectedTab)) {
+                this.$set(
+                    this.visitedTabs,
+                    this.visitedTabs.length,
+                    this.activeTab
+                );
+            }
         },
         toggleArrows() {
             const hasHorizontalScrollbar =
@@ -156,6 +170,12 @@ export default {
         },
         scrollRight() {
             this.scroll(this.navTabs.clientWidth - 80);
+        },
+        lazyLoadingTabContent(index) {
+            if (!this.lazy) {
+                return true;
+            }
+            return this.visitedTabs.includes(index);
         },
     },
 };

@@ -42,6 +42,7 @@ const Template = (args, { argTypes }) => ({
             :tabs="tabs"
             :value="value"
             :tile="tile"
+            :lazy="lazy"
         />`,
 });
 
@@ -71,6 +72,7 @@ const TemplateFilledSlots = (args, { argTypes }) => ({
             :tabs="tabs"
             :value="value"
             :tile="tile"
+            :lazy="lazy"
         >
             <template #first>
                 I'm the first tab
@@ -122,6 +124,7 @@ const TemplateEmitValue = (args, { argTypes }) => ({
             :tabs="tabs"
             :value="value"
             :tile="tile"
+            :lazy="lazy"
             @input="onInput"
         >
             <template #first>
