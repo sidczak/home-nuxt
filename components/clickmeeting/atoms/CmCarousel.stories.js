@@ -56,6 +56,53 @@ Primary.args = {
     ],
 };
 
+const TemplateEmitValue = (args, { argTypes }) => ({
+    components: { CmCarousel },
+    props: Object.keys(argTypes),
+    methods: {
+        onInput(value) {
+            console.log("This is emmited value: ", value);
+        },
+    },
+    template: `<CmCarousel
+            :controls="controls"
+            :indicators="indicators"
+            :fade="fade"
+            :backgroundColor="backgroundColor"
+            :intervalDelay="intervalDelay"
+            :pauseOnHover="pauseOnHover"
+            :items="items"
+            @input="onInput"
+        />`,
+});
+
+export const EmitValue = TemplateEmitValue.bind({});
+
+EmitValue.args = {
+    controls: true,
+    indicators: true,
+    items: [
+        {
+            imgSrc: "https://picsum.photos/1024/480/?image=52",
+            caption: "Slide 1",
+            componentSlug: "slide1",
+            text: "Lorem ipsum dolor sit amet",
+        },
+        {
+            imgSrc: "https://picsum.photos/1024/480/?image=54",
+            caption: "Slide 2",
+            componentSlug: "slide2",
+            text: "Lorem ipsum dolor sit amet",
+        },
+        {
+            imgSrc: "https://picsum.photos/1024/480/?image=58",
+            caption: "Slide 3",
+            componentSlug: "slide3",
+            text: "Lorem ipsum dolor sit amet",
+        },
+    ],
+};
+
 const TemplateFilledSlots = (args, { argTypes }) => ({
     components: { CmCarousel, CmCarouselSlide },
     props: Object.keys(argTypes),

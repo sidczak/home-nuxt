@@ -4,39 +4,51 @@
         @mouseover='toggle(false)'
         @mouseleave='toggle(true)'
     )
-        //- 2. indicators - odpowiednia animacja prawo lewo
-        //- 3. transition-group - rozkmina
-        //- 4. Zamienić index na slug
-        //- 6. Napisać testy
-
-        //- transition-group(
-        //-     :name='transitionName'
-        //-     tag='div'
-        //-     :class='carouselInner'
-        //- )
-        //-     CmCarouselSlide(
-        //-         v-for='(item, index) in items'
-        //-         v-if='index === current'
-        //-         :key='index'
-        //-         :active='index === current'
-        //-         :imgSrc='imgSrc'
-        //-         :caption='item.name'
-        //-         :text='item.name'
-        //-     )
-        .carousel-inner
-            transition(:name='transitionName' :mode='transitionMode')
-                template(v-for='(item, index) in items')
-                    .carousel-item(
-                        v-if='index === current'
-                        :key='index'
-                        :class='{ active: index === current }'
+        transition-group.carousel-inner(
+            :name='transitionName'
+            :mode='transitionMode'
+            tag='div'
+        )
+            .carousel-item.active(:key='current' v-if='items.length')
+                slot(:name='items[current].componentSlug')
+                    CmCarouselSlide(
+                        :imgSrc='items[current].imgSrc'
+                        :caption='items[current].caption'
+                        :text='items[current].text'
                     )
-                        slot(:name='item.componentSlug')
-                            CmCarouselSlide(
-                                :imgSrc='item.imgSrc'
-                                :caption='item.caption'
-                                :text='item.text'
-                            )
+
+        //- transition-group.carousel-inner(
+        //-     :name='transitionName'
+        //-     :mode='transitionMode'
+        //-     tag='div'
+        //- )
+        //-     template(v-for='(item, index) in items')
+        //-         .carousel-item(
+        //-             v-if='index === current'
+        //-             :key='index'
+        //-             :class='{ active: index === current }'
+        //-         )
+        //-             slot(:name='item.componentSlug')
+        //-                 CmCarouselSlide(
+        //-                     :imgSrc='item.imgSrc'
+        //-                     :caption='item.caption'
+        //-                     :text='item.text'
+        //-                 )
+
+        //- .carousel-inner
+        //-     transition(:name='transitionName' :mode='transitionMode')
+        //-         template(v-for='(item, index) in items')
+        //-             .carousel-item(
+        //-                 v-if='index === current'
+        //-                 :key='index'
+        //-                 :class='{ active: index === current }'
+        //-             )
+        //-                 slot(:name='item.componentSlug')
+        //-                     CmCarouselSlide(
+        //-                         :imgSrc='item.imgSrc'
+        //-                         :caption='item.caption'
+        //-                         :text='item.text'
+        //-                     )
         a.carousel-control-prev(
             v-if='controls'
             role='button'
@@ -53,7 +65,7 @@
             li(
                 v-for='(item, index) in items'
                 :class='{ active: index === current }'
-                @click='slideIndicators(index)'
+                @click='indicatorSwitch(index)'
             )
 </template>
 
@@ -126,6 +138,7 @@ export default {
             }
             var len = this.items.length;
             this.current = (this.current + (dir % len) + len) % len;
+            this.setValue(this.current);
         },
         toggle(value) {
             if (!this.pauseOnHover) {
@@ -139,13 +152,17 @@ export default {
                 if (this.toggleTimer) this.slide(1);
             }, this.intervalDelay);
         },
-        slideIndicators(index) {
+        indicatorSwitch(index) {
             if (this.current > index) {
                 this.transitionName = "slide-prev";
             } else {
                 this.transitionName = "slide-next";
             }
             this.current = index;
+            this.setValue(this.current);
+        },
+        setValue(value) {
+            this.$emit("input", value);
         },
     },
 };
