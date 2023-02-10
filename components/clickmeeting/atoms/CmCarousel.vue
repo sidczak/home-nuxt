@@ -127,7 +127,6 @@ export default {
     },
     methods: {
         slide(dir) {
-            this.autoPlay();
             if (this.fade) {
                 this.transitionName = "fade";
                 this.transitionMode = "out-in";
