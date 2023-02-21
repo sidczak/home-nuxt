@@ -2,7 +2,7 @@
     li.nav-item(role='presentation')
         a.nav-link(
             :aria-disabled='ariaDisabled'
-            href='#'
+            href='javascript:void(0);'
             role='tab'
             :class='{ active, disabled }'
             target='_self'

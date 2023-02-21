@@ -4,6 +4,8 @@ export default {
   //   about: "About Page",
   // },
   home: {
+    start:
+      "Hello! My name is [first and last name], and I'm a web designer. I create modern, functional websites tailored to your needs and requirements. I use the latest technologies, such as HTML5, CSS3, and JavaScript, to provide you with a website that meets the latest standards. As a one-person company, I offer you an individual approach and full commitment to every project. Contact me and see how we can create a website that will attract your customers' attention!",
     about: {
       title: "About",
       subtitle: "Who We Are",

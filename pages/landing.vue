@@ -20,12 +20,13 @@ Main
                     li FAQ i Filtry
                     li Terms and menu
                     li Contact form
-                ol
+                ol(v-bg-color="'red'")
                     li Contact Us
                     li About Us
                     li Team
                     li FAQ
-                    li Site Map
+                    li xSite Map
+                button(v-toggle="toggleHandler") Toggle me {{isActive}}
 </template>
 <script>
 import Section from "@components/common/Section";
@@ -35,6 +36,17 @@ export default {
     components: {
         Section,
         EventsList,
+    },
+    data() {
+        return {
+            isActive: false,
+        };
+    },
+    methods: {
+        toggleHandler() {
+            this.isActive = !this.isActive;
+            return this.isActive;
+        },
     },
 };
 </script>
