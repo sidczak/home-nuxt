@@ -17,10 +17,10 @@
                 slot(name='prev-text')
                     span(v-if='prevText') {{ prevText }}
                     span(v-else) ‹
-        template(v-if='showDots("left")')
+        template(v-if='showLeftEllipsis')
             li.page-item(:class='{ disabled: isInFirstPage }')
                 button.page-link(type='button' @click='gotoPageNumber(1)') 1
-            li.page-item
+            li.page-item.disabled
                 span.page-link
                     slot(name='ellipsis-text') &mldr;
         li.page-item(
@@ -29,8 +29,8 @@
             :class='{ active: page === activePage }'
         )
             button.page-link(type='button' @click='gotoPageNumber(page)') {{ page }}
-        template(v-if='showDots("right")')
-            li.page-item
+        template(v-if='showRightEllipsis')
+            li.page-item.disabled
                 span.page-link 
                     slot(name='ellipsis-text') &mldr;
             li.page-item(:class='{ disabled: isInLastPage }')
@@ -52,130 +52,156 @@
 
 <script>
 export default {
-    props: {
-        firstNumber: {
-            type: Boolean,
-            default: false,
-        },
-        lastNumber: {
-            type: Boolean,
-            default: false,
-        },
-        firstText: {
-            type: String,
-            default: "«",
-        },
-        prevText: {
-            type: String,
-            default: null,
-        },
-        nextText: {
-            type: String,
-            default: null,
-        },
-        lastText: {
-            type: String,
-            default: "»",
-        },
-        currentPage: {
-            type: Number,
-            required: true,
-        },
-        totalRows: {
-            type: Number,
-            required: true,
-        },
-        rowsPerPage: {
-            type: Number,
-            required: true,
-        },
-        maxVisibleButtons: {
-            type: Number,
-            default: 3,
-        },
-    },
-    data() {
-        return {
-            slotPrevText: false,
-            slotNextText: false,
-            activePage: 1,
-        };
-    },
-    computed: {
-        isInFirstPage() {
-            return 1 === this.activePage;
-        },
-        isInLastPage() {
-            return this.activePage === this.totalPages;
-        },
-        pages() {
-            const range = [];
+	props: {
+		firstNumber: {
+			type: Boolean,
+			default: false,
+		},
+		lastNumber: {
+			type: Boolean,
+			default: false,
+		},
+		firstText: {
+			type: String,
+			default: "«",
+		},
+		prevText: {
+			type: String,
+			default: null,
+		},
+		nextText: {
+			type: String,
+			default: null,
+		},
+		lastText: {
+			type: String,
+			default: "»",
+		},
+		currentPage: {
+			type: Number,
+			required: true,
+		},
+		totalRows: {
+			type: Number,
+			required: true,
+		},
+		rowsPerPage: {
+			type: Number,
+			required: true,
+		},
+		maxVisiblePages: {
+			type: Number,
+			default: 1,
+		},
+	},
+	data() {
+		return {
+			slotPrevText: false,
+			slotNextText: false,
+			activePage: 1,
+		};
+	},
+	computed: {
+		isInFirstPage() {
+			return 1 === this.activePage;
+		},
+		isInLastPage() {
+			return this.activePage === this.totalPages;
+		},
+		showLeftEllipsis() {
+			// return 3 < this.activePage && 5 < this.totalPages;
+			return (
+				2 + this.maxVisiblePages < this.activePage &&
+				4 + this.maxVisiblePages < this.totalPages
+			);
+		},
+		showRightEllipsis() {
+			// return this.activePage < this.totalPages - 2 && 5 < this.totalPages;
+			return (
+				this.activePage <
+					this.totalPages - (1 + this.maxVisiblePages) &&
+				4 + this.maxVisiblePages < this.totalPages
+			);
+		},
+		pages() {
+			const range = [];
+			let startPage = 1;
+			let endPage = this.totalPages;
 
-            for (let i = this.startPage; i <= this.endPage; i += 1) {
-                range.push(i);
-            }
+			// if (5 < this.totalPages) {
+			//     if (
+			//         3 < this.activePage &&
+			//         this.activePage < this.totalPages - 2
+			//     ) {
+			//         startPage = this.activePage - 1;
+			//         endPage = this.activePage + 1;
+			//     } else if (3 >= this.activePage) {
+			//         endPage = 5;
+			//     } else {
+			//         startPage = this.totalPages - 4;
+			//     }
+			// }
 
-            return range;
-        },
-        startPage() {
-            if (1 === this.activePage) {
-                return 1;
-            }
+			if (4 + this.maxVisiblePages < this.totalPages) {
+				if (
+					2 + this.maxVisiblePages < this.activePage &&
+					this.activePage <
+						this.totalPages - (1 + this.maxVisiblePages)
+				) {
+					startPage = this.activePage - this.maxVisiblePages;
+					endPage = this.activePage + this.maxVisiblePages;
+				} else if (2 + this.maxVisiblePages >= this.activePage) {
+					endPage = 4 + this.maxVisiblePages;
+				} else {
+					startPage = this.totalPages - (3 + this.maxVisiblePages);
+				}
+			}
 
-            if (this.activePage === this.totalPages) {
-                return this.totalPages - this.maxVisibleButtons + 1;
-            }
+			for (let i = startPage; i <= endPage; i++) {
+				range.push(i);
+			}
 
-            return this.activePage - 1;
-        },
-        endPage() {
-            return Math.min(
-                this.startPage + this.maxVisibleButtons - 1,
-                this.totalPages
-            );
-        },
-        totalPages() {
-            return Math.ceil(this.totalRows / this.rowsPerPage);
-        },
-    },
-    mounted() {
-        if (this.$slots["next-text"] && 0 < this.$slots["next-text"].length) {
-            this.slotNextText = true;
-        }
-        if (this.$slots["prev-text"] && 0 < this.$slots["prev-text"].length) {
-            this.slotPrevText = true;
-        }
-        this.activePage = this.currentPage;
-    },
-    methods: {
-        showDots(position = "left") {
-            const number = "left" === position ? 1 : this.totalPages;
-            const nextNumber = "left" === position ? 2 : this.totalPages - 1;
-
-            return (
-                !this.pages.includes(number) || !this.pages.includes(nextNumber)
-            );
-        },
-        gotoFirst() {
-            this.gotoPageNumber(1);
-        },
-        gotoLast() {
-            this.gotoPageNumber(this.totalPages);
-        },
-        gotoPrevious() {
-            this.gotoPageNumber(this.activePage - 1);
-        },
-        gotoNext() {
-            this.gotoPageNumber(this.activePage + 1);
-        },
-        gotoPageNumber(pageNumber) {
-            this.activePage = pageNumber;
-            this.setValue(this.activePage);
-        },
-        setValue(value) {
-            this.$emit("input", value);
-        },
-    },
+			return range;
+		},
+		totalPages() {
+			return Math.ceil(this.totalRows / this.rowsPerPage);
+		},
+	},
+	// watch: {
+	//     currentPage(newVal) {
+	//         this.activePage = newVal;
+	//     },
+	// },
+	mounted() {
+		if (this.$slots["next-text"] && 0 < this.$slots["next-text"].length) {
+			this.slotNextText = true;
+		}
+		if (this.$slots["prev-text"] && 0 < this.$slots["prev-text"].length) {
+			this.slotPrevText = true;
+		}
+		this.activePage = this.currentPage;
+	},
+	methods: {
+		gotoFirst() {
+			this.gotoPageNumber(1);
+		},
+		gotoLast() {
+			this.gotoPageNumber(this.totalPages);
+		},
+		gotoPrevious() {
+			this.gotoPageNumber(this.activePage - 1);
+		},
+		gotoNext() {
+			this.gotoPageNumber(this.activePage + 1);
+		},
+		gotoPageNumber(pageNumber) {
+			this.activePage = pageNumber;
+			this.setValue(this.activePage);
+		},
+		setValue(value) {
+			this.$emit("input", value);
+		},
+	},
 };
 </script>
 <style lang="scss" scoped>

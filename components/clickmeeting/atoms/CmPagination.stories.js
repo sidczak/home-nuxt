@@ -13,7 +13,7 @@ const Template = (args, { argTypes }) => ({
         :currentPage="currentPage"
         :totalRows="totalRows"
         :rowsPerPage="rowsPerPage"
-        :maxVisibleButtons="maxVisibleButtons"
+        :maxVisiblePages="maxVisiblePages"
         :firstNumber="firstNumber"
         :lastNumber="lastNumber"
     />`,
@@ -23,7 +23,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
     currentPage: 15,
-    totalRows: 182,
+    totalRows: 200,
     rowsPerPage: 10,
 };
 
@@ -39,7 +39,7 @@ const TemplateEmitValue = (args, { argTypes }) => ({
         :currentPage="currentPage"
         :totalRows="totalRows"
         :rowsPerPage="rowsPerPage"
-        :maxVisibleButtons="maxVisibleButtons"
+        :maxVisiblePages="maxVisiblePages"
         :firstNumber="firstNumber"
         :lastNumber="lastNumber"
         @input="onInput"
@@ -61,7 +61,7 @@ const TemplateFilledSlots = (args, { argTypes }) => ({
             :currentPage="currentPage"
             :totalRows="totalRows"
             :rowsPerPage="rowsPerPage"
-            :maxVisibleButtons="maxVisibleButtons"
+            :maxVisiblePages="maxVisiblePages"
             :firstNumber="firstNumber"
             :lastNumber="lastNumber"
             lastText="⏭">
