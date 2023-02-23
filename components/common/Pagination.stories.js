@@ -17,7 +17,7 @@ const Template = (args, { argTypes }) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-    currentPage: 3,
+    currentPage: 5,
     // totalRows: 200,
     rowsPerPage: 5,
 };
