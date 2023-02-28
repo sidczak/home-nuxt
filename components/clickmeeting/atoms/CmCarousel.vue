@@ -9,63 +9,47 @@
             :mode='transitionMode'
             tag='div'
         )
-            .carousel-item.active(:key='current' v-if='items.length')
-                slot(:name='items[current].componentSlug')
+            .carousel-item.active(
+                v-for='(item, index) in items'
+                v-show='current === index'
+                :key='index'
+            )
+                slot(:name='item.componentSlug')
                     CmCarouselSlide(
-                        :imgSrc='items[current].imgSrc'
-                        :caption='items[current].caption'
-                        :text='items[current].text'
+                        :imgSrc='item.imgSrc'
+                        :caption='item.caption'
+                        :text='item.text'
                     )
-
+        //- W tym przypadku komponenty są ubijane przy każdym przełączeniu
         //- transition-group.carousel-inner(
         //-     :name='transitionName'
         //-     :mode='transitionMode'
         //-     tag='div'
         //- )
-        //-     template(v-for='(item, index) in items')
-        //-         .carousel-item(
-        //-             v-if='index === current'
-        //-             :key='index'
-        //-             :class='{ active: index === current }'
-        //-         )
-        //-             slot(:name='item.componentSlug')
-        //-                 CmCarouselSlide(
-        //-                     :imgSrc='item.imgSrc'
-        //-                     :caption='item.caption'
-        //-                     :text='item.text'
-        //-                 )
-
-        //- .carousel-inner
-        //-     transition(:name='transitionName' :mode='transitionMode')
-        //-         template(v-for='(item, index) in items')
-        //-             .carousel-item(
-        //-                 v-if='index === current'
-        //-                 :key='index'
-        //-                 :class='{ active: index === current }'
+        //-     .carousel-item.active(v-if='items.length' :key='current')
+        //-         slot(:name='items[current].componentSlug')
+        //-             CmCarouselSlide(
+        //-                 :imgSrc='items[current].imgSrc'
+        //-                 :caption='items[current].caption'
+        //-                 :text='items[current].text'
         //-             )
-        //-                 slot(:name='item.componentSlug')
-        //-                     CmCarouselSlide(
-        //-                         :imgSrc='item.imgSrc'
-        //-                         :caption='item.caption'
-        //-                         :text='item.text'
-        //-                     )
         a.carousel-control-prev(
             v-if='controls'
             role='button'
-            @click='slide(-1)'
+            @click='activeButton && slide(-1)'
         )
-            span.carousel-control-prev-icon(aria-hidden='true')
+            span.carousel-control-prev-icon
         a.carousel-control-next(
             v-if='controls'
             role='button'
-            @click='slide(1)'
+            @click='activeButton && slide(1)'
         )
-            span.carousel-control-next-icon(aria-hidden='true')
+            span.carousel-control-next-icon
         ol.carousel-indicators(v-if='indicators')
             li(
                 v-for='(item, index) in items'
                 :class='{ active: index === current }'
-                @click='indicatorSwitch(index)'
+                @click='activeButton && indicatorSwitch(index)'
             )
 </template>
 
@@ -88,7 +72,7 @@ export default {
         },
         backgroundColor: {
             type: String,
-            default: "bg-success",
+            default: "success",
             // validator: (value) => colorsNames.includes(value),
         },
         intervalDelay: {
@@ -112,9 +96,10 @@ export default {
         return {
             current: 0,
             toggleTimer: true,
-            transitionName: "slide-next",
+            transitionName: "",
             transitionMode: "",
             interval: null,
+            activeButton: true,
         };
     },
     computed: {
@@ -135,8 +120,9 @@ export default {
                     ? (this.transitionName = "slide-next")
                     : (this.transitionName = "slide-prev");
             }
-            var len = this.items.length;
-            this.current = (this.current + (dir % len) + len) % len;
+            const length = this.items.length;
+            this.current = (this.current + (dir % length) + length) % length;
+            this.disableNavigation();
             this.setValue(this.current);
         },
         toggle(value) {
@@ -158,7 +144,15 @@ export default {
                 this.transitionName = "slide-next";
             }
             this.current = index;
+            this.disableNavigation();
             this.setValue(this.current);
+        },
+        disableNavigation() {
+            this.activeButton = false;
+
+            setTimeout(() => {
+                this.activeButton = true;
+            }, 500);
         },
         setValue(value) {
             this.$emit("input", value);
@@ -167,6 +161,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.carousel-item {
+    transition: none;
+}
 .carousel-control-prev,
 .carousel-control-next {
     width: 74px;
@@ -176,6 +173,8 @@ export default {
 }
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
+    background-image: none;
+    position: relative;
     width: 44px;
     height: 44px;
     background-color: $dark;
@@ -186,6 +185,15 @@ export default {
     //     height: 30px;
     //     background-size: 8px 14px;
     // }
+    svg {
+        width: 20px;
+        height: 20px;
+        // @include absolute-center();
+        // @include sm {
+        //     width: 14px;
+        //     height: 14px;
+        // }
+    }
 }
 .carousel-control-prev-icon {
     background-image: url("data:image/svg+xml,%3Csvg width='11' height='21' viewBox='0 0 11 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.7218 0.81016C11.1028 1.20999 11.0875 1.84297 10.6877 2.22396L2.00237 10.5L10.6877 18.776C11.0875 19.157 11.1028 19.79 10.7218 20.1898C10.3408 20.5897 9.70786 20.605 9.30803 20.224L0.60803 11.934L0.593671 11.92C0.406215 11.7341 0.257427 11.5129 0.155888 11.2692C0.0543495 11.0254 0.0020752 10.764 0.0020752 10.5C0.0020752 10.236 0.0543495 9.97457 0.155888 9.73085C0.257427 9.48713 0.406215 9.26593 0.593671 9.08L0.60803 9.06604L9.30803 0.776042C9.70786 0.395053 10.3408 0.410328 10.7218 0.81016Z' fill='%23A7AFC6'/%3E%3C/svg%3E%0A");
