@@ -17,7 +17,8 @@ const Template = (args, { argTypes }) => ({
         :lastNumber="lastNumber" 
         :showGoToPage="showGoToPage" 
         :showChangeRowsPerPageElement="showChangeRowsPerPageElement"
-        :availableRowsPerPage="availableRowsPerPage"/>`,
+        :availableRowsPerPage="availableRowsPerPage"
+        :maxVisiblePages="maxVisiblePages"/>`,
 });
 
 export const Primary = Template.bind({});

@@ -1,4 +1,7 @@
 <template lang="pug">
+    //- https://codepen.io/team/codepen/pen/axwMPo
+    //- https://codepen.io/clownay/pen/QdBPJX
+    //- https://codepen.io/timothylong/pen/AJxrPR
     div(v-if='modalVisible' :style='computedVisible')
         .modal-backdrop.fade(:class='{ show: modalContentVisible }')
         .modal.fade.d-block(:class='{ show: modalContentVisible }')

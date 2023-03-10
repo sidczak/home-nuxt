@@ -3,6 +3,7 @@
             b-col.mr-auto(lg='6' offset-lg='3')
                 .d-flex.justify-content-center.align-items-center
                     cm-pagination.mb-0.mx-3(
+                        :maxVisiblePages='maxVisiblePages'
                         @input='onPaginationInput'
                         :currentPage='localCurrentPage'
                         :totalRows='totalRows'
@@ -97,6 +98,10 @@ export default {
             type: Array,
             default: () => [10, 25, 50, 100],
         },
+        maxVisiblePages: {
+            type: Number,
+            default: 1,
+        },
     },
     data() {
         return {
@@ -153,6 +158,7 @@ export default {
             this.inputLocalCurrentPage = 1;
             this.localRowsPerPage = item;
             this.setCurrentPage(this.localCurrentPage);
+            this.$emit("update:rowsPerPage", item);
         },
     },
 };
