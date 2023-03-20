@@ -176,8 +176,18 @@ export default {
     },
     mounted() {
         this.showModal(this.visible);
+        window.addEventListener("click", this.handleOutsideClick);
+    },
+    beforeDestroy() {
+        window.removeEventListener("click", this.handleOutsideClick);
     },
     methods: {
+        handleOutsideClick(event) {
+            const modal = document.querySelector(".modal-dialog");
+            if (modal && !modal.contains(event.target)) {
+                this.showModal(false);
+            }
+        },
         onCloseClicked() {
             this.showModal(false);
             this.$emit("closeClicked");
