@@ -12,7 +12,7 @@
             .carousel-item.active(
                 v-for='(item, index) in items'
                 v-show='current === index'
-                :key='index'
+                :key='item.componentSlug'
             )
                 slot(:name='item.componentSlug')
                     CmCarouselSlide(
