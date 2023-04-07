@@ -58,14 +58,14 @@ const TemplateModel = (args, { argTypes }) => ({
         };
     },
     template: `<div>
-            <b-button v-cm-toggle="'collapse-1'">Toggle Collapse {{visible}}</b-button>
+            <b-button v-cm-toggle="'collapse-1'" @click="visible = !visible">Toggle Collapse {{visible}}</b-button>
             <CmCollapse id="collapse-1" v-model="visible" :tag="tag" class="mt-2">
                 <CmCard> 
                     <div>I should start visible!</div>
                 </CmCard>
             </CmCollapse>
             <hr/>
-            <b-button v-cm-toggle="'collapse-2'">Toggle Collapse {{open}}</b-button>
+            <b-button v-cm-toggle="'collapse-2'" @click="open = !open">Toggle Collapse {{open}}</b-button>
             <CmCollapse id="collapse-2" v-model="open" :tag="tag" class="mt-2">
                 <CmCard>
                     <div>I should start open!</div>

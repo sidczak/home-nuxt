@@ -43,8 +43,10 @@ export default {
     },
     methods: {
         initialVisible() {
-            this.isVisible = this.visible;
-            this.$emit("input", this.isVisible);
+            setTimeout(() => {
+                this.isVisible = this.visible;
+                this.$emit("input", this.isVisible);
+            }, 350);
         },
     },
 };
