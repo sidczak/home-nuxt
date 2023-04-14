@@ -5,7 +5,7 @@
             role='button'
             :class='toggleClass'
             @click='toggleDropdown'
-            :color='color'
+            :variant='color'
             :size='size'
             :tag='toggleTag'
         )
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-// import { colorsNames } from "@helpers/exportedColors";
-// import { isButtonColorValid } from "@helpers/validators";
-// import { buttonBsSizes } from "@helpers/componentsUtils";
+import { colorsNames } from "@helpers/exportedColors";
+import { isButtonColorValid } from "@helpers/validators";
+import { buttonBsSizes } from "@helpers/componentsUtils";
 
 export default {
     props: {
@@ -35,13 +35,13 @@ export default {
         color: {
             type: String,
             default: "primary",
-            // validator: (v) => isButtonColorValid(v, colorsNames),
+            validator: (v) => isButtonColorValid(v, colorsNames),
         },
         size: {
             type: String,
             default: "lg",
-            // validator: (value) =>
-            //     buttonBsSizes.includes(value) || null === value,
+            validator: (value) =>
+                buttonBsSizes.includes(value) || null === value,
         },
         disabled: {
             type: Boolean,

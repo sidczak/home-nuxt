@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 import { range } from "@helpers/utils";
 
 const availableBsSizes = ["sm", "md", "lg", "xl"];
@@ -58,9 +59,20 @@ const autoColsValidator = (v) =>
 
 const roundedBs = ["top", "right", "bottom", "left", "circle"];
 
+const typeAttributes = ["button", "submit", "reset"];
+
 const targetAttributes = ["_blank", "_self", "_parent", "_top", "framename"];
 
 const navTypeValues = ["tabs", "pills"];
+
+const getNavTypeClass = (value, navTypePrefix) => {
+    if (!value) return "";
+    return `${navTypePrefix}-${value}`;
+};
+
+const buttonBsSizes = ["sm", "md", "lg"];
+
+const svgAttributes = ["fill", "stroke"];
 
 const positions = ["left", "top", "right", "bottom"];
 
@@ -106,10 +118,14 @@ export {
     roundedBs,
     targetAttributes,
     navTypeValues,
+    getNavTypeClass,
+    typeAttributes,
     autoColsValidator,
     autoColsValues,
     rowColsValidator,
     rowColsValues,
+    buttonBsSizes,
+    svgAttributes,
     positions,
     createSimpleFunctionalComponent,
     mergeClasses,

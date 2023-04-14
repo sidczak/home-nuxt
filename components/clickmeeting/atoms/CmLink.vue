@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// import { targetAttributes } from "@helpers/componentsUtils";
+import { targetAttributes } from "@helpers/componentsUtils";
 export default {
     name: "CmLink",
     props: {
@@ -22,7 +22,7 @@ export default {
         target: {
             type: String,
             default: "_self",
-            // validator: (value) => targetAttributes.includes(value),
+            validator: (value) => targetAttributes.includes(value),
         },
         active: {
             type: Boolean,

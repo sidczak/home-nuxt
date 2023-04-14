@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import { colorValidator } from '@helpers/exportedColors';
+import { colorValidator } from "@helpers/exportedColors";
 
 export default {
     props: {
@@ -20,7 +20,7 @@ export default {
         color: {
             type: String,
             default: null,
-            // validator: colorValidator,
+            validator: colorValidator,
         },
     },
     computed: {

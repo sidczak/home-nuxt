@@ -13,8 +13,8 @@
 
 <script>
 import CmLink from "./CmLink";
-// import { targetAttributes } from '@helpers/componentsUtils';
-// import { colorValidator } from '@helpers/exportedColors';
+import { targetAttributes } from "@helpers/componentsUtils";
+import { colorValidator } from "@helpers/exportedColors";
 
 export default {
     components: {
@@ -28,7 +28,7 @@ export default {
         target: {
             type: String,
             default: "_self",
-            // validator: (value) => targetAttributes.includes(value),
+            validator: (value) => targetAttributes.includes(value),
         },
         active: {
             type: Boolean,
@@ -41,7 +41,7 @@ export default {
         color: {
             type: String,
             default: null,
-            // validator: colorValidator,
+            validator: colorValidator,
         },
     },
     computed: {

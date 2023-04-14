@@ -1,13 +1,29 @@
 import CmDropdown from "./CmDropdown";
-import CmDropdownItem from "./CmDropdownItem";
-import CmDropdownText from "./CmDropdownText";
-import CmDropdownHeader from "./CmDropdownHeader";
-import CmDropdownDivider from "./CmDropdownDivider";
+import CmDropdownItem from "@components/clickmeeting/atoms/CmDropdownItem";
+import CmDropdownText from "@components/clickmeeting/atoms/CmDropdownText";
+import CmDropdownHeader from "@components/clickmeeting/atoms/CmDropdownHeader";
+import CmDropdownDivider from "@components/clickmeeting/atoms/CmDropdownDivider";
+
+import { colorsNames } from "@helpers/exportedColors";
+import { buttonBsSizes } from "@helpers/componentsUtils";
 
 export default {
     title: "Atoms/CmDropdown",
     component: CmDropdown,
-    argTypes: {},
+    argTypes: {
+        color: {
+            control: {
+                type: "select",
+                options: [...colorsNames, "link"],
+            },
+        },
+        size: {
+            control: {
+                type: "select",
+                options: buttonBsSizes,
+            },
+        },
+    },
 };
 
 const Template = (args, { argTypes }) => ({
