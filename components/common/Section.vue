@@ -70,6 +70,9 @@ export default {
             } else {
                 this.scrolled = false;
             }
+
+            // warunek if możemy zastąpić:
+            // this.scrolled = this.onAnimation && scrollStart <= window.scrollY;
         },
     },
 };
