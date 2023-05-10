@@ -46,6 +46,7 @@ export default {
                 .getElementById(this.target)
                 .addEventListener("mouseleave", this.hide);
         }
+        document.body.appendChild(this.$el);
     },
     beforeDestroy() {
         if (this.triggers === "click" && this.target) {
@@ -61,6 +62,7 @@ export default {
                 .getElementById(this.target)
                 .removeEventListener("mouseleave", this.hide);
         }
+        document.body.removeChild(this.$el);
     },
     methods: {
         setPlacementClass() {

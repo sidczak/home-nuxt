@@ -6,30 +6,42 @@ Vue.directive("cm-popover", {
     bind: function(el, binding) {
         const title = binding.modifiers.title ? binding.modifiers.title : "";
 
-        var trigger = binding.modifiers.click; // Pobierz argument dyrektywy (trigger), domyślnie 'hover'
-        var placement = binding.modifiers.top; // Pobierz modyfikator (placement), domyślnie 'right'
+        // var trigger = binding.modifiers.click; // Pobierz argument dyrektywy (trigger), domyślnie 'hover'
+        // var placement = binding.modifiers.top; // Pobierz modyfikator (placement), domyślnie 'right'
         var content = binding.value; // Pobierz zawartość popovera
+        const modifiers = binding.modifiers;
+
+        const placement =
+            Object.keys(modifiers).find((modifier) =>
+                ["top", "right", "bottom", "left", "auto"].includes(modifier)
+            ) || "auto";
+
+        const trigger =
+            Object.keys(modifiers).find((modifier) =>
+                ["click", "hover"].includes(modifier)
+            ) || "hover";
+
+        // const { modifiers, value } = binding;
+        console.log("binding", binding);
+        // const content = binding.value;
 
         // Dodaj event listener na zdarzenie 'mouseenter'
 
         el.addEventListener("mouseenter", function() {
             // Stwórz nowy element div dla popovera
             var popover = document.createElement("div");
-            console.log("title", title);
-            console.log("trigger", trigger);
-            console.log("placement", placement);
-            console.log("content", content);
 
             // Ustaw zawartość popovera na wartość przekazaną jako argument dyrektywy
             popover.innerHTML = binding.value;
+            popover.innerHTML = `
+        <h3 class="popover-header">${el.getAttribute("data-title")}
+
+        </h3>
+        <div class="popover-body">${content}</div>
+      `;
 
             // Stylizuj popover
             popover.classList.add("popover");
-            // popover.style.position = "absolute";
-            // popover.style.backgroundColor = "white";
-            // popover.style.border = "1px solid #ccc";
-            // popover.style.padding = "10px";
-            // popover.style.zIndex = "9999";
 
             // Dodaj popover do body
             document.body.appendChild(popover);
