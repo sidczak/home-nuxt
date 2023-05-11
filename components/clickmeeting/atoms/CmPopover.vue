@@ -96,11 +96,8 @@ export default {
             this.isOpen = false;
         },
         positionPopover() {
-            // const popover = this.$el;
             const popover = this.$refs.popover;
             const targetElement = document.getElementById(this.target);
-
-            console.log("popover", popover);
 
             if (!popover || !targetElement) return;
 
@@ -110,25 +107,62 @@ export default {
             let top, left;
 
             if (this.placement === "top") {
-                top = targetRect.top - popoverRect.height;
-                left =
-                    targetRect.left +
-                    (targetRect.width - popoverRect.width) / 2;
+                const fitsOnTop = targetRect.top - popoverRect.height > 0;
+                if (fitsOnTop) {
+                    top = targetRect.top - popoverRect.height - 5;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                } else {
+                    top = targetRect.bottom + 5;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                }
             } else if (this.placement === "right") {
-                top =
-                    targetRect.top +
-                    (targetRect.height - popoverRect.height) / 2;
-                left = targetRect.right;
+                const fitsOnRight =
+                    targetRect.right + popoverRect.width < window.innerWidth ||
+                    document.documentElement.clientWidth;
+                if (fitsOnRight) {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.right + 5;
+                } else {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.left - popoverRect.width - 5;
+                }
             } else if (this.placement === "bottom") {
-                top = targetRect.bottom;
-                left =
-                    targetRect.left +
-                    (targetRect.width - popoverRect.width) / 2;
+                const fitsOnBottom =
+                    targetRect.bottom + popoverRect.height <
+                        window.innerHeight ||
+                    document.documentElement.clientHeight;
+                if (fitsOnBottom) {
+                    top = targetRect.bottom + 5;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                } else {
+                    top = targetRect.top - popoverRect.height - 5;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                }
             } else if (this.placement === "left") {
-                top =
-                    targetRect.top +
-                    (targetRect.height - popoverRect.height) / 2;
-                left = targetRect.left - popoverRect.width;
+                const fitsOnLeft = targetRect.left - popoverRect.width > 0;
+                if (fitsOnLeft) {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.left - popoverRect.width - 5;
+                } else {
+                    top = targetRect.right + 5;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                }
             } else if (this.placement === "auto") {
                 const viewportWidth =
                     window.innerWidth || document.documentElement.clientWidth;
@@ -143,7 +177,7 @@ export default {
                 const fitsOnLeft = targetRect.left - popoverRect.width > 0;
 
                 if (fitsOnTop) {
-                    top = targetRect.top - popoverRect.height;
+                    top = targetRect.top - popoverRect.height - 5;
                     left =
                         targetRect.left +
                         (targetRect.width - popoverRect.width) / 2;
@@ -151,9 +185,9 @@ export default {
                     top =
                         targetRect.top +
                         (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.right;
+                    left = targetRect.right + 5;
                 } else if (fitsOnBottom) {
-                    top = targetRect.bottom;
+                    top = targetRect.bottom + 5;
                     left =
                         targetRect.left +
                         (targetRect.width - popoverRect.width) / 2;
@@ -161,7 +195,7 @@ export default {
                     top =
                         targetRect.top +
                         (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.left - popoverRect.width;
+                    left = targetRect.left - popoverRect.width - 5;
                 } else {
                     top =
                         targetRect.top +
