@@ -103,11 +103,32 @@ export default {
 
             const popoverRect = popover.getBoundingClientRect();
             const targetRect = targetElement.getBoundingClientRect();
+            const viewportWidth =
+                window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+
+            const fitsOnTop = targetRect.top - popoverRect.height > 0;
+            const fitsOnRight =
+                targetRect.right + popoverRect.width < viewportWidth;
+            const fitsOnBottom =
+                targetRect.bottom + popoverRect.height < viewportHeight;
+            const fitsOnLeft = targetRect.left - popoverRect.width > 0;
 
             let top, left;
 
+            const autoPlacementResult = this.calculateAutoPlacement(
+                fitsOnTop,
+                fitsOnRight,
+                fitsOnBottom,
+                fitsOnLeft,
+                targetRect,
+                popoverRect,
+                viewportWidth,
+                viewportHeight
+            );
+
             if (this.placement === "top") {
-                const fitsOnTop = targetRect.top - popoverRect.height > 0;
                 if (fitsOnTop) {
                     top = targetRect.top - popoverRect.height - 5;
                     left =
@@ -120,12 +141,6 @@ export default {
                         (targetRect.width - popoverRect.width) / 2;
                 }
             } else if (this.placement === "right") {
-                const viewportWidth =
-                    window.innerWidth || document.documentElement.clientWidth;
-
-                const fitsOnRight =
-                    targetRect.right + popoverRect.width < viewportWidth;
-
                 if (fitsOnRight) {
                     top =
                         targetRect.top +
@@ -138,12 +153,6 @@ export default {
                     left = targetRect.left - popoverRect.width - 5;
                 }
             } else if (this.placement === "bottom") {
-                const viewportHeight =
-                    window.innerHeight || document.documentElement.clientHeight;
-
-                const fitsOnBottom =
-                    targetRect.bottom + popoverRect.height < viewportHeight;
-
                 if (fitsOnBottom) {
                     top = targetRect.bottom + 5;
                     left =
@@ -156,7 +165,6 @@ export default {
                         (targetRect.width - popoverRect.width) / 2;
                 }
             } else if (this.placement === "left") {
-                const fitsOnLeft = targetRect.left - popoverRect.width > 0;
                 if (fitsOnLeft) {
                     top =
                         targetRect.top +
@@ -169,51 +177,55 @@ export default {
                     left = targetRect.right + 5;
                 }
             } else if (this.placement === "auto") {
-                const viewportWidth =
-                    window.innerWidth || document.documentElement.clientWidth;
-                const viewportHeight =
-                    window.innerHeight || document.documentElement.clientHeight;
-
-                const fitsOnTop = targetRect.top - popoverRect.height > 0;
-                const fitsOnRight =
-                    targetRect.right + popoverRect.width < viewportWidth;
-                const fitsOnBottom =
-                    targetRect.bottom + popoverRect.height < viewportHeight;
-                const fitsOnLeft = targetRect.left - popoverRect.width > 0;
-
-                if (fitsOnTop) {
-                    top = targetRect.top - popoverRect.height - 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                } else if (fitsOnRight) {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.right + 5;
-                } else if (fitsOnBottom) {
-                    top = targetRect.bottom + 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                } else if (fitsOnLeft) {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.left - popoverRect.width - 5;
-                } else {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left =
-                        targetRect.left +
-                        targetRect.width / 2 -
-                        popoverRect.width / 2;
-                }
+                ({ top, left } = autoPlacementResult);
             }
 
             popover.style.top = `${top}px`;
             popover.style.left = `${left}px`;
+        },
+        calculateAutoPlacement(
+            fitsOnTop,
+            fitsOnRight,
+            fitsOnBottom,
+            fitsOnLeft,
+            targetRect,
+            popoverRect,
+            viewportWidth,
+            viewportHeight
+        ) {
+            let top, left;
+
+            if (fitsOnTop) {
+                top = targetRect.top - popoverRect.height - 5;
+                left =
+                    targetRect.left +
+                    (targetRect.width - popoverRect.width) / 2;
+            } else if (fitsOnRight) {
+                top =
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2;
+                left = targetRect.right + 5;
+            } else if (fitsOnBottom) {
+                top = targetRect.bottom + 5;
+                left =
+                    targetRect.left +
+                    (targetRect.width - popoverRect.width) / 2;
+            } else if (fitsOnLeft) {
+                top =
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2;
+                left = targetRect.left - popoverRect.width - 5;
+            } else {
+                top =
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2;
+                left =
+                    targetRect.left +
+                    targetRect.width / 2 -
+                    popoverRect.width / 2;
+            }
+
+            return { top, left };
         },
     },
 };
