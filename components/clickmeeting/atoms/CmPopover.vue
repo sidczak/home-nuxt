@@ -120,9 +120,12 @@ export default {
                         (targetRect.width - popoverRect.width) / 2;
                 }
             } else if (this.placement === "right") {
+                const viewportWidth =
+                    window.innerWidth || document.documentElement.clientWidth;
+
                 const fitsOnRight =
-                    targetRect.right + popoverRect.width < window.innerWidth ||
-                    document.documentElement.clientWidth;
+                    targetRect.right + popoverRect.width < viewportWidth;
+
                 if (fitsOnRight) {
                     top =
                         targetRect.top +
@@ -135,10 +138,12 @@ export default {
                     left = targetRect.left - popoverRect.width - 5;
                 }
             } else if (this.placement === "bottom") {
+                const viewportHeight =
+                    window.innerHeight || document.documentElement.clientHeight;
+
                 const fitsOnBottom =
-                    targetRect.bottom + popoverRect.height <
-                        window.innerHeight ||
-                    document.documentElement.clientHeight;
+                    targetRect.bottom + popoverRect.height < viewportHeight;
+
                 if (fitsOnBottom) {
                     top = targetRect.bottom + 5;
                     left =
@@ -158,10 +163,10 @@ export default {
                         (targetRect.height - popoverRect.height) / 2;
                     left = targetRect.left - popoverRect.width - 5;
                 } else {
-                    top = targetRect.right + 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.right + 5;
                 }
             } else if (this.placement === "auto") {
                 const viewportWidth =
