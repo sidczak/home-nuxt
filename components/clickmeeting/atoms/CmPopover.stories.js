@@ -22,15 +22,8 @@ const Template = (args, { argTypes }) => ({
         <CmButton id="popover-target-1">
             Hover Me (component)
         </CmButton>
-        <CmPopover target="popover-target-1" triggers="click" title="Popover title">
+        <CmPopover target="popover-target-1" triggers="click" title="Popover title" placement="right">
             I am popover <b>component</b> content!
-        </CmPopover>
-
-        <CmButton id="popover-target-2">
-            xHover Me (component)
-        </CmButton>
-        <CmPopover target="popover-target-2" triggers="click" title="xPopover title">
-            xI am popover <b>component</b> content!
         </CmPopover>
     </div>`,
 });

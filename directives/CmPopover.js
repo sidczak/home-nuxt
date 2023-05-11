@@ -4,8 +4,6 @@ import Vue from "vue";
 // Rejestracja dyrektywy
 Vue.directive("cm-popover", {
     bind: function(el, binding) {
-        const title = binding.modifiers.title ? binding.modifiers.title : "";
-
         // var trigger = binding.modifiers.click; // Pobierz argument dyrektywy (trigger), domyślnie 'hover'
         // var placement = binding.modifiers.top; // Pobierz modyfikator (placement), domyślnie 'right'
         var content = binding.value; // Pobierz zawartość popovera

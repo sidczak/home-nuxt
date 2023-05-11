@@ -139,28 +139,36 @@ export default {
                 popoverRect
             );
 
-            if (this.placement === "top") {
-                top = fitsOnTop
-                    ? targetRect.top - popoverRect.height - 5
-                    : targetRect.bottom + 5;
-                left = calculateHorizontalCenter();
-            } else if (this.placement === "right") {
-                top = calculateVerticalCenter();
-                left = fitsOnRight
-                    ? (left = targetRect.right + 5)
-                    : targetRect.left - popoverRect.width - 5;
-            } else if (this.placement === "bottom") {
-                top = fitsOnBottom
-                    ? targetRect.bottom + 5
-                    : targetRect.top - popoverRect.height - 5;
-                left = calculateHorizontalCenter();
-            } else if (this.placement === "left") {
-                top = calculateVerticalCenter();
-                left = fitsOnLeft
-                    ? targetRect.left - popoverRect.width - 5
-                    : targetRect.right + 5;
-            } else if (this.placement === "auto") {
-                ({ top, left } = autoPlacementResult);
+            switch (this.placement) {
+                case "top":
+                    top = fitsOnTop
+                        ? targetRect.top - popoverRect.height - 5
+                        : targetRect.bottom + 5;
+                    left = calculateHorizontalCenter();
+                    break;
+                case "right":
+                    top = calculateVerticalCenter();
+                    left = fitsOnRight
+                        ? targetRect.right + 5
+                        : targetRect.left - popoverRect.width - 5;
+                    break;
+                case "bottom":
+                    top = fitsOnBottom
+                        ? targetRect.bottom + 5
+                        : targetRect.top - popoverRect.height - 5;
+                    left = calculateHorizontalCenter();
+                    break;
+                case "left":
+                    top = calculateVerticalCenter();
+                    left = fitsOnLeft
+                        ? targetRect.left - popoverRect.width - 5
+                        : targetRect.right + 5;
+                    break;
+                case "auto":
+                    ({ top, left } = autoPlacementResult);
+                    break;
+                default:
+                    break;
             }
 
             popover.style.top = `${top}px`;
