@@ -1,6 +1,7 @@
 <template lang="pug">
-    div(v-if="isOpen" class="popover" :class="placementClass")
-        h3.popover-header {{ title }}
+    .popover(v-if="isOpen" :class="computedPlacement" ref="popover")
+        slot(name='title')
+            h3.popover-header {{ title }}
         .popover-body
             slot
 </template>
@@ -14,11 +15,14 @@ export default {
         },
         placement: {
             type: String,
-            default: "top",
+            default: "right",
+            validator: (v) =>
+                ["top", "right", "bottom", "left", "auto"].includes(v),
         },
         triggers: {
             type: String,
             default: "hover",
+            validator: (v) => ["click", "hover"].includes(v),
         },
         title: {
             type: String,
@@ -28,59 +32,60 @@ export default {
     data() {
         return {
             isOpen: false,
-            placementClass: "",
         };
     },
+    computed: {
+        computedPlacement() {
+            return `popover-${this.placement}`;
+        },
+    },
+    watch: {
+        isOpen: {
+            immediate: true,
+            handler(value) {
+                if (value) {
+                    this.$nextTick(this.positionPopover);
+                }
+            },
+        },
+    },
     mounted() {
-        this.setPlacementClass();
         if (this.triggers === "click" && this.target) {
-            document
-                .getElementById(this.target)
-                .addEventListener("click", this.toggle);
+            const targetElement = document.getElementById(this.target);
+            if (targetElement) {
+                targetElement.addEventListener("click", this.toggle);
+            }
         }
         if (this.triggers === "hover" && this.target) {
-            document
-                .getElementById(this.target)
-                .addEventListener("mouseenter", this.show);
-            document
-                .getElementById(this.target)
-                .addEventListener("mouseleave", this.hide);
+            const targetElement = document.getElementById(this.target);
+            if (targetElement) {
+                targetElement.addEventListener("mouseenter", this.show);
+                targetElement.addEventListener("mouseleave", this.hide);
+            }
         }
         document.body.appendChild(this.$el);
+        window.addEventListener("resize", this.positionPopover);
     },
     beforeDestroy() {
         if (this.triggers === "click" && this.target) {
-            document
-                .getElementById(this.target)
-                .removeEventListener("click", this.toggle);
+            const targetElement = document.getElementById(this.target);
+            if (targetElement) {
+                targetElement.removeEventListener("click", this.toggle);
+            }
         }
         if (this.triggers === "hover" && this.target) {
-            document
-                .getElementById(this.target)
-                .removeEventListener("mouseenter", this.show);
-            document
-                .getElementById(this.target)
-                .removeEventListener("mouseleave", this.hide);
+            const targetElement = document.getElementById(this.target);
+            if (targetElement) {
+                targetElement.removeEventListener("mouseenter", this.show);
+                targetElement.removeEventListener("mouseleave", this.hide);
+            }
         }
-        document.body.removeChild(this.$el);
+        if (this.$el.parentNode) {
+            this.$el.parentNode.removeChild(this.$el);
+        }
+        window.removeEventListener("resize", this.positionPopover);
     },
     methods: {
-        setPlacementClass() {
-            this.placementClass = `popover-${this.placement}`;
-        },
-        showPopover(value) {
-            this.isOpen = value;
-            // setTimeout(
-            //   () => {
-            //     this.modalVisible = value;
-            //   },
-            //   value ? 0 : 600
-            // );
-            // setTimeout(() => {
-            //   this.modalContentVisible = value;
-            // }, 300);
-            // this.$emit("input", value);
-        },
         toggle() {
             this.isOpen = !this.isOpen;
         },
@@ -90,41 +95,87 @@ export default {
         hide() {
             this.isOpen = false;
         },
+        positionPopover() {
+            // const popover = this.$el;
+            const popover = this.$refs.popover;
+            const targetElement = document.getElementById(this.target);
+
+            console.log("popover", popover);
+
+            if (!popover || !targetElement) return;
+
+            const popoverRect = popover.getBoundingClientRect();
+            const targetRect = targetElement.getBoundingClientRect();
+
+            let top, left;
+
+            if (this.placement === "top") {
+                top = targetRect.top - popoverRect.height;
+                left =
+                    targetRect.left +
+                    (targetRect.width - popoverRect.width) / 2;
+            } else if (this.placement === "right") {
+                top =
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2;
+                left = targetRect.right;
+            } else if (this.placement === "bottom") {
+                top = targetRect.bottom;
+                left =
+                    targetRect.left +
+                    (targetRect.width - popoverRect.width) / 2;
+            } else if (this.placement === "left") {
+                top =
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2;
+                left = targetRect.left - popoverRect.width;
+            } else if (this.placement === "auto") {
+                const viewportWidth =
+                    window.innerWidth || document.documentElement.clientWidth;
+                const viewportHeight =
+                    window.innerHeight || document.documentElement.clientHeight;
+
+                const fitsOnTop = targetRect.top - popoverRect.height > 0;
+                const fitsOnRight =
+                    targetRect.right + popoverRect.width < viewportWidth;
+                const fitsOnBottom =
+                    targetRect.bottom + popoverRect.height < viewportHeight;
+                const fitsOnLeft = targetRect.left - popoverRect.width > 0;
+
+                if (fitsOnTop) {
+                    top = targetRect.top - popoverRect.height;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                } else if (fitsOnRight) {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.right;
+                } else if (fitsOnBottom) {
+                    top = targetRect.bottom;
+                    left =
+                        targetRect.left +
+                        (targetRect.width - popoverRect.width) / 2;
+                } else if (fitsOnLeft) {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left = targetRect.left - popoverRect.width;
+                } else {
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left =
+                        targetRect.left +
+                        targetRect.width / 2 -
+                        popoverRect.width / 2;
+                }
+            }
+
+            popover.style.top = `${top}px`;
+            popover.style.left = `${left}px`;
+        },
     },
 };
 </script>
-
-<style>
-/*.popover {
-    position: absolute;
-    z-index: 1000;
-    display: block;
-    width: 200px;
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    padding: 10px;
-}
-
-.popover-header {
-    font-weight: bold;
-    margin-bottom: 5px;
-}*/
-/*
-.popover-top {
-    bottom: 100%;
-}
-
-.popover-bottom {
-    top: 100%;
-}
-
-.popover-left {
-    right: 100%;
-}
-
-.popover-right {
-    left: 100%;
-}*/
-</style>
