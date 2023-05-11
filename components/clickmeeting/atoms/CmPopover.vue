@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         computedPlacement() {
-            return `popover-${this.placement}`;
+            return `bs-popover-${this.placement}`;
         },
     },
     watch: {
@@ -117,65 +117,48 @@ export default {
 
             let top, left;
 
+            const calculateHorizontalCenter = () => {
+                return (
+                    targetRect.left + (targetRect.width - popoverRect.width) / 2
+                );
+            };
+
+            const calculateVerticalCenter = () => {
+                return (
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2
+                );
+            };
+
             const autoPlacementResult = this.calculateAutoPlacement(
                 fitsOnTop,
                 fitsOnRight,
                 fitsOnBottom,
                 fitsOnLeft,
                 targetRect,
-                popoverRect,
-                viewportWidth,
-                viewportHeight
+                popoverRect
             );
 
             if (this.placement === "top") {
-                if (fitsOnTop) {
-                    top = targetRect.top - popoverRect.height - 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                } else {
-                    top = targetRect.bottom + 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                }
+                top = fitsOnTop
+                    ? targetRect.top - popoverRect.height - 5
+                    : targetRect.bottom + 5;
+                left = calculateHorizontalCenter();
             } else if (this.placement === "right") {
-                if (fitsOnRight) {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.right + 5;
-                } else {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.left - popoverRect.width - 5;
-                }
+                top = calculateVerticalCenter();
+                left = fitsOnRight
+                    ? (left = targetRect.right + 5)
+                    : targetRect.left - popoverRect.width - 5;
             } else if (this.placement === "bottom") {
-                if (fitsOnBottom) {
-                    top = targetRect.bottom + 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                } else {
-                    top = targetRect.top - popoverRect.height - 5;
-                    left =
-                        targetRect.left +
-                        (targetRect.width - popoverRect.width) / 2;
-                }
+                top = fitsOnBottom
+                    ? targetRect.bottom + 5
+                    : targetRect.top - popoverRect.height - 5;
+                left = calculateHorizontalCenter();
             } else if (this.placement === "left") {
-                if (fitsOnLeft) {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.left - popoverRect.width - 5;
-                } else {
-                    top =
-                        targetRect.top +
-                        (targetRect.height - popoverRect.height) / 2;
-                    left = targetRect.right + 5;
-                }
+                top = calculateVerticalCenter();
+                left = fitsOnLeft
+                    ? targetRect.left - popoverRect.width - 5
+                    : targetRect.right + 5;
             } else if (this.placement === "auto") {
                 ({ top, left } = autoPlacementResult);
             }
@@ -189,9 +172,7 @@ export default {
             fitsOnBottom,
             fitsOnLeft,
             targetRect,
-            popoverRect,
-            viewportWidth,
-            viewportHeight
+            popoverRect
         ) {
             let top, left;
 
