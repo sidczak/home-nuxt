@@ -1,5 +1,5 @@
 <template lang="pug">
-    .popover(v-if="isOpen" :class="computedPlacement" ref="popover")
+    .popover(v-if="isOpen" ref="popover")
         slot(name='title')
             h3.popover-header {{ title }}
         .popover-body
@@ -34,11 +34,6 @@ export default {
             isOpen: false,
         };
     },
-    computed: {
-        computedPlacement() {
-            return `bs-popover-${this.placement}`;
-        },
-    },
     watch: {
         isOpen: {
             immediate: true,
@@ -65,6 +60,7 @@ export default {
         }
         document.body.appendChild(this.$el);
         window.addEventListener("resize", this.positionPopover);
+        window.addEventListener("click", this.handleOutsideClick);
     },
     beforeDestroy() {
         if (this.triggers === "click" && this.target) {
@@ -84,8 +80,22 @@ export default {
             this.$el.parentNode.removeChild(this.$el);
         }
         window.removeEventListener("resize", this.positionPopover);
+        window.removeEventListener("click", this.handleOutsideClick);
     },
     methods: {
+        handleOutsideClick(event) {
+            const popover = this.$refs.popover;
+            const targetElement = document.getElementById(this.target);
+
+            if (
+                popover &&
+                targetElement &&
+                !popover.contains(event.target) &&
+                !targetElement.contains(event.target)
+            ) {
+                this.hide();
+            }
+        },
         toggle() {
             this.isOpen = !this.isOpen;
         },
@@ -130,16 +140,18 @@ export default {
                 );
             };
 
-            const autoPlacementResult = this.calculateAutoPlacement(
-                fitsOnTop,
-                fitsOnRight,
-                fitsOnBottom,
-                fitsOnLeft,
-                targetRect,
-                popoverRect
-            );
+            let placement;
 
-            switch (this.placement) {
+            if (this.placement === "auto") {
+                if (fitsOnTop) placement = "top";
+                else if (fitsOnRight) placement = "right";
+                else if (fitsOnBottom) placement = "bottom";
+                else if (fitsOnLeft) placement = "left";
+            } else {
+                placement = this.placement;
+            }
+
+            switch (placement) {
                 case "top":
                     top = fitsOnTop
                         ? targetRect.top - popoverRect.height - 5
@@ -164,58 +176,65 @@ export default {
                         ? targetRect.left - popoverRect.width - 5
                         : targetRect.right + 5;
                     break;
-                case "auto":
-                    ({ top, left } = autoPlacementResult);
-                    break;
                 default:
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left =
+                        targetRect.left +
+                        targetRect.width / 2 -
+                        popoverRect.width / 2;
                     break;
             }
+
+            if (top < 0) {
+                top = 5;
+            } else if (top + popoverRect.height > viewportHeight) {
+                top = viewportHeight - popoverRect.height - 5;
+            }
+
+            if (left < 0) {
+                left = 5;
+            } else if (left + popoverRect.width > viewportWidth) {
+                left = viewportWidth - popoverRect.width - 5;
+            }
+
+            // const adjustedPosition = this.adjustPopoverPosition(
+            //     top,
+            //     left,
+            //     popoverRect,
+            //     viewportWidth,
+            //     viewportHeight
+            // );
+
+            // top = adjustedPosition.top;
+            // left = adjustedPosition.left;
 
             popover.style.top = `${top}px`;
             popover.style.left = `${left}px`;
         },
-        calculateAutoPlacement(
-            fitsOnTop,
-            fitsOnRight,
-            fitsOnBottom,
-            fitsOnLeft,
-            targetRect,
-            popoverRect
-        ) {
-            let top, left;
 
-            if (fitsOnTop) {
-                top = targetRect.top - popoverRect.height - 5;
-                left =
-                    targetRect.left +
-                    (targetRect.width - popoverRect.width) / 2;
-            } else if (fitsOnRight) {
-                top =
-                    targetRect.top +
-                    (targetRect.height - popoverRect.height) / 2;
-                left = targetRect.right + 5;
-            } else if (fitsOnBottom) {
-                top = targetRect.bottom + 5;
-                left =
-                    targetRect.left +
-                    (targetRect.width - popoverRect.width) / 2;
-            } else if (fitsOnLeft) {
-                top =
-                    targetRect.top +
-                    (targetRect.height - popoverRect.height) / 2;
-                left = targetRect.left - popoverRect.width - 5;
-            } else {
-                top =
-                    targetRect.top +
-                    (targetRect.height - popoverRect.height) / 2;
-                left =
-                    targetRect.left +
-                    targetRect.width / 2 -
-                    popoverRect.width / 2;
-            }
+        // adjustPopoverPosition(
+        //     top,
+        //     left,
+        //     popoverRect,
+        //     viewportWidth,
+        //     viewportHeight
+        // ) {
+        //     if (top < 0) {
+        //         top = 5;
+        //     } else if (top + popoverRect.height > viewportHeight) {
+        //         top = viewportHeight - popoverRect.height - 5;
+        //     }
 
-            return { top, left };
-        },
+        //     if (left < 0) {
+        //         left = 5;
+        //     } else if (left + popoverRect.width > viewportWidth) {
+        //         left = viewportWidth - popoverRect.width - 5;
+        //     }
+
+        //     return { top, left };
+        // },
     },
 };
 </script>
