@@ -1,5 +1,5 @@
 <template lang="pug">
-    .popover(v-if="isOpen" ref="popover")
+    .popover(v-if='isOpen' ref='popover')
         slot(name='title')
             h3.popover-header {{ title }}
         .popover-body
@@ -45,13 +45,13 @@ export default {
         },
     },
     mounted() {
-        if (this.triggers === "click" && this.target) {
+        if ("click" === this.triggers && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.addEventListener("click", this.toggle);
             }
         }
-        if (this.triggers === "hover" && this.target) {
+        if ("hover" === this.triggers && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.addEventListener("mouseenter", this.show);
@@ -63,13 +63,13 @@ export default {
         window.addEventListener("click", this.handleOutsideClick);
     },
     beforeDestroy() {
-        if (this.triggers === "click" && this.target) {
+        if ("click" === this.triggers && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.removeEventListener("click", this.toggle);
             }
         }
-        if (this.triggers === "hover" && this.target) {
+        if ("hover" === this.triggers && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.removeEventListener("mouseenter", this.show);
@@ -118,12 +118,12 @@ export default {
             const viewportHeight =
                 window.innerHeight || document.documentElement.clientHeight;
 
-            const fitsOnTop = targetRect.top - popoverRect.height > 0;
+            const fitsOnTop = 0 < targetRect.top - popoverRect.height;
             const fitsOnRight =
                 targetRect.right + popoverRect.width < viewportWidth;
             const fitsOnBottom =
                 targetRect.bottom + popoverRect.height < viewportHeight;
-            const fitsOnLeft = targetRect.left - popoverRect.width > 0;
+            const fitsOnLeft = 0 < targetRect.left - popoverRect.width;
 
             let top, left;
 
@@ -140,16 +140,23 @@ export default {
                 );
             };
 
-            let placement;
+            // let placement;
 
-            if (this.placement === "auto") {
-                if (fitsOnTop) placement = "top";
-                else if (fitsOnRight) placement = "right";
-                else if (fitsOnBottom) placement = "bottom";
-                else if (fitsOnLeft) placement = "left";
-            } else {
-                placement = this.placement;
-            }
+            // if ('auto' === this.placement) {
+            //     if (fitsOnTop) placement = 'top';
+            //     else if (fitsOnRight) placement = 'right';
+            //     else if (fitsOnBottom) placement = 'bottom';
+            //     else if (fitsOnLeft) placement = 'left';
+            // } else {
+            //     placement = this.placement;
+            // }
+
+            const placement = this.calculatePlacement(
+                fitsOnTop,
+                fitsOnRight,
+                fitsOnBottom,
+                fitsOnLeft
+            );
 
             switch (placement) {
                 case "top":
@@ -187,54 +194,67 @@ export default {
                     break;
             }
 
-            if (top < 0) {
+            // if (0 > top) {
+            //     top = 5;
+            // } else if (top + popoverRect.height > viewportHeight) {
+            //     top = viewportHeight - popoverRect.height - 5;
+            // }
+
+            // if (0 > left) {
+            //     left = 5;
+            // } else if (left + popoverRect.width > viewportWidth) {
+            //     left = viewportWidth - popoverRect.width - 5;
+            // }
+
+            const adjustedPosition = this.adjustPopoverPosition(
+                top,
+                left,
+                popoverRect,
+                viewportWidth,
+                viewportHeight
+            );
+
+            top = adjustedPosition.top;
+            left = adjustedPosition.left;
+
+            popover.style.top = `${top}px`;
+            popover.style.left = `${left}px`;
+        },
+        calculatePlacement(fitsOnTop, fitsOnRight, fitsOnBottom, fitsOnLeft) {
+            let placement;
+
+            if ("auto" === this.placement) {
+                if (fitsOnTop) placement = "top";
+                else if (fitsOnRight) placement = "right";
+                else if (fitsOnBottom) placement = "bottom";
+                else if (fitsOnLeft) placement = "left";
+            } else {
+                placement = this.placement;
+            }
+
+            return placement;
+        },
+        adjustPopoverPosition(
+            top,
+            left,
+            popoverRect,
+            viewportWidth,
+            viewportHeight
+        ) {
+            if (0 > top) {
                 top = 5;
             } else if (top + popoverRect.height > viewportHeight) {
                 top = viewportHeight - popoverRect.height - 5;
             }
 
-            if (left < 0) {
+            if (0 > left) {
                 left = 5;
             } else if (left + popoverRect.width > viewportWidth) {
                 left = viewportWidth - popoverRect.width - 5;
             }
 
-            // const adjustedPosition = this.adjustPopoverPosition(
-            //     top,
-            //     left,
-            //     popoverRect,
-            //     viewportWidth,
-            //     viewportHeight
-            // );
-
-            // top = adjustedPosition.top;
-            // left = adjustedPosition.left;
-
-            popover.style.top = `${top}px`;
-            popover.style.left = `${left}px`;
+            return { top, left };
         },
-
-        // adjustPopoverPosition(
-        //     top,
-        //     left,
-        //     popoverRect,
-        //     viewportWidth,
-        //     viewportHeight
-        // ) {
-        //     if (top < 0) {
-        //         top = 5;
-        //     } else if (top + popoverRect.height > viewportHeight) {
-        //         top = viewportHeight - popoverRect.height - 5;
-        //     }
-
-        //     if (left < 0) {
-        //         left = 5;
-        //     } else if (left + popoverRect.width > viewportWidth) {
-        //         left = viewportWidth - popoverRect.width - 5;
-        //     }
-
-        //     return { top, left };
-        // },
     },
 };
 </script>
