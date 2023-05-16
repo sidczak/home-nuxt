@@ -1,4 +1,3 @@
-// Zaimportuj Vue
 import Vue from "vue";
 
 Vue.directive("cm-popover", {
@@ -15,16 +14,18 @@ Vue.directive("cm-popover", {
                 ["click", "hover"].includes(modifier)
             ) || "hover";
 
-        el.addEventListener("mouseenter", function() {
+        function showPopover() {
+            if (el._popoverElement) {
+                hidePopover();
+                return;
+            }
+
             var popover = document.createElement("div");
 
-            popover.innerHTML = binding.value;
             popover.innerHTML = `
-        <h3 class="popover-header">${el.getAttribute("data-title")}
-
-        </h3>
-        <div class="popover-body">${content}</div>
-      `;
+                <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
+                <div class="popover-body">${content}</div>
+              `;
 
             popover.classList.add("popover");
 
@@ -35,13 +36,21 @@ Vue.directive("cm-popover", {
             popover.style.left = 5 + rect.left + "px";
 
             el._popoverElement = popover;
-        });
+        }
 
-        el.addEventListener("mouseleave", function() {
+        function hidePopover() {
             if (el._popoverElement) {
                 document.body.removeChild(el._popoverElement);
                 delete el._popoverElement;
             }
-        });
+        }
+
+        if (trigger === "click") {
+            el.addEventListener("click", showPopover);
+            el.addEventListener("blur", hidePopover);
+        } else {
+            el.addEventListener("mouseenter", showPopover);
+            el.addEventListener("mouseleave", hidePopover);
+        }
     },
 });
