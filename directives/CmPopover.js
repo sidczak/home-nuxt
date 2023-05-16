@@ -1,6 +1,4 @@
 //ES6
-import Vue from "vue";
-
 const showPopover = (el, popover, placement) => {
     if (el._popoverElement) {
         hidePopover(el);
@@ -59,7 +57,7 @@ const positionPopover = (popover, targetElement, placement) => {
         return targetRect.top + (targetRect.height - popoverRect.height) / 2;
     };
 
-    if (placement === "auto") {
+    if ("auto" === placement) {
         if (fitsOnTop) placement = "top";
         else if (fitsOnRight) placement = "right";
         else if (fitsOnBottom) placement = "bottom";
@@ -98,13 +96,13 @@ const positionPopover = (popover, targetElement, placement) => {
             break;
     }
 
-    if (top < 0) {
+    if (0 > top) {
         top = 5;
     } else if (top + popoverRect.height > viewportHeight) {
         top = viewportHeight - popoverRect.height - 5;
     }
 
-    if (left < 0) {
+    if (0 > left) {
         left = 5;
     } else if (left + popoverRect.width > viewportWidth) {
         left = viewportWidth - popoverRect.width - 5;
@@ -137,7 +135,7 @@ export default {
         }
         popover.innerHTML += `<div class="popover-body">${content}</div>`;
 
-        if (trigger === "click") {
+        if ("click" === trigger) {
             el.addEventListener("click", () =>
                 showPopover(el, popover, placement)
             );
