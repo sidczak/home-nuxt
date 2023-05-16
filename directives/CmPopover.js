@@ -23,9 +23,9 @@ Vue.directive("cm-popover", {
             var popover = document.createElement("div");
 
             popover.innerHTML = `
-                <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
-                <div class="popover-body">${content}</div>
-              `;
+        <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
+        <div class="popover-body">${content}</div>
+      `;
 
             popover.classList.add("popover");
 
@@ -36,12 +36,26 @@ Vue.directive("cm-popover", {
             popover.style.left = 5 + rect.left + "px";
 
             el._popoverElement = popover;
+
+            document.addEventListener("click", handleClickOutside);
         }
 
         function hidePopover() {
             if (el._popoverElement) {
                 document.body.removeChild(el._popoverElement);
                 delete el._popoverElement;
+            }
+
+            document.removeEventListener("click", handleClickOutside);
+        }
+
+        function handleClickOutside(event) {
+            if (
+                el._popoverElement &&
+                !el.contains(event.target) &&
+                !el._popoverElement.contains(event.target)
+            ) {
+                hidePopover();
             }
         }
 
