@@ -28,7 +28,7 @@ const TemplateDirective = (args, { argTypes }) => ({
             Click Me (directive)
         </CmButton>
 
-        <CmButton v-cm-popover="'I am popover directive content!'" popoverTitle="Popover Title">
+        <CmButton v-cm-popover.auto="'I am popover directive content!'" popoverTitle="Popover Title">
             Hover Me (directive)
         </CmButton>
     </div>`,
