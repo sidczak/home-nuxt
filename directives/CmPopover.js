@@ -9,6 +9,7 @@ Vue.directive("cm-popover", {
             Object.keys(modifiers).find((modifier) =>
                 ["top", "right", "bottom", "left", "auto"].includes(modifier)
             ) || "auto";
+
         const trigger =
             Object.keys(modifiers).find((modifier) =>
                 ["click", "hover"].includes(modifier)
@@ -23,9 +24,9 @@ Vue.directive("cm-popover", {
             var popover = document.createElement("div");
 
             popover.innerHTML = `
-        <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
-        <div class="popover-body">${content}</div>
-      `;
+                <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
+                <div class="popover-body">${content}</div>
+            `;
 
             popover.classList.add("popover");
 
@@ -34,6 +35,8 @@ Vue.directive("cm-popover", {
             var rect = el.getBoundingClientRect();
             popover.style.top = 5 + rect.bottom + "px";
             popover.style.left = 5 + rect.left + "px";
+
+            positionPopover(popover, el, placement);
 
             el._popoverElement = popover;
 
@@ -57,6 +60,95 @@ Vue.directive("cm-popover", {
             ) {
                 hidePopover();
             }
+        }
+
+        function positionPopover(popover, targetElement, placement) {
+            const popoverRect = popover.getBoundingClientRect();
+            const targetRect = targetElement.getBoundingClientRect();
+            const viewportWidth =
+                window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+
+            const fitsOnTop = 0 < targetRect.top - popoverRect.height;
+            const fitsOnRight =
+                targetRect.right + popoverRect.width < viewportWidth;
+            const fitsOnBottom =
+                targetRect.bottom + popoverRect.height < viewportHeight;
+            const fitsOnLeft = 0 < targetRect.left - popoverRect.width;
+
+            let top, left;
+
+            const calculateHorizontalCenter = () => {
+                return (
+                    targetRect.left + (targetRect.width - popoverRect.width) / 2
+                );
+            };
+
+            const calculateVerticalCenter = () => {
+                return (
+                    targetRect.top +
+                    (targetRect.height - popoverRect.height) / 2
+                );
+            };
+
+            if (placement === "auto") {
+                if (fitsOnTop) placement = "top";
+                else if (fitsOnRight) placement = "right";
+                else if (fitsOnBottom) placement = "bottom";
+                else if (fitsOnLeft) placement = "left";
+            }
+
+            switch (placement) {
+                case "top":
+                    top = fitsOnTop
+                        ? targetRect.top - popoverRect.height - 5
+                        : targetRect.bottom + 5;
+                    left = calculateHorizontalCenter();
+                    break;
+                case "right":
+                    top = calculateVerticalCenter();
+                    left = fitsOnRight
+                        ? targetRect.right + 5
+                        : targetRect.left - popoverRect.width - 5;
+                    break;
+                case "bottom":
+                    top = fitsOnBottom
+                        ? targetRect.bottom + 5
+                        : targetRect.top - popoverRect.height - 5;
+                    left = calculateHorizontalCenter();
+                    break;
+                case "left":
+                    top = calculateVerticalCenter();
+                    left = fitsOnLeft
+                        ? targetRect.left - popoverRect.width - 5
+                        : targetRect.right + 5;
+                    break;
+                default:
+                    top =
+                        targetRect.top +
+                        (targetRect.height - popoverRect.height) / 2;
+                    left =
+                        targetRect.left +
+                        targetRect.width / 2 -
+                        popoverRect.width / 2;
+                    break;
+            }
+
+            if (top < 0) {
+                top = 5;
+            } else if (top + popoverRect.height > viewportHeight) {
+                top = viewportHeight - popoverRect.height - 5;
+            }
+
+            if (left < 0) {
+                left = 5;
+            } else if (left + popoverRect.width > viewportWidth) {
+                left = viewportWidth - popoverRect.width - 5;
+            }
+
+            popover.style.top = `${top}px`;
+            popover.style.left = `${left}px`;
         }
 
         if (trigger === "click") {
