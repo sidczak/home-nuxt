@@ -4,16 +4,32 @@ Vue.directive("cm-popover", {
     bind: function(el, binding) {
         const { value, modifiers } = binding;
         const content = value;
+        const title = el.getAttribute("popoverTitle");
 
         const placement =
             Object.keys(modifiers).find((modifier) =>
                 ["top", "right", "bottom", "left", "auto"].includes(modifier)
             ) || "auto";
-
         const trigger =
             Object.keys(modifiers).find((modifier) =>
                 ["click", "hover"].includes(modifier)
             ) || "hover";
+
+        let popover = document.createElement("div");
+        popover.classList.add("popover");
+
+        if (title) {
+            popover.innerHTML = `<h3 class="popover-header">${title}</h3>`;
+        }
+        popover.innerHTML += `<div class="popover-body">${content}</div>`;
+
+        if (trigger === "click") {
+            el.addEventListener("click", showPopover);
+            el.addEventListener("blur", hidePopover);
+        } else {
+            el.addEventListener("mouseenter", showPopover);
+            el.addEventListener("mouseleave", hidePopover);
+        }
 
         function showPopover() {
             if (el._popoverElement) {
@@ -21,18 +37,7 @@ Vue.directive("cm-popover", {
                 return;
             }
 
-            var popover = document.createElement("div");
-            const title = el.getAttribute("popoverTitle");
-
-            popover.innerHTML = `
-                ${title ? `<h3 class="popover-header">${title}</h3>` : ""}
-                <div class="popover-body">${content}</div>
-            `;
-
-            popover.classList.add("popover");
-
             document.body.appendChild(popover);
-
             positionPopover(popover, el, placement);
 
             el._popoverElement = popover;
@@ -146,14 +151,6 @@ Vue.directive("cm-popover", {
 
             popover.style.top = `${top}px`;
             popover.style.left = `${left}px`;
-        }
-
-        if (trigger === "click") {
-            el.addEventListener("click", showPopover);
-            el.addEventListener("blur", hidePopover);
-        } else {
-            el.addEventListener("mouseenter", showPopover);
-            el.addEventListener("mouseleave", hidePopover);
         }
     },
 });
