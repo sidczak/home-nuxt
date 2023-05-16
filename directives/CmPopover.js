@@ -25,7 +25,7 @@ Vue.directive("cm-popover", {
             const title = el.getAttribute("popoverTitle");
 
             popover.innerHTML = `
-                <h3 class="popover-header">${title}</h3>
+                ${title ? `<h3 class="popover-header">${title}</h3>` : ""}
                 <div class="popover-body">${content}</div>
             `;
 
