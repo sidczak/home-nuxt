@@ -1,7 +1,7 @@
 <template lang="pug">
     .popover(v-if='isOpen' ref='popover')
         slot(name='title')
-            h3.popover-header {{ title }}
+            h3.popover-header {{ popoverTitle }}
         .popover-body
             slot
 </template>
@@ -19,12 +19,12 @@ export default {
             validator: (v) =>
                 ["top", "right", "bottom", "left", "auto"].includes(v),
         },
-        triggers: {
+        trigger: {
             type: String,
             default: "hover",
             validator: (v) => ["click", "hover"].includes(v),
         },
-        title: {
+        popoverTitle: {
             type: String,
             default: "",
         },
@@ -45,13 +45,13 @@ export default {
         },
     },
     mounted() {
-        if ("click" === this.triggers && this.target) {
+        if ("click" === this.trigger && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.addEventListener("click", this.toggle);
             }
         }
-        if ("hover" === this.triggers && this.target) {
+        if ("hover" === this.trigger && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.addEventListener("mouseenter", this.show);
@@ -63,13 +63,13 @@ export default {
         window.addEventListener("click", this.handleOutsideClick);
     },
     beforeDestroy() {
-        if ("click" === this.triggers && this.target) {
+        if ("click" === this.trigger && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.removeEventListener("click", this.toggle);
             }
         }
-        if ("hover" === this.triggers && this.target) {
+        if ("hover" === this.trigger && this.target) {
             const targetElement = document.getElementById(this.target);
             if (targetElement) {
                 targetElement.removeEventListener("mouseenter", this.show);

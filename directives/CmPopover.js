@@ -22,19 +22,16 @@ Vue.directive("cm-popover", {
             }
 
             var popover = document.createElement("div");
+            const title = el.getAttribute("popoverTitle");
 
             popover.innerHTML = `
-                <h3 class="popover-header">${el.getAttribute("data-title")}</h3>
+                <h3 class="popover-header">${title}</h3>
                 <div class="popover-body">${content}</div>
             `;
 
             popover.classList.add("popover");
 
             document.body.appendChild(popover);
-
-            var rect = el.getBoundingClientRect();
-            popover.style.top = 5 + rect.bottom + "px";
-            popover.style.left = 5 + rect.left + "px";
 
             positionPopover(popover, el, placement);
 
