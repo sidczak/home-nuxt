@@ -15,11 +15,14 @@ export default {
     components: {
         Section,
     },
-    head() {
-        return {
-            title: "HomeNuxt - Start",
-        };
-    },
+    // head() {
+    //     return {
+    //         title: "HomeNuxt - Start",
+    //         htmlAttrs: {
+    //             class: `h-100 ${this.$colorMode.preference}-mode`,
+    //         },
+    //     };
+    // },
     name: "Start",
 };
 </script>
