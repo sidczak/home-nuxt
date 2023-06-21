@@ -3,23 +3,23 @@
     b-card.shadow-clouds(noBody bg-variant="clouds-concave-145" text-variant="dark")
         .card-item(:class="{ '-active' : isCardFlipped }")
             .card-item__side.-front
-                .card-item__focus
+                .card-item__focus(:class="{'-active' : focusElementStyle }" :style="focusElementStyle")
                 .card-item__cover
-                    img.card-item__bg(:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'")
+
+                    img.card-item__bg(:src="require(`@images/card-credit/${currentCardBackground}.jpeg`)")
                 .card-item__wrapper
                     .card-item__top
-                        img(src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip")
+                        img(:src="require('@images/card-credit/chip.png')" class="card-item__chip")
                         .card-item__type
                             transition(name="slide-fade-up")
-                                img(:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" :key="getCardType" alt="" class="card-item__typeImg")
-                    label.card-item__number(for="cardNumber")
+                                img(:src="require(`@images/card-credit/${getCardType}.png`)" v-if="getCardType" :key="getCardType" alt="" class="card-item__typeImg")
+                    label.card-item__number(for="cardNumber" ref="cardNumber")
                         template(v-if="getCardType === 'amex'")
                             span(v-for="(n, $index) in amexCardMask" :key="$index")
                                 transition(name="slide-fade-up")
                                     .card-item__numberItem(v-if="$index > 4 && $index < 14 && cardNumber.length > $index && n.trim() !== ''") *
                                     .card-item__numberItem(v-else-if="cardNumber.length > $index" :class="{ '-active' : n.trim() === '' }" :key="$index" ) {{cardNumber[$index]}}
-                                    .card-item__numberItem(v-else class="{ '-active' : n.trim() === '' }" :key="$index + 1") {{n}}
-
+                                    .card-item__numberItem(v-else :class="{ '-active' : n.trim() === '' }" :key="$index + 1") {{n}}
                         template(v-else)
                             span(v-for="(n, $index) in otherCardMask" :key="$index")
                                 transition(name="slide-fade-up")
@@ -28,15 +28,15 @@
                                         v-else-if="cardNumber.length > $index" :class="{ '-active' : n.trim() === '' }" :key="$index") {{cardNumber[$index]}}
                                     .card-item__numberItem(v-else :class="{ '-active' : n.trim() === '' }" :key="$index + 1") {{n}}
                     .card-item__content
-                        label.card-item__info(for="cardName")
+                        label.card-item__info(for="cardName" ref="cardName")
                             .card-item__holder Card Holder
                             transition(name="slide-fade-up")
                                 .card-item__name(v-if="cardName.length" key="1")
                                     transition-group(name="slide-fade-right")
-                                        span.card-item__nameItem(v-for="(n, $index) in cardName.replace(/\s\s+/g, ' ')" v-if="$index === $index" :key="$index + 1") {{n}}
+                                        span.card-item__nameItem(v-for="(n, index) in cardName.replace(/\s\s+/g, ' ')" v-if="index === index" :key="index + 1") {{n}}
                                 .card-item__name(v-else key="2") Full Name
 
-                        .card-item__date
+                        .card-item__date(ref="cardDate")
                             label.card-item__dateTitle(for="cardMonth") Expires
                             label.card-item__dateItem(for="cardMonth")
                                 transition(name="slide-fade-up")
@@ -49,50 +49,55 @@
                                     span(v-else key="2") YY
             .card-item__side.-back
                 .card-item__cover
-                    img.card-item__bg(:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'")
+                    img.card-item__bg(:src="require(`@images/card-credit/${currentCardBackground}.jpeg`)")
                 .card-item__band
                 .card-item__cvv
                     .card-item__cvvTitle CVV
                     .card-item__cvvBand
-                        span(v-for="(n, $index) in cardCvv" :key="$index") *
+                        span(v-for="(n, index) in cardCvv" :key="index") *
                     .card-item__type
-                        img.card-item__typeImg(:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType")
-        .my-auto
-            b-card-body
-                .form-group
-                    label(for="cardNumber") Card Number
-                    input.form-control(id="cardNumber" type="text")
-                .form-group
-                    label(for="cardName") Card Holders
-                    input.form-control(id="cardName" type="text")
-                b-row
-                    b-col(sm="8")
-                        b-row(align-v="end")
-                            b-col
-                                .form-group
-                                    label(for="cardMonth") Expiration Date
-                                    select.form-control(id="cardMonth")
-                                        option(value="" disabled selected) Month
-                                        option(:value="n < 10 ? '0' + n : n" v-for="n in 12" :disabled="n < minCardMonth" :key="n")
-                                            | {{n < 10 ? '0' + n : n}}
-                            b-col
-                                .form-group
-                                    select.form-control(id="cardYear")
-                                        option(value="" disabled selected) Year
-                                        option(:value="index + minCardYear" v-for="(n, index) in 12" :key="n")
-                                            | {{index + minCardYear}}
-                    b-col(sm="4")
-                        .form-group
-                            label(for="cardCvv") CVV
-                            input.form-control(id="cardCvv" type="text" maxlength="4" @focus="flipCard(true)" @blur="flipCard(false)")
-                button.btn.btn-primary.btn-block Submit
+                        img.card-item__typeImg(:src="require(`@images/card-credit/${getCardType}.png`)" v-if="getCardType")
+        b-card-body
+            .form-group
+                label(for="cardNumber") Card Number
+                input.form-control(id="cardNumber" type="text" @focus="focusInput" @blur="blurInput" data-ref="cardNumber" 
+                v-mask="generateCardNumberMask" v-model="cardNumber")
+            .form-group
+                label(for="cardName") Card Holders
+                input.form-control(id="cardName" type="text" @focus="focusInput" @blur="blurInput" data-ref="cardName" v-model="cardName")
+            b-row
+                b-col(sm="8")
+                    b-row(align-v="end")
+                        b-col
+                            .form-group
+                                label(for="cardMonth") Expiration Date
+                                select.form-control(id="cardMonth" @focus="focusInput" @blur="blurInput" data-ref="cardDate" v-model="cardMonth")
+                                    option(value="" disabled selected) Month
+                                    option(:value="n < 10 ? '0' + n : n" v-for="n in 12" :disabled="n < minCardMonth" :key="n")
+                                        | {{n < 10 ? '0' + n : n}}
+                        b-col
+                            .form-group
+                                select.form-control(id="cardYear" @focus="focusInput" @blur="blurInput" data-ref="cardDate" v-model="cardYear")
+                                    option(value="" disabled selected) Year
+                                    option(:value="index + minCardYear" v-for="(n, index) in 12" :key="n")
+                                        | {{index + minCardYear}}
+                b-col(sm="4")
+                    .form-group
+                        label(for="cardCvv") CVV
+                        input.form-control(id="cardCvv" type="text" maxlength="4" @focus="flipCard(true)" @blur="flipCard(false)" v-model="cardCvv" v-mask="'####'")
+            button.btn.btn-primary.btn-block Submit
 </template>
 
 <script>
+//https://github.com/vuejs-tips/vue-the-mask
+//yarn add vue-the-mask
+import { mask } from "vue-the-mask";
+
 export default {
+    directives: { mask },
     data() {
         return {
-            currentCardBackground: Math.floor(Math.random() * 25 + 1), // just for fun :D
+            currentCardBackground: Math.floor(Math.random() * 8 + 1), // just for fun :D
             cardName: "",
             cardNumber: "",
             cardMonth: "",
@@ -157,11 +162,13 @@ export default {
             this.isInputFocused = true;
             let targetRef = e.target.dataset.ref;
             let target = this.$refs[targetRef];
-            this.focusElementStyle = {
-                width: `${target.offsetWidth}px`,
-                height: `${target.offsetHeight}px`,
-                transform: `translateX(${target.offsetLeft}px) translateY(${target.offsetTop}px)`,
-            };
+            if (target) {
+                this.focusElementStyle = {
+                    width: `${target.offsetWidth}px`,
+                    height: `${target.offsetHeight}px`,
+                    transform: `translateX(${target.offsetLeft}px) translateY(${target.offsetTop}px)`,
+                };
+            }
         },
         blurInput() {
             let vm = this;
@@ -289,8 +296,7 @@ export default {
 .card-item {
     max-width: 430px;
     height: 270px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 30px auto 0;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -584,6 +590,7 @@ export default {
         white-space: nowrap;
         flex-shrink: 0;
         cursor: pointer;
+        line-height: 1;
 
         @media screen and (max-width: 480px) {
             font-size: 16px;
@@ -592,6 +599,8 @@ export default {
 
     &__dateItem {
         position: relative;
+        line-height: 1;
+        margin-bottom: 0;
         span {
             width: 22px;
             display: inline-block;
@@ -601,6 +610,7 @@ export default {
     &__dateTitle {
         opacity: 0.7;
         font-size: 13px;
+        line-height: 1.5;
         margin-bottom: 6px;
         width: 100%;
 

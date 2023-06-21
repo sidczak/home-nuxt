@@ -17,12 +17,13 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.2.2",
+    "@popperjs/core": "^2.11.6",
     "bootstrap-vue": "^2.22.0",
     "node-sass": "^4.14.1",
     "nuxt": "^2.15.8",
     "sass-rem": "2.0",
-    "@popperjs/core": "^2.11.6",
-    "vue-safe-html": "^2.1.0"
+    "vue-safe-html": "^2.1.0",
+    "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.1.2",
