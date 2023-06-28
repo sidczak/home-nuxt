@@ -3,37 +3,33 @@
     //- b-card.shadow-clouds.position-relative(noBody bg-variant="clouds-concave-145" text-variant="light" :img-src="require('@images/card-star-wars/item-1-bg.webp')" img-alt="Card Image")
     //-     .card-img-overlay
     b-card.shadow-clouds.position-relative(noBody bg-variant="clouds-concave-145" text-variant="dark")
-        b-row(no-gutters align-v="center")
-            b-col(md="5")
-                .card__picture
-                    transition(:name="transitionName" mode="out-in" appear)
-                        b-card-img.rounded-0(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
-                    //- transition(name="card-in" appear)
-                        b-card-img(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
-            b-col(md="7")
-                transition(name="fade" mode="out-in" appear)
-                    b-card-body(:key="current")
-                        b-card-title.fade-element-3(title-tag="h2" v-html="items[current].title")
-                        b-card-sub-title.fade-element-6(sub-title-tag="h3" class="mb-2" v-html="items[current].price")
-                        h5 ENGINE UNIT <br/>
-                            b-badge(pill variant="success") P-S4 TWIN
-                            b-badge(pill variant="success") P-W401
-                        b-card-text
-                            | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        h5 ENGINE UNIT <br/>
-                            b-badge(pill variant="success") P-S4 TWIN
-                            b-badge(pill variant="success") P-W401
-                        b-card-text
-                            | Some quick example text to build on the card title and make up the bulk of the card's content.
-                transition(name="fade" mode="out-in" appear)
-                    b-card-body(:key="current")
-                        b-button(href="#" pill variant="midnight-blue") ADD TO CART
-                        b-button(href="#" pill variant="link") ADD TO WISHLIST
-                        br
-                        div(class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)")
-                            | &#10094;
-                        div(class="btn btn-next" aria-label="Next slide" @click="slide(1)")
-                            | &#10095;
+        .card__picture
+            transition(:name="transitionName" mode="out-in" appear)
+                b-card-img.rounded-0(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
+        //- transition(name="card-in" appear)
+            b-card-img(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
+        transition(name="fade" mode="out-in" appear)
+            b-card-body(:key="current")
+                b-card-title(title-tag="h2" v-html="items[current].title")
+                b-card-sub-title(sub-title-tag="h3" class="mb-2" v-html="items[current].price")
+                h5 ENGINE UNIT <br/>
+                    b-badge(pill variant="success") P-S4 TWIN
+                    b-badge(pill variant="success") P-W401
+                b-card-text
+                    | Some quick example text to build on the card title and make up the bulk of the card's content.
+                h5 ENGINE UNIT <br/>
+                    b-badge(pill variant="success") P-S4 TWIN
+                    b-badge(pill variant="success") P-W401
+                b-card-text
+                    | Some quick example text to build on the card title and make up the bulk of the card's content.
+        b-card-body
+            b-button(href="#" pill variant="midnight-blue") ADD TO CART
+            b-button(href="#" pill variant="link") ADD TO WISHLIST
+            br
+            div(class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)")
+                | &#10094;
+            div(class="btn btn-next" aria-label="Next slide" @click="slide(1)")
+                | &#10095;
 </template>
 
 <script>
@@ -79,12 +75,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.card {
+    padding-left: 200px;
+    margin-left: 200px; 
+}
 .card__picture {
     position: absolute;
-    width: 375px;
-    height: 375px;
+    width: 400px;
     top: 50%;
-    left: 50%;
+    left: 0;
     transform: translate(-50%, -50%);
 }
 .fade {
@@ -96,10 +95,30 @@ export default {
     &-leave-to {
         opacity: 0;
     }
-    &-enter {
-        transform: translateY(100px);
-    }
+    // &-enter {
+    //     transform: translateY(20px);
+    // }
 }
+// .slide-next {
+//     &-leave-active,
+//     &-enter-active {
+//         transition: all 0.5s ease-in-out;
+//     }
+//     &-enter {
+//         transform: translateX(-200px);
+//     }
+//     &-leave-to {
+//         // transform: translateX(-200px); // nie będzie przerwy
+//     }
+//     &-leave-active {
+//         transform: translateX(-200px); // będzie parę px przerwy
+//         position: absolute;
+//     }
+//     &-enter,
+//     &-leave-to {
+//         opacity: 0;
+//     }
+// }
 .slide-next {
     &-leave-active {
         // position: absolute;
