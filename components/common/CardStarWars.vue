@@ -15,25 +15,25 @@
             b-col(md="7")                
                 b-card-body
                     transition(name="fade" mode="out-in" appear)
-                        b-card-title(title-tag="h2" v-html="items[current].title" :key="current" :style="{ transitionDelay: .0 + 's' }")
+                        b-card-title(title-tag="h2" v-html="items[current].title" :key="current")
                     transition(name="fade" mode="out-in" appear)
-                        b-card-sub-title.mb-2(sub-title-tag="h3" v-html="items[current].price" :key="current" :style="{ transitionDelay: .1 + 's' }")
+                        b-card-sub-title.mb-2.animated-1(sub-title-tag="h3" v-html="items[current].price" :key="current")
                     transition(name="fade" mode="out-in" appear)
-                        div(:key="current" :style="{ transitionDelay: .2 + 's' }")
+                        .animated-2(:key="current")
                             h5 ENGINE UNIT <br/>
                                 b-badge(pill variant="success") P-S4 TWIN
                                 b-badge(pill variant="success") P-W401
                             b-card-text.mb-3
                                 | Some quick example text to build on the card title and make up the bulk of the card's content.
                     transition(name="fade" mode="out-in" appear)
-                        div(:key="current" :style="{ transitionDelay: .3 + 's' }")
+                        .animated-3(:key="current")
                             h5 ENGINE UNIT <br/>
                                 b-badge(pill variant="success") P-S4 TWIN
                                 b-badge(pill variant="success") P-W401
                             b-card-textt
                                 | Some quick example text to build on the card title and make up the bulk of the card's content.
                 transition(name="fade" mode="out-in" appear)
-                    b-card-body(:key="current" :style="{ transitionDelay: .1 + 's' }")
+                    b-card-body.animated-1(:key="current")
                         b-button(href="#" pill variant="midnight-blue") ADD TO CART
                         b-button(href="#" pill variant="link") ADD TO WISHLIST
                         br
@@ -150,5 +150,16 @@ export default {
             transform: scale(0.5);
         }
     }
+}
+$animation-delays: (
+    1: .1s,
+    2: .2s,
+    3: .3s,
+    4: .4s,
+);
+@each $index, $delay in $animation-delays {
+  .animated-#{$index} {
+    transition-delay: $delay;
+  }
 }
 </style>
