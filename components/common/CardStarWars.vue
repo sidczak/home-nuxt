@@ -1,5 +1,7 @@
 <template lang="pug">
     //- https://codepen.io/JavaScriptJunkie/pen/vzWPbV
+    //- https://codepen.io/shshaw/pen/EvgaRW
+    //- https://codepen.io/fpvz/pen/KQwzGQ
     //- b-card.shadow-clouds.position-relative(noBody bg-variant="clouds-concave-145" text-variant="light" :img-src="require('@images/card-star-wars/item-1-bg.webp')" img-alt="Card Image")
     //-     .card-img-overlay
     b-card.shadow-clouds.position-relative(noBody bg-variant="clouds-concave-145" text-variant="dark")
@@ -10,23 +12,28 @@
                         b-card-img.rounded-0(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
                     //- transition(name="card-in" appear)
                         b-card-img(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
-            b-col(md="7")
+            b-col(md="7")                
+                b-card-body
+                    transition(name="fade" mode="out-in" appear)
+                        b-card-title(title-tag="h2" v-html="items[current].title" :key="current" :style="{ transitionDelay: .0 + 's' }")
+                    transition(name="fade" mode="out-in" appear)
+                        b-card-sub-title.mb-2(sub-title-tag="h3" v-html="items[current].price" :key="current" :style="{ transitionDelay: .1 + 's' }")
+                    transition(name="fade" mode="out-in" appear)
+                        div(:key="current" :style="{ transitionDelay: .2 + 's' }")
+                            h5 ENGINE UNIT <br/>
+                                b-badge(pill variant="success") P-S4 TWIN
+                                b-badge(pill variant="success") P-W401
+                            b-card-text.mb-3
+                                | Some quick example text to build on the card title and make up the bulk of the card's content.
+                    transition(name="fade" mode="out-in" appear)
+                        div(:key="current" :style="{ transitionDelay: .3 + 's' }")
+                            h5 ENGINE UNIT <br/>
+                                b-badge(pill variant="success") P-S4 TWIN
+                                b-badge(pill variant="success") P-W401
+                            b-card-textt
+                                | Some quick example text to build on the card title and make up the bulk of the card's content.
                 transition(name="fade" mode="out-in" appear)
-                    b-card-body(:key="current")
-                        b-card-title.fade-element-3(title-tag="h2" v-html="items[current].title")
-                        b-card-sub-title.fade-element-6(sub-title-tag="h3" class="mb-2" v-html="items[current].price")
-                        h5 ENGINE UNIT <br/>
-                            b-badge(pill variant="success") P-S4 TWIN
-                            b-badge(pill variant="success") P-W401
-                        b-card-text
-                            | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        h5 ENGINE UNIT <br/>
-                            b-badge(pill variant="success") P-S4 TWIN
-                            b-badge(pill variant="success") P-W401
-                        b-card-text
-                            | Some quick example text to build on the card title and make up the bulk of the card's content.
-                transition(name="fade" mode="out-in" appear)
-                    b-card-body(:key="current")
+                    b-card-body(:key="current" :style="{ transitionDelay: .1 + 's' }")
                         b-button(href="#" pill variant="midnight-blue") ADD TO CART
                         b-button(href="#" pill variant="link") ADD TO WISHLIST
                         br
@@ -87,6 +94,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .fade {
     &-enter-active,
     &-leave-active {
@@ -97,7 +105,7 @@ export default {
         opacity: 0;
     }
     &-enter {
-        transform: translateY(100px);
+        transform: translateY(50px);
     }
 }
 .slide-next {
