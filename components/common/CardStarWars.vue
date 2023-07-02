@@ -8,8 +8,12 @@
         b-row(no-gutters align-v="center")
             b-col(md="5")
                 .card__picture
-                    transition(:name="transitionName" mode="out-in" appear)
+                    transition-group(:name="transitionName" mode="out-in" appear)
                         b-card-img.rounded-0(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
+                    //- transition(:name="transitionName" mode="out-in" appear)
+                        b-card-img.rounded-0(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
+                    //- transition-group(name="card-in" appear)
+                        b-card-img(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
                     //- transition(name="card-in" appear)
                         b-card-img(:src="require(`@images/card-star-wars/${items[current].image}`)" :key="current" alt="Image")
             b-col(md="7")                
@@ -36,11 +40,13 @@
                     b-card-body.animated-1(:key="current")
                         b-button(href="#" pill variant="midnight-blue") ADD TO CART
                         b-button(href="#" pill variant="link") ADD TO WISHLIST
-                        br
-                        div(class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)")
-                            | &#10094;
-                        div(class="btn btn-next" aria-label="Next slide" @click="slide(1)")
-                            | &#10095;
+                b-card-body
+                    div(class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)")
+                        | &#10094;
+                    div(class="btn btn-next" aria-label="Next slide" @click="slide(1)")
+                        | &#10095;
+                ul.dots
+                    li(v-for="(item, index) in items" :class='{ active: index === current }' @click="jump(index)")
 </template>
 
 <script>
@@ -82,6 +88,9 @@ export default {
             var len = this.items.length;
             this.current = (this.current + (dir % len) + len) % len;
         },
+        jump(index) {
+            this.transitionName = "slide-next";
+        },
     },
 };
 </script>
@@ -110,7 +119,7 @@ export default {
 }
 .slide-next {
     &-leave-active {
-        // position: absolute;
+        position: absolute;
     }
     &-leave-active,
     &-enter-active {
@@ -152,14 +161,55 @@ export default {
     }
 }
 $animation-delays: (
-    1: .1s,
-    2: .2s,
-    3: .3s,
-    4: .4s,
+    1: 0.1s,
+    2: 0.2s,
+    3: 0.3s,
+    4: 0.4s,
 );
 @each $index, $delay in $animation-delays {
-  .animated-#{$index} {
-    transition-delay: $delay;
-  }
+    .animated-#{$index} {
+        transition-delay: $delay;
+    }
+}
+.dots {
+    display: block;
+    width: 100%;
+    text-align: center;
+    bottom: 20px;
+
+    li {
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+        background: red;
+        opacity: 0.2;
+        display: inline-block;
+        margin: 0 3px;
+        cursor: pointer;
+        transition: opacity 0.4s ease-in-out,
+            width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        &.active {
+            width: 22px;
+            opacity: 1;
+        }
+    }
+}
+
+.dots {
+    li.active {
+        animation: updown 2s linear;
+    }
+}
+@keyframes updown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 </style>
