@@ -39,7 +39,9 @@
                 transition(name="fade" mode="out-in" appear)
                     b-card-body.animated-1(:key="current")
                         b-button(href="#" pill variant="midnight-blue") ADD TO CART
-                        b-button(href="#" pill variant="link") ADD TO WISHLIST
+                        b-button.position-relative.pl-5(href="#" pill variant="link" @click="toggleActive(current)")
+                            span.heart(:class="{'is-active': items[current].isActive}")
+                            | ADD TO WISHLIST
                 b-card-body
                     div(class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)")
                         | &#10094;
@@ -60,21 +62,25 @@ export default {
                     image: "item-4.webp",
                     title: "STORMTROPER <br/> HELMET",
                     price: "$1.299,<sup>99</sup>",
+                    isActive: true,
                 },
                 {
                     image: "item-1.webp",
                     title: "IMPERIAL  ARMY’S <br/> TIE FIGHTER",
                     price: "$9.999,<sup>99</sup>",
+                    isActive: false,
                 },
                 {
                     image: "item-2.webp",
                     title: "KYLO REN'S <br/> LIGHTSABER",
                     price: "$1.699,<sup>99</sup>",
+                    isActive: false,
                 },
                 {
                     image: "item-3.webp",
                     title: "IMPERIAL ARMY'S <br/> DEATH STAR",
                     price: "$9.999,<sup>99</sup>",
+                    isActive: false,
                 },
             ],
         };
@@ -90,6 +96,9 @@ export default {
         },
         jump(index) {
             this.transitionName = "slide-next";
+        },
+        toggleActive(current) {
+            this.items[current].isActive = !this.items[current].isActive;
         },
     },
 };
@@ -113,6 +122,9 @@ export default {
     &-leave-to {
         opacity: 0;
     }
+    // &-leave-to {
+    //     transform: translateY(50px);
+    // }
     &-enter {
         transform: translateY(50px);
     }
@@ -210,6 +222,27 @@ $animation-delays: (
     }
     100% {
         transform: translateY(0);
+    }
+}
+.heart {
+    display: block;
+    position: absolute;
+    left: -25px;
+    transform: translateY(-50%) scale(0.7);
+    top: 50%;
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    background: url("https://res.cloudinary.com/muhammederdem/image/upload/v1536405215/starwars/heart.png")
+        no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+
+    &.is-active {
+        transition-duration: 1s;
+        background-position: -2800px 0;
     }
 }
 </style>
