@@ -101,7 +101,11 @@ export default {
    ** Plugins to load before mounting the App
    ** Doc: https://nuxtjs.org/docs/2.x/directory-structure/plugins
    */
-  plugins: ["~/plugins/vue-safe-html.js", "~/plugins/directives.client.js"],
+  plugins: [
+    "~/plugins/vue-safe-html.js",
+    "~/plugins/directives.client.js",
+    "~/plugins/vee-validate.js",
+  ],
   storybook: {
     stories: ["~/components/**/*.stories.js", "~/pages/**/*.stories.js"],
     // port: 3000,
