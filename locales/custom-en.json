@@ -1,0 +1,8 @@
+{
+  "code": "en",
+  "messages": {
+    "upCase": "The {_field_} must contain at least one uppercase letter.",
+    "lowCase": "The {_field_} must contain at least one lowercase letter.",
+    "specChar": "The {_field_} must contain at least one special character."
+  }
+}

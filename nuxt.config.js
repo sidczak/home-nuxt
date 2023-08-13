@@ -44,6 +44,7 @@ export default {
     "@helpers": resolve(__dirname, "./helpers"),
     "@components": resolve(__dirname, "./components"),
     "@directives": resolve(__dirname, "./directives"),
+    "@locales": resolve(__dirname, "./locales"),
   },
 
   axios: {
@@ -101,11 +102,7 @@ export default {
    ** Plugins to load before mounting the App
    ** Doc: https://nuxtjs.org/docs/2.x/directory-structure/plugins
    */
-  plugins: [
-    "~/plugins/vue-safe-html.js",
-    "~/plugins/directives.client.js",
-    "~/plugins/vee-validate.js",
-  ],
+  plugins: ["~/plugins/vue-safe-html.js", "~/plugins/directives.client.js"],
   storybook: {
     stories: ["~/components/**/*.stories.js", "~/pages/**/*.stories.js"],
     // port: 3000,

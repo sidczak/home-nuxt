@@ -22,7 +22,7 @@
     "node-sass": "^4.14.1",
     "nuxt": "^2.15.8",
     "sass-rem": "2.0",
-    "vee-validate": "<3.0.0",
+    "vee-validate": "3",
     "vue-safe-html": "^2.1.0",
     "vue-the-mask": "^0.11.1"
   },
