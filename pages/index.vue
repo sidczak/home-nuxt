@@ -4,6 +4,7 @@ Main
         StartTools
         //- VeeValidateBasic
         VeeValidateForm
+        VuelidateBasic
         Section(noBody)
             template(slot='content')
                 b-container
@@ -16,14 +17,16 @@ Main
 </template>
 <script>
 import Section from "@components/common/Section";
-import VeeValidateBasic from "@components/common/VeeValidateBasic";
+// import VeeValidateBasic from "@components/common/VeeValidateBasic";
 import VeeValidateForm from "@components/common/VeeValidateForm";
+import VuelidateBasic from "@components/common/VuelidateBasic";
 
 export default {
     components: {
         Section,
-        VeeValidateBasic,
+        // VeeValidateBasic,
         VeeValidateForm,
+        VuelidateBasic,
     },
     // head() {
     //     return {

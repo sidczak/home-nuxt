@@ -24,7 +24,8 @@
     "sass-rem": "2.0",
     "vee-validate": "3",
     "vue-safe-html": "^2.1.0",
-    "vue-the-mask": "^0.11.1"
+    "vue-the-mask": "^0.11.1",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.1.2",
